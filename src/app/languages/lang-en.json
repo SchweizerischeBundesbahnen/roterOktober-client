@@ -1,0 +1,11 @@
+{
+  "ABOUT_SUBTITLE": "This text is translated by ngTranslate",
+  "ABOUT_TEXT": "Here you'll find information about ESTA WebJS",
+  "LOGIN_TITLE": "Login",
+  "USERNAME": "Username",
+  "USERNAME_REQUIRED": "The username is required",
+  "PASSWORD": "Password",
+  "PASSWORD_REQUIRED": "The password is required",
+  "LOGIN_BUTTON": "Login",
+  "LOGIN_ERROR": "It was not possible to log you in"
+}

@@ -1,0 +1,6 @@
+<div ng-repeat="msg in $ctrl.messages">
+    <div class="alert alert-{{ msg.type === 'error' ? 'danger' : msg.type }}">
+        {{ msg.message }}
+        <a class="close" ng-click="$ctrl.removeMessage($index)">&times;</a>
+    </div>
+</div>
