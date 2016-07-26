@@ -1,0 +1,67 @@
+{
+  "name": "roterOktober-client",
+  "version": "0.1.0",
+  "description": "AngularJS-Frontend für Roter Oktober",
+  "homepage": "https://github.com/SchweizerischeBundesbahnen/esta-webjs",
+  "dependencies": {
+    "angular": "^1.5.2",
+    "angular-resource": "^1.5.2",
+    "angular-translate": "^2.8.1",
+    "angular-translate-loader-static-files": "^2.8.1",
+    "angular-ui-bootstrap": "^1.1.0",
+    "angular-ui-router": "^0.2.15",
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.5.2",
+    "babel-core": "^5.4.2",
+    "babel-loader": "^5.0.0",
+    "browser-sync": "^2.10.0",
+    "browser-sync-webpack-plugin": "^1.0.0",
+    "css-loader": "^0.19.0",
+    "docco": "^0.7.0",
+    "file-loader": "^0.8.4",
+    "gulp": "^3.9.0",
+    "gulp-esdoc": "^0.1.0",
+    "html-webpack-plugin": "^2.15.0",
+    "ip": "^1.0.2",
+    "isparta-loader": "^1.0.0",
+    "jasmine-core": "^2.3.4",
+    "json-loader": "^0.5.3",
+    "karma": "^0.13.9",
+    "karma-coverage": "^0.5.3",
+    "karma-jasmine": "~0.3.5",
+    "karma-junit-reporter": "^0.3.8",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-sourcemap-loader": "^0.3.4",
+    "karma-sourcemap-writer": "^0.1.2",
+    "karma-webdriver-launcher": "^1.0.4",
+    "karma-webpack": "^1.5.1",
+    "ng-annotate-webpack-plugin": "^0.1.2",
+    "node-libs-browser": "^0.5.0",
+    "node.extend": "^1.1.5",
+    "phantomjs": "^1.9.18",
+    "phantomjs-polyfill": "0.0.1",
+    "raw-loader": "^0.5.1",
+    "remap-istanbul": "^0.6.4",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.9.5",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "keywords": [
+    "esta-webjs-starterkit"
+  ],
+  "author": {
+    "name": "Reto Lehmann",
+    "email": "reto.lehmann@sbb.ch"
+  },
+  "contributors": [
+    {
+      "name": "Stefan Zeller",
+      "email": "stefan.zeller@sbb.ch"
+    }
+  ],
+  "license": "Apache-2.0"
+}
