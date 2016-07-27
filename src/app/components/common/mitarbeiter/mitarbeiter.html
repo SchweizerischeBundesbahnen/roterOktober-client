@@ -3,7 +3,12 @@
 <main>
     <div class="container">
         <div class="jumbotron">
-            <h1>{{ $ctrl.content }}</h1>
+            <h1>Mitarbeiter</h1>
+            <ul>
+                <li ng-repeat="mitarbeiter in $ctrl.mitarbeiter">
+                    {{mitarbeiter.name}}, {{mitarbeiter.vorname}} ({{mitarbeiter.uid}})
+                </li>
+            </ul>
         </div>
     </div>
 </main>

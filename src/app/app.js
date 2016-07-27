@@ -48,7 +48,8 @@ angular.module('app', [
         authRedirectUrl: window.location.origin + '#/logincallback',
         authLoginUrl: 'oauth/authorize?response_type=token&client_id=acme&redirect_uri=',
         authClientId: 'acme',
-        authClientSecret: 'acmesecret'
+        authClientSecret: 'acmesecret',
+        restEndPoint: 'http://localhost:8080'
     })
     // Die App als Direktive exportieren
     .directive('app', AppComponent);

@@ -15,10 +15,11 @@ import Navbar from './navbar/navbar';
 import Posts from './posts/posts';
 import Messages from './messages/messages';
 import Mitarbeiter from './mitarbeiter/mitarbeiter';
+import MitarbeiterService from './mitarbeiterService/mitarbeiterService'
 import Theme from './theme/theme';
 
 let commonModule = angular.module('app.components.common', [
-    Home.name, About.name, Navbar.name, Posts.name, Messages.name, Theme.name, Mitarbeiter.name
+    Home.name, About.name, Navbar.name, Posts.name, Messages.name, Theme.name, Mitarbeiter.name, MitarbeiterService.name
 ]);
 
 export default commonModule;
