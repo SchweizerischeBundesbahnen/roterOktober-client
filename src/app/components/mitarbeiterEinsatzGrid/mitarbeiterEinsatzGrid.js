@@ -10,9 +10,10 @@
  */
 import angular from "angular";
 import Mitarbeiter from "./mitarbeiter/mitarbeiter";
+import Einsatz from "./einsatz/einsatz";
 
 let mitarbeiterEinsatzGridModule = angular.module('app.components.mitarbeiterEinsatzGrid', [
-    Mitarbeiter.name
+    Mitarbeiter.name, Einsatz.name
 ]);
 
 export default mitarbeiterEinsatzGridModule;

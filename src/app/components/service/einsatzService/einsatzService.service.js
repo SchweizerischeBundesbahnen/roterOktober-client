@@ -5,7 +5,7 @@ class EinsatzService {
     }
     
     getEinsatzForMitarbeiter(userId){
-        return this.Einsatz.get({uid: userId});
+        return this.Einsatz.query({uid: userId});
     }
 }
 
