@@ -1,5 +1,11 @@
 <ul>
-    <li ng-repeat="einsatz in $ctrl.einsaetze">
-        Rolle: {{einsatz.rolle}}
+    <li ng-repeat="(projekt, einsaetze) in $ctrl.einsaetzeProProjekt">
+        Projekt: {{$ctrl.projekte[projekt].name}}
+        <ul>
+            <li ng-repeat="einsatz in einsaetze">
+                 als {{einsatz.rolle}}
+                <pensum einsatz="einsatz"></pensum>
+            </li>
+        </ul>
     </li>
 </ul>
