@@ -5,11 +5,11 @@
         <div class="jumbotron">
             <h1>Mitarbeiter</h1>
         </div>
+        <ul>
+            <li ng-repeat="mitarbeiter in $ctrl.mitarbeiter">
+                {{mitarbeiter.name}}, {{mitarbeiter.vorname}} ({{mitarbeiter.uid}})<br/>
+                <einsatz mitarbeiter="mitarbeiter"></einsatz>
+            </li>
+        </ul>
     </div>
-    <ul>
-        <li ng-repeat="mitarbeiter in $ctrl.mitarbeiter">
-            {{mitarbeiter.name}}, {{mitarbeiter.vorname}} ({{mitarbeiter.uid}})<br/>
-            <einsatz mitarbeiter="mitarbeiter"></einsatz>
-        </li>
-    </ul>
 </main>
