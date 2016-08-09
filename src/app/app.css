@@ -1,0 +1,48 @@
+.mitarbeiterGrid {
+    width: 100%;
+}
+
+.mitarbeiterRow {
+    width: 100%
+}
+
+
+.mitarbeiterInfo {
+    width: 200px;
+    float: left;
+}
+
+.mitarbeiterContent {
+    margin-left: 200px;
+}
+
+.einsatzListe {
+    width: 100%;
+}
+
+.projektRow, .einsatzRow {
+    width: 100%;
+}
+
+.projektInfo {
+    width: 200px;
+    float:left;
+}
+
+.projektContent {
+    margin-left: 200px;
+}
+
+.pensumRow {
+    width: 100%
+}
+
+.pensum {
+    background-color: lightcoral;
+    float: left;
+    position: relative;
+}
+
+.clearFix {
+    clear: both;
+}

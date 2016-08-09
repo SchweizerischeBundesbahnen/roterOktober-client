@@ -1,0 +1,20 @@
+<navbar></navbar>
+<messages></messages>
+<main>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Mitarbeiter</h1>
+        </div>
+        <div class="mitarbeiterGrid">
+            <div ng-repeat="mitarbeiter in $ctrl.mitarbeiter" class="mitarbeiterRow">
+                <div class="mitarbeiterInfo">
+                    {{mitarbeiter.name}}, {{mitarbeiter.vorname}} ({{mitarbeiter.uid}})
+                </div>
+                <div class="mitarbeiterContent">
+                    <einsatz mitarbeiter="mitarbeiter"></einsatz>
+                </div>
+                <div class="clearFix"/>
+            </div>
+        </div>
+    </div>
+</main>
