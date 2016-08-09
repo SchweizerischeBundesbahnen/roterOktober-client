@@ -1,11 +1,13 @@
-<ul>
-    <li ng-repeat="(projekt, einsaetze) in $ctrl.einsaetzeProProjekt">
-        Projekt: {{$ctrl.projekte[projekt].name}}
-        <ul>
-            <li ng-repeat="einsatz in einsaetze">
-                 als {{einsatz.rolle}}
+<div class="einsatzListe">
+    <div class="projektRow" ng-repeat="(projekt, einsaetze) in $ctrl.einsaetzeProProjekt">
+        <div class="einsatzRow" ng-repeat="einsatz in einsaetze">
+            <div class="projektInfo">
+                {{$ctrl.projekte[projekt].name}} als {{einsatz.rolle}}
+            </div>
+            <div class="projektContent">
                 <pensum einsatz="einsatz"></pensum>
-            </li>
-        </ul>
-    </li>
-</ul>
+            </div>
+            <div class="clearFix"/>
+        </div>
+    </div>
+</div>
