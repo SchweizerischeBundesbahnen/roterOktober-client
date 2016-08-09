@@ -1,5 +1,4 @@
 .mitarbeiterGrid {
-    background-color: #00cc99;
     width: 100%;
 }
 
@@ -10,19 +9,14 @@
 
 .mitarbeiterInfo {
     width: 200px;
-    background-color: #0000AA;
     float: left;
 }
 
 .mitarbeiterContent {
-    /*width: 500px;*/
     margin-left: 200px;
-    background-color: #2aa198;
-    /*float: left;*/
 }
 
 .einsatzListe {
-    background-color: #6b7394;
     width: 100%;
 }
 
@@ -32,13 +26,11 @@
 
 .projektInfo {
     width: 200px;
-    background-color: #7b9726;
     float:left;
 }
 
 .projektContent {
     margin-left: 200px;
-    background-color: #898ea4;
 }
 
 .pensumRow {
