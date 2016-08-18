@@ -20,6 +20,9 @@ class MitarbeiterServiceService {
         return this.Mitarbeiter.get({uid: userId});
     }
     
+    save(mitarbeiter){
+        return this.Mitarbeiter.save(mitarbeiter);
+    }
     
 }
 

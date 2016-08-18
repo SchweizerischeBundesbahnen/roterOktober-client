@@ -1,13 +1,15 @@
 <div class="einsatzListe">
-    <div class="projektRow" ng-repeat="(projekt, einsaetze) in $ctrl.einsaetzeProProjekt">
-        <div class="einsatzRow" ng-repeat="einsatz in einsaetze">
-            <div class="projektInfo">
-                {{$ctrl.projekte[projekt].name}} als {{einsatz.rolle}}
+    <div>
+        <div class="projektRow" ng-repeat="(projekt, einsaetze) in $ctrl.einsaetzeProProjekt">
+            <div class="einsatzRow" ng-repeat="einsatz in einsaetze">
+                <div class="projektInfo">
+                    {{$ctrl.projekte[projekt].name}} als {{einsatz.rolle}}
+                </div>
+                <div class="projektContent">
+                    <pensum einsatz="einsatz"></pensum>
+                </div>
+                <div class="clearFix"/>
             </div>
-            <div class="projektContent">
-                <pensum einsatz="einsatz"></pensum>
-            </div>
-            <div class="clearFix"/>
         </div>
     </div>
     <div class="projektRow">

@@ -1,18 +1,30 @@
 class MitarbeiterEditController {
     
     /*@ngInject*/
-    constructor($uibModalInstance) {
+    constructor($uibModalInstance, mitarbeiterService) {
         this.$uibModalInstance = $uibModalInstance;
-        
-        this.content = 'Hello, MitarbeiterEdit';
+        this.mitarbeiterService = mitarbeiterService;
+
+        this.mitarbeiter = this.createEmptyMitarbeiter();
+    }
+
+    createEmptyMitarbeiter(){
+        let mitarbeiter = {
+            name: '',
+            voranme: '',
+            uid: ''
+        };
+        return mitarbeiter;
     }
     
     cancel(){
-        alert("Abbrechen");
+        this.$uibModalInstance.close();
     }
     
-    ok(){
-        alert("OK");
+    save(){
+        // Mitarbeiter speichern
+        let result = this.mitarbeiterService.save(this.mitarbeiter);
+        result.$promise.then((data) => this.$uibModalInstance.close(data));
     }
 }
 

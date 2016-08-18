@@ -1,5 +1,21 @@
-<p>Gugus {{ $ctrl.content }}</p>
-<p>
-    <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Abbrechen</button>
-</p>
+<div class="modal-header">
+    <h2>Mitarbeiter erfassen</h2>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="form-group">
+            <label for="nameInput">Name:</label>
+            <input type="text" class="form-control" id="nameInput" placeholder="Name" ng-model="$ctrl.mitarbeiter.name">
+        </div>
+        <div class="form-group">
+            <label for="prenameInput">Vorname:</label>
+            <input type="text" class="form-control" id="prenameInput" placeholder="Vorname" ng-model="$ctrl.mitarbeiter.vorname">
+        </div>
+        <div class="form-group">
+            <label for="unummerInput">UE-Nummer:</label>
+            <input type="text" class="form-control" id="unummerInput" placeholder="UE-Nummer" ng-model="$ctrl.mitarbeiter.uid">
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="$ctrl.save()">Speichern</button>
+        <button type="submit" class="btn btn-default" ng-click="$ctrl.cancel()">Abbrechen</button>
+    </form>
+</div>
