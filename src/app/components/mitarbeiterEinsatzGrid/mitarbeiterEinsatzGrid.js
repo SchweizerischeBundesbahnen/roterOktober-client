@@ -13,9 +13,10 @@ import Mitarbeiter from "./mitarbeiter/mitarbeiter";
 import Pensum from './pensum/pensum';
 import Einsatz from "./einsatz/einsatz";
 import MitarbeiterEdit from "./mitarbeiterEdit/mitarbeiterEdit";
+import EinsatzCreate from "./einsatzCreate/einsatzCreate";
 
 let mitarbeiterEinsatzGridModule = angular.module('app.components.mitarbeiterEinsatzGrid', [
-    Mitarbeiter.name, Einsatz.name, Pensum.name, MitarbeiterEdit.name
+    Mitarbeiter.name, Einsatz.name, Pensum.name, MitarbeiterEdit.name, EinsatzCreate.name
 ]);
 
 export default mitarbeiterEinsatzGridModule;
