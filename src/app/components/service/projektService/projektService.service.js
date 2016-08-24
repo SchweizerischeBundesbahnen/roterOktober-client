@@ -4,7 +4,11 @@ class ProjektServiceService {
         this.$resource = $resource;
         this.$http = $http;
 
-        this.Projekte = $resource(config.restEndPoint + '/mitarbeiter/:projektId', {projektId: '@projektId'});
+        this.Projekte = $resource(config.restEndPoint + '/mitarbeiter/:projektId',
+            {projektId: '@projektId'},
+            {
+                searchByName: {method: 'GET', url: config.restEndPoint + '/projekt/search/byname/:name', isArray: true}
+            });
     }
 
     getProjektByID(projektId){
@@ -17,6 +21,9 @@ class ProjektServiceService {
         return this.$http.get(projektUrl);
     }
 
+    findByName(name){
+        return this.Projekte.searchByName({name: name});
+    }
 
 }
 

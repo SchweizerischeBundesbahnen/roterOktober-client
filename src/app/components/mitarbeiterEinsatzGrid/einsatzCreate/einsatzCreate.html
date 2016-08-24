@@ -5,7 +5,14 @@
     <form>
         <div class="form-group">
             <label for="projektInput">Projekt:</label>
-            <input type="text" class="form-control" id="projektInput" placeholder="Projekt">
+            <input type="text"
+                   class="form-control"
+                   id="projektInput"
+                   placeholder="Projekt"
+                   ng-model="$ctrl.selectedProjekt"
+                   uib-typeahead="project for project in $ctrl.searchByName($viewValue)"
+                   typeahead-loading="loadingLocations"
+                   typeahead-no-results="noResults">
         </div>
 
         <div class="form-group">

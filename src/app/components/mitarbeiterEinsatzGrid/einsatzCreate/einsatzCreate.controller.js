@@ -1,14 +1,17 @@
 class EinsatzCreateController {
     
     /*@ngInject*/
-    constructor($uibModalInstance, mitarbeiter) {
+    constructor($uibModalInstance, mitarbeiter, projektService) {
         this.$uibModalInstance = $uibModalInstance;
         this.mitarbeiter = mitarbeiter;
+        this.projektService = projektService;
         
         this.einsatzStart = null;
         this.einsatzEnde = null;
 
         this.dateFormat = "dd.MM.yyyy";
+        
+        this.selectedProjekt = "";
         
         this.vonDatepicker = {
             opened: false
@@ -33,6 +36,15 @@ class EinsatzCreateController {
 
     save(){
         this.$uibModalInstance.close();
+    }
+
+    searchByName(searchtext){
+        var result = this.projektService.findByName(searchtext);
+        return result.$promise.then(function (data) {
+            return data.map(function(projekt){
+                return projekt.name;
+            })
+        });
     }
 }
 
