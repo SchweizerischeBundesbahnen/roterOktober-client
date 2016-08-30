@@ -5,13 +5,15 @@ class EinsatzCreateController {
         this.$uibModalInstance = $uibModalInstance;
         this.mitarbeiter = mitarbeiter;
         this.projektService = projektService;
-        
-        this.einsatzStart = null;
-        this.einsatzEnde = null;
+
+        // Leere Objekte erstellen
+        this.einsatz = this.createEmptyEinsatz();
+        this.pensum = this.createEmptyPensum();
 
         this.dateFormat = "dd.MM.yyyy";
         
         this.selectedProjekt = "";
+        this.projektNotFound = false;
         
         this.vonDatepicker = {
             opened: false
@@ -20,6 +22,26 @@ class EinsatzCreateController {
         this.bisDatepicker = {
             opened: false
         };
+    }
+
+    createEmptyEinsatz(){
+        let einsatz = {
+            rolle: "",
+            senioritaet: "",
+            projektId: ""
+        };
+
+        return einsatz;
+    }
+
+    createEmptyPensum(){
+        let pensum = {
+            pensum: 100,
+            anfang: null,
+            ende: null
+        };
+
+        return pensum;
     }
     
     openEinsatzStartPopup(){
@@ -37,9 +59,15 @@ class EinsatzCreateController {
     save(){
         this.$uibModalInstance.close();
     }
+    
+    saveProjekt(){
+        // Projekt mit exaktem Namen suchen
+        var projectSearch = this.projektService.findByName(this.selectedProjekt);
+    }
 
     searchByName(searchtext){
-        var result = this.projektService.findByName(searchtext);
+        // Projekt mit Wildcards suchen
+        var result = this.projektService.findByName("*" + searchtext + "*");
         return result.$promise.then(function (data) {
             return data.map(function(projekt){
                 return projekt.name;

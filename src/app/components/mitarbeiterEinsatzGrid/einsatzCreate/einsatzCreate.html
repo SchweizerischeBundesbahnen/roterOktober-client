@@ -12,12 +12,15 @@
                    ng-model="$ctrl.selectedProjekt"
                    uib-typeahead="project for project in $ctrl.searchByName($viewValue)"
                    typeahead-loading="loadingLocations"
-                   typeahead-no-results="noResults">
+                   typeahead-no-results="$ctrl.projektNotFound">
+        </div>
+        <div ng-show="$ctrl.projektNotFound">
+            Kein Projekt gefunden
         </div>
 
         <div class="form-group">
             <label for="senioritaetInput">Seniorität:</label>
-            <select id="senioritaetInput" class="form-control">
+            <select id="senioritaetInput" class="form-control" ng-model="$ctrl.einsatz.senioritaet">
                 <option value="junior">Junior</option>
                 <option value="prof">Professional</option>
                 <option value="senior">Senior</option>
@@ -26,7 +29,7 @@
 
         <div class="form-group">
             <label for="rolleInput">Seniorität:</label>
-            <select id="rolleInput" class="form-control">
+            <select id="rolleInput" class="form-control" ng-model="$ctrl.einsatz.rolle">
                 <option value="ae">Applicatin Engineer</option>
                 <option value="sa">Software Architect</option>
                 <option value="tm">Test Manager</option>
@@ -37,13 +40,13 @@
 
         <div class="form-group">
             <label for="pensumInput">Pensum:</label>
-            <input type="number" class="form-control" id="pensumInput" min="1" max="100" placeholder="Pensum">
+            <input type="number" class="form-control" id="pensumInput" min="1" max="100" placeholder="Pensum" ng-model="$ctrl.pensum.pensum">
         </div>
 
         <div class="form-group">
             <label for="einsatzStart">Beginn des Einsatzes:</label>
             <p class="input-group">
-                <input type="text" class="form-control" id="einsatzStart" ng-model="einsatzStart"
+                <input type="text" class="form-control" id="einsatzStart" ng-model="$ctrl.pensum.anfang"
                        uib-datepicker-popup="{{$ctrl.dateFormat}}"
                        is-open="$ctrl.vonDatepicker.opened"
                        datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
@@ -57,7 +60,7 @@
         <div class="form-group">
             <label for="einsatzEnde">Ende des Einsatzes:</label>
             <p class="input-group">
-                <input type="text" class="form-control" id="einsatzEnde" ng-model="einsatzEnde"
+                <input type="text" class="form-control" id="einsatzEnde" ng-model="$ctrl.pensum.ende"
                        uib-datepicker-popup="{{$ctrl.dateFormat}}"
                        is-open="$ctrl.bisDatepicker.opened"
                        datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
