@@ -63,6 +63,22 @@ class EinsatzCreateController {
     saveProjekt(){
         // Projekt mit exaktem Namen suchen
         var projectSearch = this.projektService.findByName(this.selectedProjekt);
+        projectSearch.$promise.then(function (projekt) {
+            // Wenn das Projekt noch nicht existiert, legen wir es an
+            if(!projekt){
+                var newProjekt = this.createNewProjekt();
+                return this.projektService.save(newProjekt);
+            }
+        });
+    }
+
+    createNewProjekt(){
+        var projekt = {
+            name: this.selectedProjekt,
+            oeName: "IT"
+        }
+
+        return projekt;
     }
 
     searchByName(searchtext){
