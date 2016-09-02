@@ -9,6 +9,7 @@
                    class="form-control"
                    id="projektInput"
                    placeholder="Projekt"
+                   autocomplete="off"
                    ng-model="$ctrl.selectedProjekt"
                    uib-typeahead="project for project in $ctrl.searchByName($viewValue)"
                    typeahead-loading="loadingLocations"
@@ -28,9 +29,9 @@
         </div>
 
         <div class="form-group">
-            <label for="rolleInput">Seniorität:</label>
+            <label for="rolleInput">Rolle:</label>
             <select id="rolleInput" class="form-control" ng-model="$ctrl.einsatz.rolle">
-                <option value="ae">Applicatin Engineer</option>
+                <option value="ae">Application Engineer</option>
                 <option value="sa">Software Architect</option>
                 <option value="tm">Test Manager</option>
                 <option value="aom">Application Operation Manager</option>

@@ -7,6 +7,10 @@ class EinsatzService {
     getEinsatzForMitarbeiter(userId){
         return this.Einsatz.query({uid: userId});
     }
+
+    save(userId, einsatz){
+        return this.Einsatz.save({uid: userId}, einsatz);
+    }
 }
 
 export default EinsatzService;
