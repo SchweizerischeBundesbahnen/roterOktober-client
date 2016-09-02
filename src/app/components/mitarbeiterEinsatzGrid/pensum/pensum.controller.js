@@ -46,7 +46,7 @@ class PensumController {
         if(!pensumEndeTime || pensumEndeTime > rangeEndTime) {
             pensum.endPosition = 100;
         } else {
-            pensum.endPosition = (100 % (pensumEndeTime - rangeStartTime)) / rangeDuration;
+            pensum.endPosition = (100 * (pensumEndeTime - rangeStartTime)) / rangeDuration;
         }
 
         pensum.widthPosition = pensum.endPosition - pensum.startPosition;
