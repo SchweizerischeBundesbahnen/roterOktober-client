@@ -1,7 +1,9 @@
-class MitarbeiterServiceService {
+class MitarbeiterService {
 
     /*@ngInject*/
-    constructor($resource, config) {
+    constructor($http, $resource, config) {
+        this.$http = $http;
+        this.config = config;
         this.Mitarbeiter = $resource(config.restEndPoint + '/mitarbeiter/:uid', {uid: '@userId'});
     }
 
@@ -9,7 +11,7 @@ class MitarbeiterServiceService {
      * Liefert alle Mitarbeiter zurück
      */
     getAllMitarbeiter(){
-        return this.Mitarbeiter.query();
+        return this.$http.get(this.config.restEndPoint + '/mitarbeiter/');
     }
 
     /**
@@ -19,11 +21,11 @@ class MitarbeiterServiceService {
     getByUserid(userId){
         return this.Mitarbeiter.get({uid: userId});
     }
-    
+
     save(mitarbeiter){
         return this.Mitarbeiter.save(mitarbeiter);
     }
-    
+
 }
 
-export default MitarbeiterServiceService;
+export default MitarbeiterService;

@@ -5,19 +5,26 @@
         <div class="jumbotron">
           <table class="table">
             <thead>
-              <th>Mitarbeiter</th>
-              <th>Projekte</th>
-              <th>Dauer</th>
+              <th class="col-lg-2">Mitarbeiter</th>
+              <th class="col-lg-2">Projekte</th>
+              <th class="col-lg-8">
+
+              </th>
             </thead>
             <tbody>
-              <tr>
-                <td rowspan=2>6</td>
-                <td>Fiesta</td>
-                <td>Feb. 12th 2010</td>
+              <tr ng-repeat-start="einsatz in $ctrl.einsaetze">
+                <td rowspan="{{einsatz.projekte.length}}">{{einsatz.mitarbeiter.name}} {{einsatz.mitarbeiter.vorname}}</td>
+                <td>{{ einsatz.projekte[0].projektname }}</td>
+                <td>{{ einsatz.projekte[0].dauer }}</td>
               </tr>
-              <tr>
-                <td>Roter Oktober</td>
-                <td>Feb. 12th 2010</td>
+              <tr ng-repeat-end ng-repeat="projekt in einsatz.projekte.slice(1)">
+                <td>{{ projekt.projektname }}</td>
+                <td>
+                  <div class="progress col-lg-offset-{{einsatz.projekte.length+2}}">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    </div>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
