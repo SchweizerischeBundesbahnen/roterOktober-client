@@ -3,12 +3,13 @@ class EinsatzService {
     constructor($resource, config) {
         this.Einsatz = $resource(config.restEndPoint + '/mitarbeiter/:uid/einsatz', {uid: '@userId'});
     }
-    
+
     getEinsatzForMitarbeiter(userId){
         return this.Einsatz.query({uid: userId});
     }
 
     save(userId, einsatz){
+        console.log('Der Einsatz', einsatz);
         return this.Einsatz.save({uid: userId}, einsatz);
     }
 }
