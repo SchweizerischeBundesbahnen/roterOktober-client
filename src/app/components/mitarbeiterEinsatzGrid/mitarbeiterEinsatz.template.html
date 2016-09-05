@@ -1,10 +1,11 @@
 <navbar></navbar>
 <messages></messages>
 <main>
-  <div class="container">
-    <h1>Hallo</h1>
-          <table class="table">
-            <tr>
+  <div class="container-fluid bg-white">
+    <div class="row col-lg-offset-1 col-lg-10">
+          <table id="einsatzTabelle" class="table table-bordered">
+            <thead class="thead-inverse">
+              <tr>
               <th class="col-lg-2">Mitarbeiter</th>
               <th class="col-lg-2">Projekte</th>
               <th class="col-lg-8">
@@ -15,16 +16,21 @@
                 </table>
               </th>
             </tr>
+            </thead>
+            <tbody>
               <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze">
                 <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}">{{mitarbeiterEinsatz.mitarbeiter.name}} {{mitarbeiterEinsatz.mitarbeiter.vorname}}</td>
                 <td>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</td>
                 <td>
-                  <div class="progress" ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name">
-                    <div class="progress-bar progress-bar-success col-lg-offset-{{mitarbeiterEinsatz.einsatze[0].pensum.fromMonth}}"
+                  <div class="progress timeaxis" ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name">
+                    <div class="progress-bar col-lg-offset-{{mitarbeiterEinsatz.einsatze[0].pensum.fromMonth}}"
                       role="progressbar" role="progressbar"
                       style="width: {{ mitarbeiterEinsatz.einsatze[0].pensum.untilYear === '2016' ?
                       100/12 * (mitarbeiterEinsatz.einsatze[0].pensum.untilMonth - mitarbeiterEinsatz.einsatze[0].pensum.fromMonth)
-                      : 100}}%">
+                      : 100}}%"
+                      ng-class="$index % 2 === 0 ? 'progress-bar-success' : progress-bar-info"
+                      >
+                      {{ mitarbeiterEinsatz.einsatze[0].pensum.pensum.pensum }} %
                     </div>
                   </div>
                 </td>
@@ -32,14 +38,18 @@
               <tr ng-repeat-end ng-repeat="einsatz in mitarbeiterEinsatz.einsatze.slice(1)">
                 <td>{{ einsatz.projekt.name }}</td>
                 <td>
-                  <div class="progress" ng-show="einsatz.projekt.name">
-                    <div class="progress-bar progress-bar-success col-lg-offset-{{einsatz.pensum.fromMonth}}"
+                  <div class="progress timeaxis" ng-show="einsatz.projekt.name">
+                    <div class="progress-bar col-lg-offset-{{einsatz.pensum.fromMonth}}"
                       role="progressbar" role="progressbar"
-                      style="width: {{ einsatz.pensum.untilYear === '2016' ? 100/12 * (einsatz.pensum.untilMonth - einsatz.pensum.fromMonth) : 100}}%">
+                      style="width: {{ einsatz.pensum.untilYear === '2016' ? 100/12 * (einsatz.pensum.untilMonth - einsatz.pensum.fromMonth) : 100}}%"
+                      ng-class="$parent.$index % 2 === 0 ? 'progress-bar-success' : progress-bar-info">
+                      {{ einsatz.pensum.pensum.pensum }} %
                     </div>
                   </div>
                 </td>
               </tr>
+            </tbody>
           </table>
+      </div>
   </div>
 </main>
