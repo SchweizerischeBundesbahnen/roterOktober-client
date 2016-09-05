@@ -34,6 +34,7 @@ export class MitarbeiterEinsatzController{
   }
 
   _createMitarbeiterEinsatz(mitarbeiter, einsatze){
+    console.log('Einsätze', einsatze);
     let mitarbeiterEinsatze = this._convertEinsatze(einsatze);
     let einsatzSummary = {
       mitarbeiter: mitarbeiter,
@@ -48,7 +49,9 @@ export class MitarbeiterEinsatzController{
     einsatze.forEach((einsatz) => {
       mitarbeiterEinsatz.push({
         projekt: einsatz.projekt,
-        pensum: this._convertToPensumdata(einsatz.pensen[0]) //TODO kk: Abklären warum es mehrere Pensen gibt
+        pensum: this._convertToPensumdata(einsatz.pensen[0]), //TODO kk: Abklären warum es mehrere Pensen gibt
+        rolle: einsatz.rolle,
+        senioritaet: einsatz.senioritaet
       });
     });
     return mitarbeiterEinsatz;

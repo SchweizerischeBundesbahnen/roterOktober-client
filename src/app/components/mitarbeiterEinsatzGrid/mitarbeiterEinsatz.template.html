@@ -20,7 +20,14 @@
             <tbody>
               <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze">
                 <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}">{{mitarbeiterEinsatz.mitarbeiter.name}} {{mitarbeiterEinsatz.mitarbeiter.vorname}}</td>
-                <td>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</td>
+                <td>
+                <ul class="list-group projectPanel" ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name">
+                  <li class="list-group-item">
+                    <span class="badge">{{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle }}</span>
+                    {{ mitarbeiterEinsatz.einsatze[0].projekt.name }}
+                  </li>
+                </ul>
+                </td>
                 <td>
                   <div class="progress timeaxis" ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name">
                     <div class="progress-bar col-lg-offset-{{mitarbeiterEinsatz.einsatze[0].pensum.fromMonth}}"
@@ -36,7 +43,14 @@
                 </td>
               </tr>
               <tr ng-repeat-end ng-repeat="einsatz in mitarbeiterEinsatz.einsatze.slice(1)">
-                <td>{{ einsatz.projekt.name }}</td>
+                <td>
+                  <ul class="list-group projectPanel" ng-show="einsatz.projekt.name">
+                    <li class="list-group-item">
+                      <span class="badge">{{ einsatz.senioritaet }} {{ einsatz.rolle }}</span>
+                      {{ einsatz.projekt.name }}
+                    </li>
+                  </ul>
+                </td>
                 <td>
                   <div class="progress timeaxis" ng-show="einsatz.projekt.name">
                     <div class="progress-bar col-lg-offset-{{einsatz.pensum.fromMonth}}"

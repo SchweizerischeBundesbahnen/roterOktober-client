@@ -14,3 +14,7 @@ body {
 .background {
   background-color: red;
 }
+
+.projectPanel{
+  margin-top: 15px;
+}
