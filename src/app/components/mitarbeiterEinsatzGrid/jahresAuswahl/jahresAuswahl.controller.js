@@ -1,7 +1,6 @@
 class jahresAuswahlController{
 
   constructor(){
-    this.year = parseInt(new Date().getFullYear());
   }
 
   inkrementYear(){
