@@ -38,7 +38,9 @@
                       : mitarbeiterEinsatz.einsatze[0].pensum.untilYear < $ctrl.year || mitarbeiterEinsatz.einsatze[0].pensum.fromYear > $ctrl.year ? 0 :100}}%"
                       ng-class="$index % 2 === 0 ? 'progress-bar-success' : progress-bar-info"
                       >
-                      {{ mitarbeiterEinsatz.einsatze[0].pensum.pensum.pensum }} %
+                      <span ng-show="mitarbeiterEinsatz.einsatze[0].pensum.untilYear >= $ctrl.year && mitarbeiterEinsatz.einsatze[0].pensum.fromYear <= $ctrl.year">
+                        {{ mitarbeiterEinsatz.einsatze[0].pensum.pensum.pensum }} %
+                      </span>
                     </div>
                   </div>
                 </td>
@@ -59,7 +61,9 @@
                       style="width: {{ einsatz.pensum.untilYear === $ctrl.year ? 100/12 * (einsatz.pensum.untilMonth - einsatz.pensum.fromMonth) :
                         einsatz.pensum.untilYear < $ctrl.year || einsatz.pensum.fromYear > $ctrl.year ? 0 :100}}%"
                       ng-class="$parent.$index % 2 === 0 ? 'progress-bar-success' : progress-bar-info">
-                      {{ einsatz.pensum.pensum.pensum }} %
+                      <span ng-show="einsatz.pensum.untilYear >= $ctrl.year && einsatz.pensum.fromYear <= $ctrl.year">
+                        {{ einsatz.pensum.pensum.pensum }} %
+                      </span>
                     </div>
                   </div>
                 </td>
