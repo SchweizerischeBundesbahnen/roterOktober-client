@@ -9,6 +9,7 @@
               <th class="col-lg-2">Mitarbeiter</th>
               <th class="col-lg-2">Projekte</th>
               <th class="col-lg-8">
+                <jahres-auswahl year="$ctrl.year"></jahres-auswahl>
                 <table class="table col-lg-12">
                   <tr>
                     <th ng-repeat="month in $ctrl.months">{{ month }}</th>
@@ -32,9 +33,9 @@
                   <div class="progress timeaxis" ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name">
                     <div class="progress-bar col-lg-offset-{{mitarbeiterEinsatz.einsatze[0].pensum.fromMonth}}"
                       role="progressbar" role="progressbar"
-                      style="width: {{ mitarbeiterEinsatz.einsatze[0].pensum.untilYear === '2016' ?
+                      style="width: {{ mitarbeiterEinsatz.einsatze[0].pensum.untilYear === $ctrl.year ?
                       100/12 * (mitarbeiterEinsatz.einsatze[0].pensum.untilMonth - mitarbeiterEinsatz.einsatze[0].pensum.fromMonth)
-                      : 100}}%"
+                      : mitarbeiterEinsatz.einsatze[0].pensum.untilYear < $ctrl.year || mitarbeiterEinsatz.einsatze[0].pensum.fromYear > $ctrl.year ? 0 :100}}%"
                       ng-class="$index % 2 === 0 ? 'progress-bar-success' : progress-bar-info"
                       >
                       {{ mitarbeiterEinsatz.einsatze[0].pensum.pensum.pensum }} %
@@ -55,7 +56,8 @@
                   <div class="progress timeaxis" ng-show="einsatz.projekt.name">
                     <div class="progress-bar col-lg-offset-{{einsatz.pensum.fromMonth}}"
                       role="progressbar" role="progressbar"
-                      style="width: {{ einsatz.pensum.untilYear === '2016' ? 100/12 * (einsatz.pensum.untilMonth - einsatz.pensum.fromMonth) : 100}}%"
+                      style="width: {{ einsatz.pensum.untilYear === $ctrl.year ? 100/12 * (einsatz.pensum.untilMonth - einsatz.pensum.fromMonth) :
+                        einsatz.pensum.untilYear < $ctrl.year || einsatz.pensum.fromYear > $ctrl.year ? 0 :100}}%"
                       ng-class="$parent.$index % 2 === 0 ? 'progress-bar-success' : progress-bar-info">
                       {{ einsatz.pensum.pensum.pensum }} %
                     </div>

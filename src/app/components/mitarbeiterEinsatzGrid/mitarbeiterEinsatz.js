@@ -5,8 +5,10 @@ import template from './mitarbeiterEinsatz.template.html';
 import controller from './mitarbeiterEinsatz.controller';
 import mitarbeiterServiceModule from './service/mitarbeiterService/mitarbeiterService';
 import einsatzServiceModule from './service/einsatzService/einsatzService';
+import jahresAuswahl from './jahresAuswahl/jahresAuswahl';
 
-let mitarbeiterEinsatz = angular.module('mitarbeiterEinsatz', [mitarbeiterServiceModule.name, einsatzServiceModule.name])
+let mitarbeiterEinsatz = angular.module('mitarbeiterEinsatz', [mitarbeiterServiceModule.name,
+  einsatzServiceModule.name, jahresAuswahl.name])
     .config(/*@ngInject*/($stateProvider, $urlRouterProvider) => {
       $stateProvider.state('mitarbeiterEinsatz', {
         url: '/', template: '<mitarbeiter-einsatz></mitarbeiter-einsatz>'

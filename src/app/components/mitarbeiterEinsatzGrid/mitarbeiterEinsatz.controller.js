@@ -6,7 +6,7 @@ export class MitarbeiterEinsatzController{
     this.mitarbeiter = [];
     this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Juni', 'Juli', 'Aug',
                   'Sep', 'Okt', 'Nov', 'Dez'];
-
+    this.year = parseInt(new Date().getFullYear());
     this.mitarbeiterEinsaetze = [];
     this.loadMitarbeiter();
   }
@@ -58,9 +58,9 @@ export class MitarbeiterEinsatzController{
   }
 
   _convertToPensumdata(pensum){
-    let fromYear = pensum.anfang.substr(0, pensum.anfang.indexOf('-'));
+    let fromYear = parseInt(pensum.anfang.substr(0, pensum.anfang.indexOf('-')));
     let fromMonth = parseInt(pensum.anfang.substr(pensum.anfang.indexOf('-') + 1, pensum.anfang.lastIndexOf('-'))) - 1;
-    let untilYear = pensum.ende.substr(0, pensum.ende.indexOf('-'));
+    let untilYear = parseInt(pensum.ende.substr(0, pensum.ende.indexOf('-')));
     let untilMonth = parseInt(pensum.ende.substr(pensum.ende.indexOf('-') + 1, pensum.ende.lastIndexOf('-')));
 
     return {
