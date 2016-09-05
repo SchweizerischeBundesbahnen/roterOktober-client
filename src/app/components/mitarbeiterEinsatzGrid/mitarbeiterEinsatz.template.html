@@ -1,36 +1,41 @@
 <navbar></navbar>
 <messages></messages>
 <main>
+  <div class="container">
+    <h1>Hallo</h1>
           <table class="table">
-            <thead>
+            <tr>
               <th class="col-lg-2">Mitarbeiter</th>
               <th class="col-lg-2">Projekte</th>
               <th class="col-lg-8">
-                Zeitdauer
+                <table class="table col-lg-12">
+                  <tr>
+                    <th ng-repeat="month in $ctrl.months">{{ month }}</th>
+                  </tr>
+                </table>
               </th>
-            </thead>
-            <tbody>
+            </tr>
               <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze">
                 <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}">{{mitarbeiterEinsatz.mitarbeiter.name}} {{mitarbeiterEinsatz.mitarbeiter.vorname}}</td>
-                <td>{{ mitarbeiterEinsatz.projekte[0].name }}</td>
+                <td>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</td>
                 <td>
                   <div class="progress">
-                    <div class="progress-bar progress-bar-success col-lg-offset-{{einsatz.projekte.length+2}}" role="progressbar"
-                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="120" role="progressbar" style="width: 100%">
+                    <div class="progress-bar progress-bar-success col-lg-offset-{{mitarbeiterEinsatz.einsatze[0].pensum.fromMonth}}"
+                      role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="120" role="progressbar" style="width: 100%">
                     </div>
                   </div>
                 </td>
               </tr>
-              <tr ng-repeat-end ng-repeat="projekt in mitarbeiterEinsatz.projekte.slice(1)">
-                <td>{{ projekt.name }}</td>
+              <tr ng-repeat-end ng-repeat="einsatz in mitarbeiterEinsatz.einsatze.slice(1)">
+                <td>{{ einsatz.projekt.name }}</td>
                 <td>
                   <div class="progress">
-                    <div class="progress-bar progress-bar-success col-lg-offset-{{einsatz.projekte.length}}"
+                    <div class="progress-bar progress-bar-success col-lg-offset-{{einsatz.pensum.fromMonth}}"
                       aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" role="progressbar" style="width: 100%">
                     </div>
                   </div>
                 </td>
               </tr>
-            </tbody>
           </table>
+  </div>
 </main>

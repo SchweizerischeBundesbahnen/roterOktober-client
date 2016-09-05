@@ -4,6 +4,8 @@ export class MitarbeiterEinsatzController{
     this.mitarbeiterService = mitarbeiterService;
     this.einsatzService = einsatzService;
     this.mitarbeiter = [];
+    this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Juni', 'Juli', 'Aug',
+                  'Sep', 'Okt', 'Nov', 'Dez'];
 
     this.mitarbeiterEinsaetze = [];
     this.loadMitarbeiter();
