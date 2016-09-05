@@ -1,62 +1,43 @@
 export class MitarbeiterEinsatzController{
 
-  constructor(/*ngInject*/ mitarbeiterService){
+  constructor(/*ngInject*/ mitarbeiterService, einsatzService){
     this.mitarbeiterService = mitarbeiterService;
+    this.einsatzService = einsatzService;
     this.mitarbeiter = [];
+
+    this.mitarbeiterEinsaetze = [];
     this.loadMitarbeiter();
   }
 
   loadMitarbeiter(){
-    /*
     this.mitarbeiterService.getAllMitarbeiter()
       .then((response) => {
         this.mitarbeiter = response.data;
+        this._getEinsatzeForMitarbeiter(this.mitarbeiter);
       });
-    */
+  }
 
-    this.einsaetze = [
-      {
-        mitarbeiter: {
-          vorname: 'Kevin',
-          name: 'Kreuzer'
+  _getEinsatzeForMitarbeiter(mitarbeiter){
+    mitarbeiter.forEach((mitarbeiter, index) => {
+      this.einsatzService.getEinsatzForMitarbeiter(mitarbeiter.uid)
+        .then((response) => {
+          let einsatze = response.data;
+          this._createMitarbeiterEinsatz(mitarbeiter, einsatze);
         },
-        projekte: [
-          {
-            projektname: 'Test',
-            dauer: 2
-          },
-          {
-            projektname: 'Blub',
-            dauer: 3
-          },
-          {
-            projektname: 'Blab',
-            dauer: 4
-          }
-        ]
-      },
-      {
-        mitarbeiter: {
-          vorname: 'Stefan',
-          name: 'Urech'
-        },
-        projekte: [
-          {
-            projektname: 'WebShop',
-            dauer: 2
-          },
-          {
-            projektname: 'Foo',
-            dauer: 3
-          },
-          {
-            projektname: 'Blab',
-            dauer: 4
-          }
-        ]
-      }
-    ]
+        (error) => {
+          console.log(error);
+        }
+      )
+    })
+  }
 
+  _createMitarbeiterEinsatz(mitarbeiter, einsatze){
+    let mitarbeiterEinsatz = {
+      mitarbeiter: mitarbeiter,
+      einsatze: einsatze,
+    }
+    this.mitarbeiterEinsaetze.push(mitarbeiterEinsatz);
+    console.log(einsatze);
   }
 }
 

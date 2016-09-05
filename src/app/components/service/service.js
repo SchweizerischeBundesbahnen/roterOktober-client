@@ -9,12 +9,11 @@
  * @since 23.10.2015, 2015.
  */
 import angular from "angular";
-import EinsatzService from './einsatzService/einsatzService';
 import ProjektService from './projektService/projektService';
 import PensumService from './pensumService/pensumService';
 
 let serviceModule = angular.module('app.components.service', [
-    EinsatzService.name, ProjektService.name, PensumService.name
+    ProjektService.name, PensumService.name
 ]);
 
 export default serviceModule;
