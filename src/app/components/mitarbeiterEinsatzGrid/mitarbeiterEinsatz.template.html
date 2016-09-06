@@ -30,18 +30,8 @@
                 </ul>
                 </td>
                 <td>
-                  <div class="progress timeaxis" ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name">
-                    <div class="progress-bar col-lg-offset-{{mitarbeiterEinsatz.einsatze[0].pensum.fromMonth}}"
-                      role="progressbar" role="progressbar"
-                      style="width: {{ mitarbeiterEinsatz.einsatze[0].pensum.untilYear === $ctrl.year ?
-                      100/12 * (mitarbeiterEinsatz.einsatze[0].pensum.untilMonth - mitarbeiterEinsatz.einsatze[0].pensum.fromMonth)
-                      : mitarbeiterEinsatz.einsatze[0].pensum.untilYear < $ctrl.year || mitarbeiterEinsatz.einsatze[0].pensum.fromYear > $ctrl.year ? 0 :100}}%"
-                      ng-class="$index % 2 === 0 ? 'progress-bar-success' : progress-bar-info"
-                      >
-                      <span ng-show="mitarbeiterEinsatz.einsatze[0].pensum.untilYear >= $ctrl.year && mitarbeiterEinsatz.einsatze[0].pensum.fromYear <= $ctrl.year">
-                        {{ mitarbeiterEinsatz.einsatze[0].pensum.pensum.pensum }} %
-                      </span>
-                    </div>
+                  <zeitachse selected-year="$ctrl.year" pensum="mitarbeiterEinsatz.einsatze[0].pensum"
+                    row-index="$index"></zeitachse>
                   </div>
                 </td>
               </tr>
@@ -55,17 +45,8 @@
                   </ul>
                 </td>
                 <td>
-                  <div class="progress timeaxis" ng-show="einsatz.projekt.name">
-                    <div class="progress-bar col-lg-offset-{{einsatz.pensum.fromMonth}}"
-                      role="progressbar" role="progressbar"
-                      style="width: {{ einsatz.pensum.untilYear === $ctrl.year ? 100/12 * (einsatz.pensum.untilMonth - einsatz.pensum.fromMonth) :
-                        einsatz.pensum.untilYear < $ctrl.year || einsatz.pensum.fromYear > $ctrl.year ? 0 :100}}%"
-                      ng-class="$parent.$index % 2 === 0 ? 'progress-bar-success' : progress-bar-info">
-                      <span ng-show="einsatz.pensum.untilYear >= $ctrl.year && einsatz.pensum.fromYear <= $ctrl.year">
-                        {{ einsatz.pensum.pensum.pensum }} %
-                      </span>
-                    </div>
-                  </div>
+                  <zeitachse selected-year="$ctrl.year" pensum="einsatz.pensum"
+                    row-index="$parent.$index"></zeitachse>
                 </td>
               </tr>
             </tbody>
