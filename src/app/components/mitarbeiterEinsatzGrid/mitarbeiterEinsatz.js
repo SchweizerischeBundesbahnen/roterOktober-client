@@ -7,9 +7,10 @@ import mitarbeiterServiceModule from './service/mitarbeiterService/mitarbeiterSe
 import einsatzServiceModule from './service/einsatzService/einsatzService';
 import jahresAuswahlModule from './jahresAuswahl/jahresAuswahl';
 import zeitachseModule from './zeitachse/zeitachse';
+import monatsAnzeigeModul from './montasanzeige/monatsanzeige';
 
 let mitarbeiterEinsatz = angular.module('mitarbeiterEinsatz', [mitarbeiterServiceModule.name,
-  einsatzServiceModule.name, jahresAuswahlModule.name, zeitachseModule.name])
+  einsatzServiceModule.name, jahresAuswahlModule.name, zeitachseModule.name, monatsAnzeigeModul.name])
     .config(/*@ngInject*/($stateProvider, $urlRouterProvider) => {
       $stateProvider.state('mitarbeiterEinsatz', {
         url: '/', template: '<mitarbeiter-einsatz></mitarbeiter-einsatz>'

@@ -10,11 +10,7 @@
               <th class="col-lg-2">Projekte</th>
               <th class="col-lg-8">
                 <jahres-auswahl year="$ctrl.year"></jahres-auswahl>
-                <table class="table col-lg-12">
-                  <tr>
-                    <th ng-repeat="month in $ctrl.months">{{ month }}</th>
-                  </tr>
-                </table>
+                <monats-anzeige></monats-anzeige>
               </th>
             </tr>
             </thead>
