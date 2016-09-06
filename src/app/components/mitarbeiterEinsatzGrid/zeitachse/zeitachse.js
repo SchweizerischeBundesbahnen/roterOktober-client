@@ -8,9 +8,9 @@ let zeitachseModule = angular.module('zeitachseModul', [])
     template,
     controller,
     bindings: {
-      pensum: '=',
-      selectedYear: '=',
-      rowIndex: '='
+      pensum: '<',
+      selectedYear: '<',
+      rowIndex: '<'
     }
   });
 

@@ -1,12 +1,10 @@
-<div class="progress timeaxis" ng-show="$ctrl.pensum">
+<div class="progress timeaxis" ng-if="$ctrl.pensum">
   <div class="progress-bar col-lg-offset-{{$ctrl.pensum.fromMonth}}"
     role="progressbar" role="progressbar"
-    style="width: {{ $ctrl.pensum.untilYear === $ctrl.selectedYear ?
-    100/12 * ($ctrl.pensum.untilMonth - $ctrl.pensum.fromMonth)
-    : $ctrl.pensum.untilYear < $ctrl.selectedYear || $ctrl.pensum.fromYear > $ctrl.selectedYear ? 0 :100}}%"
+    style="width: {{ $ctrl.getWidthForZeitachse() }}"
     ng-class="$ctrl.rowIndex % 2 === 0 ? 'progress-bar-success' : progress-bar-info"
     >
-    <span ng-show="$ctrl.pensum.untilYear >= $ctrl.selectedYear && $ctrl.pensum.fromYear <= $ctrl.selectedYear">
+    <span ng-show="$ctrl.isYearOutsideEinsatz()">
       {{ $ctrl.pensum.pensum.pensum }} %
     </span>
   </div>
