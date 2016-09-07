@@ -3,7 +3,7 @@
  */
 class HomeController {
     constructor() {
-        this.title = 'ESTA WebJS - Starterkit';
+        this.title = 'Roter Oktober';
         this.welcomeMessage = 'Herzlich Willkommen';
     }
 }

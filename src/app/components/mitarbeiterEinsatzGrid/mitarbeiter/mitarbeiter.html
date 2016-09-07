@@ -6,14 +6,25 @@
             <h1>Mitarbeiter</h1>
         </div>
         <div class="mitarbeiterGrid">
-            <div ng-repeat="mitarbeiter in $ctrl.mitarbeiter" class="mitarbeiterRow">
+            <div> <!-- Ohne dieses sinnlose div wiederholt Angular auch das nächste Element -->
+                <div ng-repeat="mitarbeiter in $ctrl.mitarbeiter" class="mitarbeiterRow">
+                    <div class="mitarbeiterInfo">
+                        {{mitarbeiter.name}}, {{mitarbeiter.vorname}} ({{mitarbeiter.uid}})
+                    </div>
+                    <div class="mitarbeiterContent">
+                        <einsatz mitarbeiter="mitarbeiter"></einsatz>
+                    </div>
+                    <div class="clearFix"></div>
+                </div>
+            </div>
+
+            <div class="mitarbeiterRow">
                 <div class="mitarbeiterInfo">
-                    {{mitarbeiter.name}}, {{mitarbeiter.vorname}} ({{mitarbeiter.uid}})
+                    <a href="" ng-click="$ctrl.createMitarbeiter()">
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                        Mitarbeiter erfassen
+                    </a>
                 </div>
-                <div class="mitarbeiterContent">
-                    <einsatz mitarbeiter="mitarbeiter"></einsatz>
-                </div>
-                <div class="clearFix"/>
             </div>
         </div>
     </div>
