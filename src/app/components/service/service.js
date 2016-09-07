@@ -11,9 +11,12 @@
 import angular from "angular";
 import ProjektService from './projektService/projektService';
 import PensumService from './pensumService/pensumService';
+import mitarbeiterServiceModule from './mitarbeiterService/mitarbeiterService';
+import einsatzServiceModule from './einsatzService/einsatzService';
 
 let serviceModule = angular.module('app.components.service', [
-    ProjektService.name, PensumService.name
+    ProjektService.name, PensumService.name, mitarbeiterServiceModule.name,
+    einsatzServiceModule.name
 ]);
 
 export default serviceModule;
