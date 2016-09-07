@@ -47,7 +47,7 @@ export class MitarbeiterEinsatzController{
     einsatze.forEach((einsatz) => {
       mitarbeiterEinsatz.push({
         projekt: einsatz.projekt,
-        pensum: this._convertToPensumdata(einsatz.pensen[0]), //TODO kk: Abklären warum es mehrere Pensen gibt
+        pensum: this._convertToPensumdata(einsatz._embedded.pensen[0]), //TODO kk: Abklären warum es mehrere Pensen gibt
         rolle: einsatz.rolle,
         senioritaet: einsatz.senioritaet
       });
