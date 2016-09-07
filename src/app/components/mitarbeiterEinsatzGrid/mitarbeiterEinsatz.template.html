@@ -18,12 +18,8 @@
               <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze">
                 <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}">{{mitarbeiterEinsatz.mitarbeiter.name}} {{mitarbeiterEinsatz.mitarbeiter.vorname}}</td>
                 <td>
-                <ul class="list-group projectPanel" ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name">
-                  <li class="list-group-item">
-                    <span class="badge">{{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle }}</span>
-                    {{ mitarbeiterEinsatz.einsatze[0].projekt.name }}
-                  </li>
-                </ul>
+                  <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b>
+                  {{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle }}
                 </td>
                 <td>
                   <zeitachse selected-year="$ctrl.year" pensum="mitarbeiterEinsatz.einsatze[0].pensum"
@@ -33,12 +29,8 @@
               </tr>
               <tr ng-repeat-end ng-repeat="einsatz in mitarbeiterEinsatz.einsatze.slice(1)">
                 <td>
-                  <ul class="list-group projectPanel" ng-show="einsatz.projekt.name">
-                    <li class="list-group-item">
-                      <span class="badge">{{ einsatz.senioritaet }} {{ einsatz.rolle }}</span>
-                      {{ einsatz.projekt.name }}
-                    </li>
-                  </ul>
+                  <b>{{ einsatz.projekt.name }}</b>
+                  {{ einsatz.senioritaet }} {{ einsatz.rolle }}
                 </td>
                 <td>
                   <zeitachse selected-year="$ctrl.year" pensum="einsatz.pensum"
