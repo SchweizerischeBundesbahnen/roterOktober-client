@@ -3,6 +3,28 @@ class ZeitachseController{
   constructor(){
   }
 
+  getZeitachseMargin(){
+    if(this._isYearEqualToFromYear()){
+      return this._calculateMargin();
+    }
+    else if (this._isYearAfterFromYear()) {
+      return '0 %';
+    }
+    return '100%';
+  }
+
+  _isYearAfterFromYear(){
+    return this.pensum.fromYear < this.selectedYear;
+  }
+
+  _isYearEqualToFromYear(){
+    return this.pensum.fromYear === this.selectedYear;
+  }
+
+  _calculateMargin(){
+    return 100 / 365 * this.pensum.fromMonth;
+  }
+
   getWidthForZeitachse(){
     if(this._isYearEqualToUntilYear()){
       return this._calculateWidth();
@@ -18,7 +40,7 @@ class ZeitachseController{
   }
 
   _calculateWidth(){
-    return 100/12 * (this.pensum.untilMonth - this.pensum.fromMonth) + '%';
+    return 100 / 365 * (this.pensum.untilMonth - this.pensum.fromMonth) + '%';
   }
 
   _isYearBeforeOrAfterPensum(){

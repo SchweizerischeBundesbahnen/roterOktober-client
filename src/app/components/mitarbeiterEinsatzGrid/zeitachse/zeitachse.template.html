@@ -1,8 +1,9 @@
 <div class="progress timeaxis" ng-if="$ctrl.pensum">
-  <div class="progress-bar col-lg-offset-{{$ctrl.pensum.fromMonth}}"
+  <div class="progress-bar col-lg-12"
     role="progressbar" role="progressbar"
-    style="width: {{ $ctrl.getWidthForZeitachse() }}"
+    style="margin-left: {{ $ctrl.getZeitachseMargin() }}%; width: {{ $ctrl.getWidthForZeitachse() }}"
     ng-class="$ctrl.rowIndex % 2 === 0 ? 'progress-bar-success' : progress-bar-info"
+    ng-show="$ctrl.isYearOutsideEinsatz()"
     >
     <span ng-show="$ctrl.isYearOutsideEinsatz()">
       {{ $ctrl.pensum.pensum.pensum }} %

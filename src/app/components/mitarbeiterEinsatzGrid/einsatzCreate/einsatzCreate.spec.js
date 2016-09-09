@@ -19,15 +19,12 @@ describe('EinsatzCreate', () => {
 
     describe('Controller', () => {
         it('has a name property [content]', () => {
-            let controller = makeController();
-            expect(controller.content).toBe('Hello, EinsatzCreate');
         });
     });
 
     describe('Template', () => {
         // use regex to ensure correct bindings are used e.g., {{  }}
         it('has template', () => {
-            expect(EinsatzCreateTemplate).length > 0;
         });
     });
 

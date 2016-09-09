@@ -18,17 +18,11 @@ describe('Pensum', () => {
     });
 
     describe('Controller', () => {
-        it('has a name property [content]', () => {
-            let controller = makeController();
-            expect(controller.content).toBe('Hello, Pensum');
-        });
+
     });
 
     describe('Template', () => {
-        // use regex to ensure correct bindings are used e.g., {{  }}
-        it('has template', () => {
-            expect(PensumTemplate).length > 0;
-        });
+
     });
 
 });

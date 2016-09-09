@@ -11,7 +11,6 @@ class EinsatzService {
     }
 
     save(userId, einsatz){
-        console.log('Der Einsatz', einsatz);
         return this.Einsatz.save({uid: userId}, einsatz);
     }
 }

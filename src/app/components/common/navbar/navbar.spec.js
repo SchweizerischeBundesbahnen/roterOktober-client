@@ -38,8 +38,8 @@ describe('Navbar', () => {
         it('has "Home" in template', () => {
             expect(NavbarTemplate).toMatch(/Home/g);
         });
-        it('has "About" in template', () => {
-            expect(NavbarTemplate).toMatch(/About/g);
+        it('has "Mitarbeiter" in template', () => {
+            expect(NavbarTemplate).toMatch(/Mitarbeiter/g);
         });
     });
 

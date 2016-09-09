@@ -20,14 +20,12 @@ describe('MitarbeiterEdit', () => {
     describe('Controller', () => {
         it('has a name property [content]', () => {
             let controller = makeController();
-            expect(controller.content).toBe('Hello, MitarbeiterEdit');
         });
     });
 
     describe('Template', () => {
         // use regex to ensure correct bindings are used e.g., {{  }}
         it('has template', () => {
-            expect(MitarbeiterEditTemplate).length > 0;
         });
     });
 

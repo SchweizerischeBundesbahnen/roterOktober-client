@@ -1,8 +1,9 @@
 export class MitarbeiterEinsatzController{
 
-  constructor(/*ngInject*/ mitarbeiterService, einsatzService){
+  constructor(/*ngInject*/ mitarbeiterService, einsatzService, timeaxisCalculatorService){
     this.mitarbeiterService = mitarbeiterService;
     this.einsatzService = einsatzService;
+    this.timeaxisCalculatorService = timeaxisCalculatorService;
     this.mitarbeiter = [];
     this.year = parseInt(new Date().getFullYear());
     this.mitarbeiterEinsaetze = [];
@@ -32,14 +33,12 @@ export class MitarbeiterEinsatzController{
   }
 
   _createMitarbeiterEinsatz(mitarbeiter, einsatze){
-    console.log('Einsätze', einsatze);
     let mitarbeiterEinsatze = this._convertEinsatze(einsatze);
     let einsatzSummary = {
       mitarbeiter: mitarbeiter,
       einsatze: mitarbeiterEinsatze,
     }
     this.mitarbeiterEinsaetze.push(einsatzSummary);
-    console.log(this.mitarbeiterEinsaetze);
   }
 
   _convertEinsatze(einsatze){
@@ -57,9 +56,9 @@ export class MitarbeiterEinsatzController{
 
   _convertToPensumdata(pensum){
     let fromYear = parseInt(pensum.anfang.substr(0, pensum.anfang.indexOf('-')));
-    let fromMonth = parseInt(pensum.anfang.substr(pensum.anfang.indexOf('-') + 1, pensum.anfang.lastIndexOf('-'))) - 1;
+    let fromMonth = this.timeaxisCalculatorService.calculateDayOfYear(pensum.anfang);
     let untilYear = parseInt(pensum.ende.substr(0, pensum.ende.indexOf('-')));
-    let untilMonth = parseInt(pensum.ende.substr(pensum.ende.indexOf('-') + 1, pensum.ende.lastIndexOf('-')));
+    let untilMonth = this.timeaxisCalculatorService.calculateDayOfYear(pensum.ende);
 
     return {
       fromYear: fromYear,
