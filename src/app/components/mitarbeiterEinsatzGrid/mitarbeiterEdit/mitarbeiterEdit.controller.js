@@ -1,5 +1,5 @@
 class MitarbeiterEditController {
-    
+
     /*@ngInject*/
     constructor($uibModalInstance, mitarbeiterService) {
         this.$uibModalInstance = $uibModalInstance;
@@ -16,15 +16,17 @@ class MitarbeiterEditController {
         };
         return mitarbeiter;
     }
-    
+
     cancel(){
         this.$uibModalInstance.close();
     }
-    
+
     save(){
         // Mitarbeiter speichern
         let result = this.mitarbeiterService.save(this.mitarbeiter);
-        result.$promise.then((data) => this.$uibModalInstance.close(data));
+        result.$promise.then((data) => {
+          this.$uibModalInstance.close(data)
+        });
     }
 }
 

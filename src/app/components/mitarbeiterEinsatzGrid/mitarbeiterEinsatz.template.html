@@ -16,7 +16,9 @@
             </thead>
             <tbody>
               <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze">
-                <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}">{{mitarbeiterEinsatz.mitarbeiter.name}} {{mitarbeiterEinsatz.mitarbeiter.vorname}}</td>
+                <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}">
+                  {{mitarbeiterEinsatz.mitarbeiter.name}} {{mitarbeiterEinsatz.mitarbeiter.vorname}}
+                </td>
                 <td>
                   <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b>
                   {{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle }}
@@ -39,6 +41,10 @@
               </tr>
             </tbody>
           </table>
+          <button class="btn btn-info" ng-click="$ctrl.createMitarbeiter()">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            Mitarbeiter erfassen
+          </button>
       </div>
   </div>
 </main>

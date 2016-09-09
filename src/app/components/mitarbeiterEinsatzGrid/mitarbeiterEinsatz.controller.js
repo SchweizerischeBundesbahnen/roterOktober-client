@@ -1,9 +1,13 @@
-export class MitarbeiterEinsatzController{
+import editController from "./mitarbeiterEdit/mitarbeiterEdit.controller";
+import editTemplate from "./mitarbeiterEdit/mitarbeiterEdit.html";
 
-  constructor(/*ngInject*/ mitarbeiterService, einsatzService, timeaxisCalculatorService){
+class MitarbeiterEinsatzController{
+
+  constructor(/*ngInject*/ mitarbeiterService, einsatzService, timeaxisCalculatorService, $uibModal){
     this.mitarbeiterService = mitarbeiterService;
     this.einsatzService = einsatzService;
     this.timeaxisCalculatorService = timeaxisCalculatorService;
+    this.$uibModal = $uibModal;
     this.mitarbeiter = [];
     this.year = parseInt(new Date().getFullYear());
     this.mitarbeiterEinsaetze = [];
@@ -67,6 +71,26 @@ export class MitarbeiterEinsatzController{
       untilMonth: untilMonth,
       pensum: pensum
     }
+  }
+
+  createMitarbeiter(){
+    this.$uibModal.open({
+        animation: true,
+        template: editTemplate,
+        controller: editController,
+        controllerAs: '$ctrl'
+    })
+    .result.then((createdMitarbeiter) => {
+      this._addCreatedMitarbeiter(createdMitarbeiter);
+    })
+  }
+
+  _addCreatedMitarbeiter(newMitarbeiter){
+    let einsatzSummary = {
+      mitarbeiter: newMitarbeiter,
+      einsatze: [],
+    }
+    this.mitarbeiterEinsaetze.push(einsatzSummary);
   }
 
 }
