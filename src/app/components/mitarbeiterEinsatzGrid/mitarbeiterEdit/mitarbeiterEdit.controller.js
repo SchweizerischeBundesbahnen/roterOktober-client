@@ -25,7 +25,8 @@ class MitarbeiterEditController {
         // Mitarbeiter speichern
         let result = this.mitarbeiterService.save(this.mitarbeiter);
         result.$promise.then((data) => {
-          this.$uibModalInstance.close(data)
+          console.log('daten des Mitarbeiters', data);
+          this.$uibModalInstance.close(data);
         });
     }
 }

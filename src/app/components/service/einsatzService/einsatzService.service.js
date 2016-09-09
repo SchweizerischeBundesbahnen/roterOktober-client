@@ -11,7 +11,7 @@ class EinsatzService {
     }
 
     save(userId, einsatz){
-        return this.Einsatz.save({uid: userId}, einsatz);
+      return this.Einsatz.save({uid: userId}, einsatz);
     }
 }
 

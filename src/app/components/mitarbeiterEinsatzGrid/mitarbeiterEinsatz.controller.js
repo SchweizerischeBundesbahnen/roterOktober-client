@@ -96,10 +96,10 @@ class MitarbeiterEinsatzController{
       einsatze: [],
     }
     this.mitarbeiterEinsaetze.push(einsatzSummary);
+    console.log('Added Mitarbeiter', this.mitarbeiterEinsaetze);
   }
 
-  createEinsatz(index){
-      let vm = this;
+  createEinsatz(mitarbeiter, index){
       this.$uibModal.open({
           animation: true,
           template: createEinsatzTemplate,
@@ -108,7 +108,7 @@ class MitarbeiterEinsatzController{
           controllerAs: '$ctrl',
           resolve: {
               mitarbeiter: function(){
-                  return vm.mitarbeiter
+                  return mitarbeiter
               }
           }
       })
@@ -118,10 +118,9 @@ class MitarbeiterEinsatzController{
   }
 
   _addNewEinsatzToMitarbeiter(newEinsatz, index){
-    console.log('New Einsatz', newEinsatz);
-    console.log('Index', index);
     let convertedEinsatz = this._convertEinsatz(newEinsatz);
-    this.mitarbeiterEinsaetze[index].einsatze.push(newEinsatz);
+    this.mitarbeiterEinsaetze[index].einsatze.push(convertedEinsatz);
+    console.log('mitarbeiterEinsaetze', this.mitarbeiterEinsaetze);
   }
 }
 

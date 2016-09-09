@@ -19,7 +19,7 @@
                 <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}">
                   {{mitarbeiterEinsatz.mitarbeiter.name}} {{mitarbeiterEinsatz.mitarbeiter.vorname}}
                   <br />
-                  <a href="" ng-click="$ctrl.createEinsatz($index)">
+                  <a href="" ng-click="$ctrl.createEinsatz(mitarbeiterEinsatz.mitarbeiter, $index)">
                       <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                       Einstaz erfassen
                   </a>

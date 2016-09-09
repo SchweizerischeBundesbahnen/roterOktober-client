@@ -1,5 +1,5 @@
 class EinsatzCreateController {
-    
+
     /*@ngInject*/
     constructor($uibModalInstance, mitarbeiter, projektService, einsatzService, pensumService) {
         this.$uibModalInstance = $uibModalInstance;
@@ -13,10 +13,10 @@ class EinsatzCreateController {
         this.pensum = this.createEmptyPensum();
 
         this.dateFormat = "dd.MM.yyyy";
-        
+
         this.selectedProjekt = "";
         this.projektNotFound = false;
-        
+
         this.vonDatepicker = {
             opened: false
         };
@@ -45,7 +45,7 @@ class EinsatzCreateController {
 
         return pensum;
     }
-    
+
     openEinsatzStartPopup(){
         this.vonDatepicker.opened = true;
     }
@@ -59,6 +59,7 @@ class EinsatzCreateController {
     }
 
     save(){
+        console.log('Here we go');
         // Projekt speichern
         var projektPromise  = this.saveProjekt();
         projektPromise.then((projekt) => {
@@ -70,13 +71,15 @@ class EinsatzCreateController {
             einsatzPromise.$promise.then((createdEinsatz) => {
                 // Jetzt haben wir alle IDs beisammen, um den Einsatz zu speichern
                 var einsatzId = createdEinsatz.publicId;
-                this.pensumService.save(this.mitarbeiter.uid, einsatzId, this.pensum);
+                let pensumPromise = this.pensumService.save(this.mitarbeiter.uid, einsatzId, this.pensum);
+                pensumPromise.$promise.then((pensum) => {
+                  createdEinsatz._embedded.pensen.push(pensum);
+                  this.$uibModalInstance.close(createdEinsatz);
+                });
             });
         });
-
-        this.$uibModalInstance.close();
     }
-    
+
     saveProjekt(){
         // Projekt mit exaktem Namen suchen
         var projectSearch = this.projektService.findByName(this.selectedProjekt);
