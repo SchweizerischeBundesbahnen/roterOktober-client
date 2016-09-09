@@ -18,6 +18,11 @@
               <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze">
                 <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}">
                   {{mitarbeiterEinsatz.mitarbeiter.name}} {{mitarbeiterEinsatz.mitarbeiter.vorname}}
+                  <br />
+                  <a href="" ng-click="$ctrl.createEinsatz($index)">
+                      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                      Einstaz erfassen
+                  </a>
                 </td>
                 <td>
                   <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b>

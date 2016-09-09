@@ -1,5 +1,7 @@
-import editController from "./mitarbeiterEdit/mitarbeiterEdit.controller";
-import editTemplate from "./mitarbeiterEdit/mitarbeiterEdit.html";
+import createMitarbeiterController from "./mitarbeiterEdit/mitarbeiterEdit.controller";
+import createMitarbeiterTemplate from "./mitarbeiterEdit/mitarbeiterEdit.html";
+import createEinsatzController from "./einsatzCreate/einsatzCreate.controller";
+import createEinsatzTemplate from "./einsatzCreate/einsatzCreate.html";
 
 class MitarbeiterEinsatzController{
 
@@ -48,14 +50,17 @@ class MitarbeiterEinsatzController{
   _convertEinsatze(einsatze){
     let mitarbeiterEinsatz = [];
     einsatze.forEach((einsatz) => {
-      mitarbeiterEinsatz.push({
-        projekt: einsatz.projekt,
-        pensum: this._convertToPensumdata(einsatz._embedded.pensen[0]), //TODO kk: Abklären warum es mehrere Pensen gibt
-        rolle: einsatz.rolle,
-        senioritaet: einsatz.senioritaet
-      });
+      mitarbeiterEinsatz.push(this._convertEinsatz(einsatz));
     });
     return mitarbeiterEinsatz;
+  }
+
+  _convertEinsatz(einsatz){
+    return {
+      projekt: einsatz.projekt,
+      pensum: this._convertToPensumdata(einsatz._embedded.pensen[0]), //TODO kk: Müssen wir noch mehrere Einsätze unterstützen
+      senioritaet: einsatz.senioritaet
+    };
   }
 
   _convertToPensumdata(pensum){
@@ -76,8 +81,8 @@ class MitarbeiterEinsatzController{
   createMitarbeiter(){
     this.$uibModal.open({
         animation: true,
-        template: editTemplate,
-        controller: editController,
+        template: createMitarbeiterTemplate,
+        controller: createMitarbeiterController,
         controllerAs: '$ctrl'
     })
     .result.then((createdMitarbeiter) => {
@@ -93,6 +98,31 @@ class MitarbeiterEinsatzController{
     this.mitarbeiterEinsaetze.push(einsatzSummary);
   }
 
+  createEinsatz(index){
+      let vm = this;
+      this.$uibModal.open({
+          animation: true,
+          template: createEinsatzTemplate,
+          controller: createEinsatzController,
+          bindToController: true,
+          controllerAs: '$ctrl',
+          resolve: {
+              mitarbeiter: function(){
+                  return vm.mitarbeiter
+              }
+          }
+      })
+      .result.then((newEinsatz) => {
+        this._addNewEinsatzToMitarbeiter(newEinsatz, index);
+      });
+  }
+
+  _addNewEinsatzToMitarbeiter(newEinsatz, index){
+    console.log('New Einsatz', newEinsatz);
+    console.log('Index', index);
+    let convertedEinsatz = this._convertEinsatz(newEinsatz);
+    this.mitarbeiterEinsaetze[index].einsatze.push(newEinsatz);
+  }
 }
 
 export default MitarbeiterEinsatzController;
