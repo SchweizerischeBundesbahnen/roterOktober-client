@@ -8,6 +8,8 @@ import zeitachseModule from './zeitachse/zeitachse';
 import monatsAnzeigeModul from './montasanzeige/monatsanzeige';
 import timeaxisCalculatorModule from './service/timeaxisCalculator';
 
+import styles from './mitarbeiterEinsatz.style.css';
+
 let mitarbeiterEinsatz = angular.module('mitarbeiterEinsatz', [jahresAuswahlModule.name,
   zeitachseModule.name, monatsAnzeigeModul.name, timeaxisCalculatorModule.name])
     .config(/*@ngInject*/($stateProvider, $urlRouterProvider) => {

@@ -21,7 +21,7 @@
                   <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b>
                   {{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle }}
                 </td>
-                <td>
+                <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensum="mitarbeiterEinsatz.einsatze[0].pensum"
                     row-index="$index"></zeitachse>
                   </div>
@@ -32,7 +32,7 @@
                   <b>{{ einsatz.projekt.name }}</b>
                   {{ einsatz.senioritaet }} {{ einsatz.rolle }}
                 </td>
-                <td>
+                <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensum="einsatz.pensum"
                     row-index="$parent.$index"></zeitachse>
                 </td>
