@@ -12,10 +12,9 @@ import angular from 'angular';
 import commonComponents from './common/common';
 import securityComponents from './security/security';
 import mitarbeiterEinsatz from './mitarbeiterEinsatzGrid/mitarbeiterEinsatz';
-import services from './service/service';
 
 let componentModule = angular.module('app.components', [
-    commonComponents.name, securityComponents.name, mitarbeiterEinsatz.name, services.name
+    commonComponents.name, securityComponents.name, mitarbeiterEinsatz.name
 ]);
 
 export default componentModule;
