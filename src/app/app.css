@@ -5,11 +5,3 @@ body {
 #einsatzTabelle tbody>tr>td{
   vertical-align: middle;
 }
-
-.background {
-  background-color: red;
-}
-
-.projectPanel{
-  margin-top: 15px;
-}

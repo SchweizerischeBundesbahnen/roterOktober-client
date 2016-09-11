@@ -5,10 +5,9 @@ import createEinsatzTemplate from "./einsatzCreate/einsatzCreate.html";
 
 class MitarbeiterEinsatzController{
 
-  constructor(/*ngInject*/ mitarbeiterService, einsatzService, timeaxisCalculatorService, $uibModal){
+  constructor(/*ngInject*/ mitarbeiterService, einsatzService, $uibModal){
     this.mitarbeiterService = mitarbeiterService;
     this.einsatzService = einsatzService;
-    this.timeaxisCalculatorService = timeaxisCalculatorService;
     this.$uibModal = $uibModal;
     this.mitarbeiter = [];
     this.year = parseInt(new Date().getFullYear());
