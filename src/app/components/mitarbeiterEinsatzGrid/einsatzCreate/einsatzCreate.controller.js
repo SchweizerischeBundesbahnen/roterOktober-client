@@ -59,7 +59,6 @@ class EinsatzCreateController {
     }
 
     save(){
-        console.log('Here we go');
         // Projekt speichern
         var projektPromise  = this.saveProjekt();
         projektPromise.then((projekt) => {

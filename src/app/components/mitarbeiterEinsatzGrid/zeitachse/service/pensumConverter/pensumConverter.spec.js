@@ -1,14 +1,14 @@
-import timeaxisCalculatorModule from './timeaxisCalculator';
-import TimeaxisCalculator from './timeaxisCalculator.service';
+import pensumConverterModule from './pensumConverter';
+import PensumConverter from './pensumConverter.service';
 
 describe('TimeAxisService', () => {
     let $rootScope, createService;
 
-    beforeEach(window.module(timeaxisCalculatorModule.name));
+    beforeEach(window.module(pensumConverterModule.name));
     beforeEach(inject((_$rootScope_) => {
         $rootScope = _$rootScope_;
         createService = () => {
-            return new TimeaxisCalculator();
+            return new PensumConverter();
         };
     }));
 
@@ -16,14 +16,14 @@ describe('TimeAxisService', () => {
       it('should calculate the day of the year', () => {
         let service = createService();
         let dateString = '2016-04-12T22:00:00.000Z';
-        let dayOfYear = service.calculateDayOfYear(dateString);
+        let dayOfYear = service._calculateDayOfYear(dateString);
         expect(dayOfYear).toBe(103);
       });
 
       it('should calculate the day corresponding to the year', () => {
         let service = createService();
         let dateString = '2017-06-15T00:00:00.000Z';
-        let dayOfYear = service.calculateDayOfYear(dateString);
+        let dayOfYear = service._calculateDayOfYear(dateString);
         expect(dayOfYear).toBe(165);
       })
     });

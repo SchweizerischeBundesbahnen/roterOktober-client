@@ -1,4 +1,4 @@
-<div class="progress timeaxis" ng-if="$ctrl.pensum">
+<div class="progress timeaxis">
   <div class="progress-bar col-lg-12"
     role="progressbar" role="progressbar"
     style="margin-left: {{ $ctrl.getZeitachseMargin() }}%; width: {{ $ctrl.getWidthForZeitachse() }}"
@@ -6,7 +6,7 @@
     ng-show="$ctrl.isYearOutsideEinsatz()"
     >
     <span ng-show="$ctrl.isYearOutsideEinsatz()">
-      {{ $ctrl.pensum.pensum.pensum }} %
+      {{ $ctrl.convertedPensum.pensum }} %
     </span>
   </div>
 </div>

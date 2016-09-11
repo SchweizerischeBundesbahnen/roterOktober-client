@@ -58,24 +58,9 @@ class MitarbeiterEinsatzController{
   _convertEinsatz(einsatz){
     return {
       projekt: einsatz.projekt,
-      pensum: this._convertToPensumdata(einsatz._embedded.pensen[0]), //TODO kk: Müssen wir noch mehrere Einsätze unterstützen
+      pensum: einsatz._embedded.pensen[0], //TODO kk: Müssen wir noch mehrere Einsätze unterstützen
       senioritaet: einsatz.senioritaet
     };
-  }
-
-  _convertToPensumdata(pensum){
-    let fromYear = parseInt(pensum.anfang.substr(0, pensum.anfang.indexOf('-')));
-    let fromMonth = this.timeaxisCalculatorService.calculateDayOfYear(pensum.anfang);
-    let untilYear = parseInt(pensum.ende.substr(0, pensum.ende.indexOf('-')));
-    let untilMonth = this.timeaxisCalculatorService.calculateDayOfYear(pensum.ende);
-
-    return {
-      fromYear: fromYear,
-      fromMonth: fromMonth,
-      untilYear: untilYear,
-      untilMonth: untilMonth,
-      pensum: pensum
-    }
   }
 
   createMitarbeiter(){
@@ -96,7 +81,6 @@ class MitarbeiterEinsatzController{
       einsatze: [],
     }
     this.mitarbeiterEinsaetze.push(einsatzSummary);
-    console.log('Added Mitarbeiter', this.mitarbeiterEinsaetze);
   }
 
   createEinsatz(mitarbeiter, index){
@@ -120,7 +104,6 @@ class MitarbeiterEinsatzController{
   _addNewEinsatzToMitarbeiter(newEinsatz, index){
     let convertedEinsatz = this._convertEinsatz(newEinsatz);
     this.mitarbeiterEinsaetze[index].einsatze.push(convertedEinsatz);
-    console.log('mitarbeiterEinsaetze', this.mitarbeiterEinsaetze);
   }
 }
 

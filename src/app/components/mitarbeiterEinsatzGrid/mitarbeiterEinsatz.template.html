@@ -30,7 +30,7 @@
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensum="mitarbeiterEinsatz.einsatze[0].pensum"
-                    row-index="$index"></zeitachse>
+                    row-index="$index" ng-if="mitarbeiterEinsatz.einsatze[0].pensum"></zeitachse>
                   </div>
                 </td>
               </tr>
@@ -41,7 +41,7 @@
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensum="einsatz.pensum"
-                    row-index="$parent.$index"></zeitachse>
+                    row-index="$parent.$index" ng-if="einsatz.pensum"></zeitachse>
                 </td>
               </tr>
             </tbody>
