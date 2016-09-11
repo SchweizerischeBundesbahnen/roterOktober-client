@@ -32,7 +32,7 @@ class ZeitachseController{
     else if (this._isYearBeforeOrAfterPensum()) {
       return '0%';
     }
-    return '100%';
+    return 100 - this.getZeitachseMargin() + '%';
   }
 
   _isYearEqualToUntilYear(){
