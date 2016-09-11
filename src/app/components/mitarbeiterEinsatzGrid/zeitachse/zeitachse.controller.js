@@ -40,7 +40,10 @@ class ZeitachseController{
   }
 
   _calculateWidth(){
-    return 100 / 365 * (this.pensum.untilMonth - this.pensum.fromMonth) + '%';
+    if(this.pensum.fromYear === this.selectedYear){
+      return 100 / 365 * (this.pensum.untilMonth - this.pensum.fromMonth) + '%';
+    }
+    return 100 / 365 * this.pensum.untilMonth + '%';
   }
 
   _isYearBeforeOrAfterPensum(){
