@@ -1,13 +1,12 @@
 class EinsatzService {
     /*@ngInject*/
-    constructor($resource, config, $http) {
+    constructor($resource, config) {
         this.Einsatz = $resource(config.restEndPoint + '/mitarbeiter/:uid/einsatz', {uid: '@userId'});
-        this.$http = $http;
         this.config = config;
     }
 
     getEinsatzForMitarbeiter(userId){
-        return this.$http.get(this.config.restEndPoint + `/mitarbeiter/${userId}/einsatz`);
+      return this.Einsatz.query({uid: userId});
     }
 
     save(userId, einsatz){

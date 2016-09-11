@@ -17,8 +17,8 @@ class MitarbeiterEinsatzController{
 
   loadMitarbeiter(){
     this.mitarbeiterService.getAllMitarbeiter()
-      .then((response) => {
-        this.mitarbeiter = response.data;
+      .$promise.then((response) => {
+        this.mitarbeiter = response;
         this._getEinsatzeForMitarbeiter(this.mitarbeiter);
       });
   }
@@ -26,8 +26,8 @@ class MitarbeiterEinsatzController{
   _getEinsatzeForMitarbeiter(mitarbeiter){
     mitarbeiter.forEach((mitarbeiter) => {
       this.einsatzService.getEinsatzForMitarbeiter(mitarbeiter.uid)
-        .then((response) => {
-          let einsatze = response.data;
+        .$promise.then((response) => {
+          let einsatze = response;
           this._createMitarbeiterEinsatz(mitarbeiter, einsatze);
         },
         (error) => {

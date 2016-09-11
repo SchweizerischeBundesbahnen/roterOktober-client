@@ -1,8 +1,7 @@
 class MitarbeiterService {
 
     /*@ngInject*/
-    constructor($http, $resource, config) {
-        this.$http = $http;
+    constructor($resource, config) {
         this.config = config;
         this.Mitarbeiter = $resource(config.restEndPoint + '/mitarbeiter/:uid', {uid: '@userId'});
     }
@@ -11,7 +10,7 @@ class MitarbeiterService {
      * Liefert alle Mitarbeiter zurück
      */
     getAllMitarbeiter(){
-        return this.$http.get(this.config.restEndPoint + '/mitarbeiter/');
+        return this.Mitarbeiter.query();
     }
 
     /**
