@@ -12,14 +12,24 @@ export default class PensumConverter {
     let fromMonth = this._calculateDayOfYear(pensum.anfang);
     let untilYear = parseInt(pensum.ende.substr(0, pensum.ende.indexOf('-')));
     let untilMonth = this._calculateDayOfYear(pensum.ende);
+    let fromDate = this._convertDateStringToReadableDate(pensum.anfang);
+    let untilDate = this._convertDateStringToReadableDate(pensum.ende);
 
     return {
       fromYear: fromYear,
       fromMonth: fromMonth,
       untilYear: untilYear,
       untilMonth: untilMonth,
+      fromDate: fromDate,
+      untilDate: untilDate,
       pensum: pensum.pensum
     }
+  }
+
+  _convertDateStringToReadableDate(dateString){
+    let timestamp = Date.parse(dateString);
+    let date = new Date(timestamp);
+    return date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
   }
 
   _calculateDayOfYear(dateString){
