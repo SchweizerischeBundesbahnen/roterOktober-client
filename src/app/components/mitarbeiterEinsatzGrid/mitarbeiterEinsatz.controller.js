@@ -5,22 +5,27 @@ import createEinsatzTemplate from "./einsatzCreate/einsatzCreate.html";
 
 class MitarbeiterEinsatzController{
 
-  constructor(/*ngInject*/ mitarbeiterService, einsatzService, $uibModal){
+  constructor(/*ngInject*/ mitarbeiterService, einsatzService, messagesService, $uibModal){
     this.mitarbeiterService = mitarbeiterService;
     this.einsatzService = einsatzService;
+    this.messagesService = messagesService;
     this.$uibModal = $uibModal;
     this.mitarbeiter = [];
     this.year = parseInt(new Date().getFullYear());
     this.mitarbeiterEinsaetze = [];
-    this.loadMitarbeiter();
+    this._loadMitarbeiter();
   }
 
-  loadMitarbeiter(){
+  _loadMitarbeiter(){
     this.mitarbeiterService.getAllMitarbeiter()
       .$promise.then((response) => {
         this.mitarbeiter = response;
         this._getEinsatzeForMitarbeiter(this.mitarbeiter);
-      });
+      },
+      (error) => {
+        this.messagesService.errorMessage('Ooops!! Etwas hat nicht funktioniert', false);
+      }
+    );
   }
 
   _getEinsatzeForMitarbeiter(mitarbeiter){
@@ -31,7 +36,7 @@ class MitarbeiterEinsatzController{
           this._createMitarbeiterEinsatz(mitarbeiter, einsatze);
         },
         (error) => {
-          console.log(error);
+          this.messagesService.errorMessage('Ooops!! Etwas hat nicht funktioniert', false);
         }
       )
     })
