@@ -8,9 +8,9 @@ class TimeaxisCalculator{
       return this._calculateMargin(convertedPensum);
     }
     else if (this._isYearAfterFromYear(convertedPensum, selectedYear)) {
-      return '0 %';
+      return '0';
     }
-    return '100%';
+    return '100';
   }
 
   _isYearAfterFromYear(convertedPensum, selectedYear){
@@ -30,9 +30,9 @@ class TimeaxisCalculator{
       return this._calculateWidth(convertedPensum, selectedYear);
     }
     else if (this._isYearBeforeOrAfterPensum(convertedPensum, selectedYear)) {
-      return '0%';
+      return '0';
     }
-    return 100 - this.getZeitachseMargin(convertedPensum, selectedYear) + '%';
+    return 100 - this.getZeitachseMargin(convertedPensum, selectedYear);
   }
 
   _isYearEqualToUntilYear(convertedPensum, selectedYear){
@@ -41,9 +41,13 @@ class TimeaxisCalculator{
 
   _calculateWidth(convertedPensum, selectedYear){
     if(convertedPensum.fromYear === selectedYear){
-      return 100 / 365 * (convertedPensum.untilMonth - convertedPensum.fromMonth) + '%';
+      return 100 / 365 * (convertedPensum.untilMonth - convertedPensum.fromMonth);
     }
-    return 100 / 365 * convertedPensum.untilMonth + '%';
+    if(convertedPensum.untilYear === selectedYear){
+      return (100 / 365 * convertedPensum.untilMonth);
+    }
+    return '100';
+
   }
 
   _isYearBeforeOrAfterPensum(convertedPensum, selectedYear){

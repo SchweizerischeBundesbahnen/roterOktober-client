@@ -1,7 +1,7 @@
 import pensumConverterModule from './pensumConverter';
 import PensumConverter from './pensumConverter.service';
 
-describe('TimeAxisService', () => {
+describe('PensumConverter', () => {
     let $rootScope, createService;
 
     beforeEach(window.module(pensumConverterModule.name));
