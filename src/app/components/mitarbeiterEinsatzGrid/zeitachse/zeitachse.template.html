@@ -1,15 +1,13 @@
-<div class="progress timeaxis" ng-mouseover="$ctrl.hover = true;" ng-mouseleave="$ctrl.hover = false;">
+<div class="progress timeaxis">
   <div class="progress-bar col-lg-12"
     role="progressbar" role="progressbar"
     style="margin-left: {{ $ctrl.getZeitachseMargin() }}%; width: {{ $ctrl.getWidthForZeitachse() }}%"
     ng-class="$ctrl.rowIndex % 2 === 0 ? 'progress-bar-success' : progress-bar-info"
     ng-show="$ctrl.isYearOutsideEinsatz()"
+    uib-tooltip="{{ $ctrl.convertedPensum.fromDate }} - {{ $ctrl.convertedPensum.untilDate }}"
     >
-    <span ng-show="$ctrl.isYearOutsideEinsatz() && !$ctrl.hover">
+    <span ng-show="$ctrl.isYearOutsideEinsatz()">
       {{ $ctrl.convertedPensum.pensum }} %
-    </span>
-    <span ng-show="$ctrl.isYearOutsideEinsatz() && $ctrl.hover">
-      {{ $ctrl.convertedPensum.fromDate}} - {{ $ctrl.convertedPensum.untilDate}}
     </span>
   </div>
 </div>
