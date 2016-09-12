@@ -15,7 +15,7 @@
             </tr>
             </thead>
             <tbody>
-              <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze">
+              <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze" ng-init="outerIndex = $index">
                 <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}">
                   {{mitarbeiterEinsatz.mitarbeiter.name}} {{mitarbeiterEinsatz.mitarbeiter.vorname}}
                   <br />
@@ -30,7 +30,8 @@
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensum="mitarbeiterEinsatz.einsatze[0].pensum"
-                    row-index="$index" ng-if="mitarbeiterEinsatz.einsatze[0].pensum"></zeitachse>
+                    row-index="outerIndex" ng-if="mitarbeiterEinsatz.einsatze[0].pensum"
+                    ></zeitachse>
                   </div>
                 </td>
               </tr>
@@ -41,7 +42,9 @@
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensum="einsatz.pensum"
-                    row-index="$parent.$index" ng-if="einsatz.pensum"></zeitachse>
+                    row-index="outerIndex" ng-if="einsatz.pensum"
+                    >
+                  </zeitachse>
                 </td>
               </tr>
             </tbody>

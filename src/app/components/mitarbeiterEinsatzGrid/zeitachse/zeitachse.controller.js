@@ -4,6 +4,7 @@ class ZeitachseController{
     this.pensumConverter = pensumConverter;
     this.timeaxisCalculator = timeaxisCalculatorService;
     this.convertedPensum = this.pensumConverter.convertPensum(this.pensum);
+    console.log('Ich rendere', this.color);
   }
 
   getZeitachseMargin(){
