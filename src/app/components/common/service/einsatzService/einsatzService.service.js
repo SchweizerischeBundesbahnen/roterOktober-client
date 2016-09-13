@@ -10,7 +10,6 @@ class EinsatzService {
     }
 
     save(userId, einsatz){
-      console.log('Einsatz im Service', einsatz);
       return this.Einsatz.save({uid: userId}, einsatz);
     }
 }
