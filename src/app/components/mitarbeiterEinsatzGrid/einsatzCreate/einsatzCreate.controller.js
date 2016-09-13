@@ -1,5 +1,5 @@
 class EinsatzCreateController {
-    
+
     /*@ngInject*/
     constructor($uibModalInstance, mitarbeiter, projektService, einsatzService, pensumService) {
         this.$uibModalInstance = $uibModalInstance;
@@ -13,10 +13,10 @@ class EinsatzCreateController {
         this.pensum = this.createEmptyPensum();
 
         this.dateFormat = "dd.MM.yyyy";
-        
+
         this.selectedProjekt = "";
         this.projektNotFound = false;
-        
+
         this.vonDatepicker = {
             opened: false
         };
@@ -45,7 +45,7 @@ class EinsatzCreateController {
 
         return pensum;
     }
-    
+
     openEinsatzStartPopup(){
         this.vonDatepicker.opened = true;
     }
@@ -59,44 +59,55 @@ class EinsatzCreateController {
     }
 
     save(){
-        // Projekt speichern
-        var projektPromise  = this.saveProjekt();
-        projektPromise.then((projekt) => {
-            // Projekt in den Einsatz übernehmen
-            this.einsatz.projektId = projekt.publicId;
-
-            // Einsatz speichern
-            var einsatzPromise = this.einsatzService.save(this.mitarbeiter.uid, this.einsatz);
-            einsatzPromise.$promise.then((createdEinsatz) => {
-                // Jetzt haben wir alle IDs beisammen, um den Einsatz zu speichern
-                var einsatzId = createdEinsatz.publicId;
-                this.pensumService.save(this.mitarbeiter.uid, einsatzId, this.pensum);
-            });
-        });
-
-        this.$uibModalInstance.close();
-    }
-    
-    saveProjekt(){
-        // Projekt mit exaktem Namen suchen
-        var projectSearch = this.projektService.findByName(this.selectedProjekt);
-        return projectSearch.$promise.then((projekt) => {
-            // Wenn das Projekt noch nicht existiert, legen wir es an
-            if(projekt.length > 0){
-                return projekt[0];
-            } else {
-                var newProjekt = this.createNewProjekt();
-                return this.projektService.save(newProjekt);
-            }
+      this.projektService.findByName(this.selectedProjekt)
+        .$promise.then((project) => {
+          if(this._isProjectAlreadyExisting(project)){
+            this._saveEinsatz(project[0]);
+          }
+          else{
+            let newProjekt = this._createNewProjekt();
+            this._saveNewProject(newProjekt);
+          }
         });
     }
 
-    createNewProjekt(){
-        var projekt = {
+    _saveNewProject(newProjekt){
+      this.projektService.save(newProjekt)
+        .$promise.then((createdProject) => {
+          this._saveEinsatz(createdProject);
+        })
+    }
+
+    _saveEinsatz(project){
+      this.einsatz.projektId = project.publicId;
+      this.einsatzService.save(this.mitarbeiter.uid, this.einsatz)
+        .$promise.then((createdEinsatz) => {
+        // Jetzt haben wir alle IDs beisammen, um den Einsatz zu speichern
+        let einsatzId = createdEinsatz.publicId;
+        this._createPensum(this.mitarbeiter.uid, einsatzId, this.pensum, createdEinsatz);
+      })
+    }
+
+    _createPensum(mitarbeiterUID, einsatzId, pensum, createdEinsatz){
+      if(!pensum.ende){
+        pensum.ende = new Date(2099, 0, 1);
+      }
+      this.pensumService.save(mitarbeiterUID, einsatzId, pensum)
+        .$promise.then((pensum) => {
+          createdEinsatz._embedded.pensen.push(pensum);
+          this.$uibModalInstance.close(createdEinsatz);
+        })
+    }
+
+    _isProjectAlreadyExisting(project){
+      return project.length > 0;
+    }
+
+    _createNewProjekt(){
+        let projekt = {
             name: this.selectedProjekt,
             oeName: "IT"
         }
-
         return projekt;
     }
 

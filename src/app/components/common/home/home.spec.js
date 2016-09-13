@@ -29,7 +29,7 @@ describe('Home', () => {
     describe('Controller', () => {
         it('has a name property [title]', () => {
             let controller = makeController();
-            expect(controller.title).toBe('ESTA WebJS - Starterkit');
+            expect(controller.title).toBe('Roter Oktober');
         });
         it('has a name property [welcomeMessage]', () => {
             let controller = makeController();
