@@ -29,6 +29,10 @@ export default class PensumConverter {
   _convertDateStringToReadableDate(dateString){
     let timestamp = Date.parse(dateString);
     let date = new Date(timestamp);
+
+    if(date.getFullYear() === 2099){
+      return 'Unbestimmt';
+    }
     return date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
   }
 

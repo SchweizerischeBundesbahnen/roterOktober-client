@@ -62,7 +62,6 @@ class EinsatzCreateController {
       this.projektService.findByName(this.selectedProjekt)
         .$promise.then((project) => {
           if(this._isProjectAlreadyExisting(project)){
-            console.log('Existing Project', project);
             this._saveEinsatz(project[0]);
           }
           else{
@@ -90,6 +89,9 @@ class EinsatzCreateController {
     }
 
     _createPensum(mitarbeiterUID, einsatzId, pensum, createdEinsatz){
+      if(!pensum.ende){
+        pensum.ende = new Date(2099, 0, 1);
+      }
       this.pensumService.save(mitarbeiterUID, einsatzId, pensum)
         .$promise.then((pensum) => {
           createdEinsatz._embedded.pensen.push(pensum);
