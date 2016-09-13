@@ -9,17 +9,17 @@ export default class PensumConverter {
       return undefined;
     }
     let fromYear = parseInt(pensum.anfang.substr(0, pensum.anfang.indexOf('-')));
-    let fromMonth = this._calculateDayOfYear(pensum.anfang);
+    let startingDay = this._calculateDayOfYear(pensum.anfang);
     let untilYear = parseInt(pensum.ende.substr(0, pensum.ende.indexOf('-')));
-    let untilMonth = this._calculateDayOfYear(pensum.ende);
+    let endingDay = this._calculateDayOfYear(pensum.ende);
     let fromDate = this._convertDateStringToReadableDate(pensum.anfang);
     let untilDate = this._convertDateStringToReadableDate(pensum.ende);
 
     return {
       fromYear: fromYear,
-      fromMonth: fromMonth,
+      startingDay: startingDay,
       untilYear: untilYear,
-      untilMonth: untilMonth,
+      endingDay: endingDay,
       fromDate: fromDate,
       untilDate: untilDate,
       pensum: pensum.pensum

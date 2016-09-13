@@ -22,7 +22,7 @@ class TimeaxisCalculator{
   }
 
   _calculateMargin(convertedPensum){
-    return 100 / 365 * convertedPensum.fromMonth;
+    return 100 / 365 * convertedPensum.startingDay;
   }
 
   getWidthForZeitachse(convertedPensum, selectedYear){
@@ -41,10 +41,10 @@ class TimeaxisCalculator{
 
   _calculateWidth(convertedPensum, selectedYear){
     if(convertedPensum.fromYear === selectedYear){
-      return 100 / 365 * (convertedPensum.untilMonth - convertedPensum.fromMonth);
+      return 100 / 365 * (convertedPensum.endingDay - convertedPensum.startingDay);
     }
     if(convertedPensum.untilYear === selectedYear){
-      return (100 / 365 * convertedPensum.untilMonth);
+      return (100 / 365 * convertedPensum.endingDay);
     }
     return '100';
 
