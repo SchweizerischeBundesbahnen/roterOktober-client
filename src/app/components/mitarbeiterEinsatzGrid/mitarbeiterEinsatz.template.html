@@ -25,8 +25,8 @@
                   </a>
                 </td>
                 <td>
-                  <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b>
-                  {{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle }}
+                  <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b> als
+                  {{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle | uppercase }}
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensum="mitarbeiterEinsatz.einsatze[0].pensum"
@@ -37,8 +37,8 @@
               </tr>
               <tr ng-repeat-end ng-repeat="einsatz in mitarbeiterEinsatz.einsatze.slice(1)">
                 <td>
-                  <b>{{ einsatz.projekt.name }}</b>
-                  {{ einsatz.senioritaet }} {{ einsatz.rolle }}
+                  <b>{{ einsatz.projekt.name }}</b> als
+                  {{ einsatz.senioritaet }} {{ einsatz.rolle | uppercase }}
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensum="einsatz.pensum"
