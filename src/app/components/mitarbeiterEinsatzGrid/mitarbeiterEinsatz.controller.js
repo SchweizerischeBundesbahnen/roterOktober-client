@@ -46,7 +46,6 @@ class MitarbeiterEinsatzController{
 
   _getProjekteForEinsatze(mitarbeiter, einsatze){
       let projektEinsaetze = [];
-      console.log('OriginalEinsatz', einsatze);
       einsatze.forEach((einsatz) => {
         this.projektService.getProjektFromEndpoint(einsatz._links.projekt.href)
           .then((response) => {
@@ -65,7 +64,6 @@ class MitarbeiterEinsatzController{
       einsatze: mitarbeiterEinsatze,
     }
     this.mitarbeiterEinsaetze.push(einsatzSummary);
-    console.log('mitarbeiterEinsatze', this.mitarbeiterEinsaetze);
   }
 
   _convertProjektEinsaetze(projektEinsaetze){
