@@ -34,7 +34,7 @@
                   {{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle | uppercase }}
                   <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name"
                     class="glyphicon glyphicon-trash pull-right"
-                    ng-click="$ctrl.deleteEinsatz(mitarbeiterEinsatz.einsatze[0].publicId, outerIndex, $index)">
+                    ng-click="$ctrl.deleteEinsatz(mitarbeiterEinsatz.einsatze[0].publicId)">
                   </span>
                 </td>
                 <td class="timeaxis-td">
@@ -50,7 +50,7 @@
                   {{ einsatz.senioritaet }} {{ einsatz.rolle | uppercase }}
                   <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name"
                     class="glyphicon glyphicon-trash pull-right"
-                    ng-click="$ctrl.deleteEinsatz(einsatz.publicId, outerIndex, $index + 1)">
+                    ng-click="$ctrl.deleteEinsatz(einsatz.publicId)">
                   </span>
                 </td>
                 <td class="timeaxis-td">

@@ -143,7 +143,7 @@ class MitarbeiterEinsatzController{
     this.mitarbeiterEinsaetze[index].einsatze.push(convertedEinsatz);
   }
 
-  deleteEinsatz(einsatzId, mitarbeiterIndex, einsatzIndex){
+  deleteEinsatz(einsatzId){
     //TODO kk: Call Backend when fixed
     /*
     this.einsatzService.deleteEinsatz(einsatzId)
@@ -151,24 +151,18 @@ class MitarbeiterEinsatzController{
         console.log('Reponse', data.response);
       })
     */
-
     //This code comes inside the Callback
-    this._deleteEinsatzFromView(mitarbeiterIndex, einsatzIndex);
+    this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
+      mitarbeiterEinsatz.einsatze = mitarbeiterEinsatz.einsatze
+        .filter(einatz => einatz.publicId !== einsatzId);
+    });
+
   }
 
   deleteMitarbeiter(mitarbeiterUID){
     //Passiert im Callback - wenn auf dem Server alles glatt geht
     this.mitarbeiterEinsaetze = this.mitarbeiterEinsaetze.filter(mitarbeiterEinsatz =>
       mitarbeiterEinsatz.mitarbeiter.uid !== mitarbeiterUID);
-  }
-
-  _deleteEinsatzFromView(mitarbeiterUID, einsatzId){
-    console.log('mitarbeiterIndex', mitarbeiterIndex);
-    console.log('Index', einsatzIndex);
-    /*
-    this.mitarbeiterEinsaetze[mitarbeiterIndex]
-      .einsatze.splice(einsatzIndex, 1);
-    */
   }
 }
 
