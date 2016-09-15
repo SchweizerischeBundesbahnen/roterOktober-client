@@ -156,9 +156,19 @@ class MitarbeiterEinsatzController{
     this._deleteEinsatzFromView(mitarbeiterIndex, einsatzIndex);
   }
 
-  _deleteEinsatzFromView(mitarbeiterIndex, einsatzIndex){
+  deleteMitarbeiter(mitarbeiterUID){
+    //Passiert im Callback - wenn auf dem Server alles glatt geht
+    this.mitarbeiterEinsaetze = this.mitarbeiterEinsaetze.filter(mitarbeiterEinsatz =>
+      mitarbeiterEinsatz.mitarbeiter.uid !== mitarbeiterUID);
+  }
+
+  _deleteEinsatzFromView(mitarbeiterUID, einsatzId){
+    console.log('mitarbeiterIndex', mitarbeiterIndex);
+    console.log('Index', einsatzIndex);
+    /*
     this.mitarbeiterEinsaetze[mitarbeiterIndex]
       .einsatze.splice(einsatzIndex, 1);
+    */
   }
 }
 

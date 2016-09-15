@@ -23,6 +23,10 @@
                       <span class="glyphicon glyphicon-plus-sign"></span>
                       Einsatz erfassen
                   </a>
+                  <span ng-show="mitarbeiterEinsatz.mitarbeiter.name"
+                    class="glyphicon glyphicon-trash pull-right"
+                    ng-click="$ctrl.deleteMitarbeiter(mitarbeiterEinsatz.mitarbeiter.uid)">
+                  </span>
                 </td>
                 <td>
                   <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b>
