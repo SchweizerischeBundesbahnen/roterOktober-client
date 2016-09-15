@@ -21,7 +21,7 @@
                   <br />
                   <a href="" ng-click="$ctrl.createEinsatz(mitarbeiterEinsatz.mitarbeiter, $index)">
                       <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                      Einstaz erfassen
+                      Einsatz erfassen
                   </a>
                 </td>
                 <td>
@@ -33,7 +33,6 @@
                   <zeitachse selected-year="$ctrl.year" pensum="mitarbeiterEinsatz.einsatze[0].pensum"
                     row-index="outerIndex" ng-if="mitarbeiterEinsatz.einsatze[0].pensum"
                     ></zeitachse>
-                  </div>
                 </td>
               </tr>
               <tr ng-repeat-end ng-repeat="einsatz in mitarbeiterEinsatz.einsatze.slice(1)">
