@@ -21,24 +21,25 @@
                   <br />
                   <a href="" ng-click="$ctrl.createEinsatz(mitarbeiterEinsatz.mitarbeiter, $index)">
                       <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                      Einstaz erfassen
+                      Einsatz erfassen
                   </a>
                 </td>
                 <td>
                   <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b>
-                  {{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle }}
+                  <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name && mitarbeiterEinsatz.einsatze[0].senioritaet">als</span>
+                  {{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle | uppercase }}
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensum="mitarbeiterEinsatz.einsatze[0].pensum"
                     row-index="outerIndex" ng-if="mitarbeiterEinsatz.einsatze[0].pensum"
                     ></zeitachse>
-                  </div>
                 </td>
               </tr>
               <tr ng-repeat-end ng-repeat="einsatz in mitarbeiterEinsatz.einsatze.slice(1)">
                 <td>
                   <b>{{ einsatz.projekt.name }}</b>
-                  {{ einsatz.senioritaet }} {{ einsatz.rolle }}
+                  <span ng-show="einsatz.projekt.name && einsatz.senioritaet">als</span>
+                  {{ einsatz.senioritaet }} {{ einsatz.rolle | uppercase }}
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensum="einsatz.pensum"

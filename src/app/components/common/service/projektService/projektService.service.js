@@ -13,7 +13,11 @@ class ProjektServiceService {
     }
 
     getProjektByID(projektId){
-        return this.Projekte.get({"projektId": projektId});
+      return this.Projekte.get({"projektId": projektId});
+    }
+
+    getProjektFromEndpoint(endpoint){
+      return this.$http.get(endpoint);
     }
 
     getProjektByEinsatz(einsatz){

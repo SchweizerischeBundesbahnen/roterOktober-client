@@ -5,10 +5,12 @@ import createEinsatzTemplate from "./einsatzCreate/einsatzCreate.html";
 
 class MitarbeiterEinsatzController{
 
-  constructor(/*ngInject*/ mitarbeiterService, einsatzService, messagesService, $uibModal){
+  constructor(/*ngInject*/ mitarbeiterService, einsatzService, messagesService,
+    $uibModal, projektService){
     this.mitarbeiterService = mitarbeiterService;
     this.einsatzService = einsatzService;
     this.messagesService = messagesService;
+    this.projektService = projektService;
     this.$uibModal = $uibModal;
     this.mitarbeiter = [];
     this.year = parseInt(new Date().getFullYear());
@@ -33,7 +35,7 @@ class MitarbeiterEinsatzController{
       this.einsatzService.getEinsatzForMitarbeiter(mitarbeiter.uid)
         .$promise.then((response) => {
           let einsatze = response;
-          this._createMitarbeiterEinsatz(mitarbeiter, einsatze);
+          this._getProjekteForEinsatze(mitarbeiter, einsatze);
         },
         (error) => {
           this.messagesService.errorMessage('Ooops!! Etwas hat nicht funktioniert', false);
@@ -42,8 +44,26 @@ class MitarbeiterEinsatzController{
     })
   }
 
-  _createMitarbeiterEinsatz(mitarbeiter, einsatze){
-    let mitarbeiterEinsatze = this._convertEinsatze(einsatze);
+  _getProjekteForEinsatze(mitarbeiter, einsatze){
+      let projektEinsaetze = [];
+
+      if(einsatze.length === 0){
+        this._createMitarbeiterEinsatz(mitarbeiter, einsatze);
+      }
+
+      einsatze.forEach((einsatz) => {
+        this.projektService.getProjektFromEndpoint(einsatz._links.projekt.href)
+          .then((response) => {
+            projektEinsaetze.push(this._convertToProjektEinsatz(einsatz, response.data));
+            if(projektEinsaetze.length === einsatze.length){
+              this._createMitarbeiterEinsatz(mitarbeiter, projektEinsaetze);
+            }
+          })
+      });
+  }
+
+  _createMitarbeiterEinsatz(mitarbeiter, projektEinsaetze){
+    let mitarbeiterEinsatze = this._convertProjektEinsaetze(projektEinsaetze);
     let einsatzSummary = {
       mitarbeiter: mitarbeiter,
       einsatze: mitarbeiterEinsatze,
@@ -51,19 +71,20 @@ class MitarbeiterEinsatzController{
     this.mitarbeiterEinsaetze.push(einsatzSummary);
   }
 
-  _convertEinsatze(einsatze){
+  _convertProjektEinsaetze(projektEinsaetze){
     let mitarbeiterEinsatz = [];
-    einsatze.forEach((einsatz) => {
-      mitarbeiterEinsatz.push(this._convertEinsatz(einsatz));
+    projektEinsaetze.forEach((projektEinsatz) => {
+      mitarbeiterEinsatz.push(this._convertProjektEinsatz(projektEinsatz));
     });
     return mitarbeiterEinsatz;
   }
 
-  _convertEinsatz(einsatz){
+  _convertProjektEinsatz(projektEinsatz){
     return {
-      projekt: einsatz.projekt,
-      pensum: einsatz._embedded.pensen[0], //TODO kk: Müssen wir noch mehrere Einsätze unterstützen
-      senioritaet: einsatz.senioritaet
+      projekt: projektEinsatz.projekt,
+      pensum: projektEinsatz.einsatz._embedded.pensen[0], //TODO kk: Müssen wir noch mehrere Einsätze unterstützen
+      senioritaet: projektEinsatz.einsatz.senioritaet,
+      rolle: projektEinsatz.einsatz.rolle
     };
   }
 
@@ -101,12 +122,23 @@ class MitarbeiterEinsatzController{
           }
       })
       .result.then((newEinsatz) => {
-        this._addNewEinsatzToMitarbeiter(newEinsatz, index);
+        this.projektService.getProjektFromEndpoint(newEinsatz._links.projekt.href)
+          .then((response) => {
+            let projektEinsatz = this._convertToProjektEinsatz(newEinsatz, response.data);
+            this._addNewEinsatzToMitarbeiter(projektEinsatz, index);
+          });
       });
   }
 
+  _convertToProjektEinsatz(einsatz, projekt){
+    return {
+      einsatz: einsatz,
+      projekt: projekt
+    }
+  }
+
   _addNewEinsatzToMitarbeiter(newEinsatz, index){
-    let convertedEinsatz = this._convertEinsatz(newEinsatz);
+    let convertedEinsatz = this._convertProjektEinsatz(newEinsatz);
     this.mitarbeiterEinsaetze[index].einsatze.push(convertedEinsatz);
   }
 }
