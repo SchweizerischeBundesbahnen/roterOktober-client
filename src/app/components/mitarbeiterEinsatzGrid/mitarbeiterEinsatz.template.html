@@ -25,7 +25,8 @@
                   </a>
                 </td>
                 <td>
-                  <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b> als
+                  <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b>
+                  <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name && mitarbeiterEinsatz.einsatze[0].senioritaet">als</span>
                   {{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle | uppercase }}
                 </td>
                 <td class="timeaxis-td">
@@ -37,7 +38,8 @@
               </tr>
               <tr ng-repeat-end ng-repeat="einsatz in mitarbeiterEinsatz.einsatze.slice(1)">
                 <td>
-                  <b>{{ einsatz.projekt.name }}</b> als
+                  <b>{{ einsatz.projekt.name }}</b>
+                  <span ng-show="einsatz.projekt.name && einsatz.senioritaet">als</span>
                   {{ einsatz.senioritaet }} {{ einsatz.rolle | uppercase }}
                 </td>
                 <td class="timeaxis-td">

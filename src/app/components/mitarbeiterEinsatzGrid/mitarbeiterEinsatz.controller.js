@@ -46,6 +46,11 @@ class MitarbeiterEinsatzController{
 
   _getProjekteForEinsatze(mitarbeiter, einsatze){
       let projektEinsaetze = [];
+
+      if(einsatze.length === 0){
+        this._createMitarbeiterEinsatz(mitarbeiter, einsatze);
+      }
+
       einsatze.forEach((einsatz) => {
         this.projektService.getProjektFromEndpoint(einsatz._links.projekt.href)
           .then((response) => {
@@ -54,7 +59,7 @@ class MitarbeiterEinsatzController{
               this._createMitarbeiterEinsatz(mitarbeiter, projektEinsaetze);
             }
           })
-      })
+      });
   }
 
   _createMitarbeiterEinsatz(mitarbeiter, projektEinsaetze){
