@@ -2,7 +2,7 @@
 <messages></messages>
 <main>
   <div class="container-fluid bg-white">
-    <div class="row col-lg-offset-1 col-lg-10">
+    <div class="row col-lg-12">
           <table id="einsatzTabelle" class="table table-bordered">
             <thead class="thead-inverse">
               <tr>
@@ -20,7 +20,7 @@
                   {{mitarbeiterEinsatz.mitarbeiter.name}} {{mitarbeiterEinsatz.mitarbeiter.vorname}}
                   <br />
                   <a href="" ng-click="$ctrl.createEinsatz(mitarbeiterEinsatz.mitarbeiter, $index)">
-                      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                      <span class="glyphicon glyphicon-plus-sign"></span>
                       Einsatz erfassen
                   </a>
                 </td>
@@ -28,6 +28,10 @@
                   <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b>
                   <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name && mitarbeiterEinsatz.einsatze[0].senioritaet">als</span>
                   {{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle | uppercase }}
+                  <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name"
+                    class="glyphicon glyphicon-trash pull-right"
+                    ng-click="$ctrl.deleteEinsatz(mitarbeiterEinsatz.einsatze[0].publicId, outerIndex, $index)">
+                  </span>
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensum="mitarbeiterEinsatz.einsatze[0].pensum"
@@ -40,6 +44,10 @@
                   <b>{{ einsatz.projekt.name }}</b>
                   <span ng-show="einsatz.projekt.name && einsatz.senioritaet">als</span>
                   {{ einsatz.senioritaet }} {{ einsatz.rolle | uppercase }}
+                  <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name"
+                    class="glyphicon glyphicon-trash pull-right"
+                    ng-click="$ctrl.deleteEinsatz(einsatz.publicId, outerIndex, $index + 1)">
+                  </span>
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensum="einsatz.pensum"

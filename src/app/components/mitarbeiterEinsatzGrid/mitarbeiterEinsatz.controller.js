@@ -84,7 +84,8 @@ class MitarbeiterEinsatzController{
       projekt: projektEinsatz.projekt,
       pensum: projektEinsatz.einsatz._embedded.pensen[0], //TODO kk: Müssen wir noch mehrere Einsätze unterstützen
       senioritaet: projektEinsatz.einsatz.senioritaet,
-      rolle: projektEinsatz.einsatz.rolle
+      rolle: projektEinsatz.einsatz.rolle,
+      publicId: projektEinsatz.einsatz.publicId
     };
   }
 
@@ -140,6 +141,24 @@ class MitarbeiterEinsatzController{
   _addNewEinsatzToMitarbeiter(newEinsatz, index){
     let convertedEinsatz = this._convertProjektEinsatz(newEinsatz);
     this.mitarbeiterEinsaetze[index].einsatze.push(convertedEinsatz);
+  }
+
+  deleteEinsatz(einsatzId, mitarbeiterIndex, einsatzIndex){
+    //TODO kk: Call Backend when fixed
+    /*
+    this.einsatzService.deleteEinsatz(einsatzId)
+      .then((data) => {
+        console.log('Reponse', data.response);
+      })
+    */
+
+    //This code comes inside the Callback
+    this._deleteEinsatzFromView(mitarbeiterIndex, einsatzIndex);
+  }
+
+  _deleteEinsatzFromView(mitarbeiterIndex, einsatzIndex){
+    this.mitarbeiterEinsaetze[mitarbeiterIndex]
+      .einsatze.splice(einsatzIndex, 1);
   }
 }
 
