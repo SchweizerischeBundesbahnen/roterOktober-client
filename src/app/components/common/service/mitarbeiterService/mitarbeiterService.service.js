@@ -18,11 +18,15 @@ class MitarbeiterService {
      * @param userId U-Nummer des Benutzers
      */
     getByUserid(userId){
-        return this.Mitarbeiter.get({uid: userId});
+      return this.Mitarbeiter.get({uid: userId});
     }
 
     save(mitarbeiter){
-        return this.Mitarbeiter.save(mitarbeiter);
+      return this.Mitarbeiter.save(mitarbeiter);
+    }
+
+    deleteMitarbeiter(userId){
+      return this.Mitarbeiter.remove({uid: userId});
     }
 
 }
