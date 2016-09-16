@@ -108,14 +108,20 @@
         </plugins>
     </build>
 
+    <scm>
+        <connection>scm:git:https://github.com/SchweizerischeBundesbahnen/roterOktober-client.git</connection>
+        <developerConnection>scm:git:https://github.com/SchweizerischeBundesbahnen/roterOktober-client.git</developerConnection>
+        <url>scm:git:https://github.com/SchweizerischeBundesbahnen/roterOktober-client.git</url>
+    </scm>
+
     <distributionManagement>
         <repository>
-            <id>hosted.esta-webjs.releases</id>
-            <url>${nexus_release_url}</url>
+            <id>hosted.roteroktober.releases</id>
+            <url>http://repo.sbb.ch/content/repositories/hosted.roteroktober.releases</url>
         </repository>
         <snapshotRepository>
-            <id>hosted.esta-webjs.snapshots</id>
-            <url>${nexus_snapshot_url}</url>
+            <id>hosted.roteroktober.snapshots</id>
+            <url>http://repo.sbb.ch/content/repositories/hosted.roteroktober.snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
