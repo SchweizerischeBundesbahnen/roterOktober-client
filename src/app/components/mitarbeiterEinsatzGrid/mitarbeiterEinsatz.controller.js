@@ -86,7 +86,7 @@ class MitarbeiterEinsatzController{
       ende: '2016-11-17T22:00:00.000Z',
       pensum: 80
     }
-    //projektEinsatz.einsatz._embedded.pensen.push(fakePensum);
+    projektEinsatz.einsatz._embedded.pensen.push(fakePensum);
 
     return {
       projekt: projektEinsatz.projekt,

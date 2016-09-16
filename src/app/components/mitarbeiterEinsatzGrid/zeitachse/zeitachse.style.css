@@ -1,4 +1,9 @@
 .timeaxis {
-    margin: auto;
-    background: transparent;
+  margin: auto;
+  background: transparent;
+  position:relative;
+}
+
+.progress-bar{
+  position: absolute;
 }
