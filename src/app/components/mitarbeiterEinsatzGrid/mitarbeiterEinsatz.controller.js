@@ -160,9 +160,15 @@ class MitarbeiterEinsatzController{
   }
 
   deleteMitarbeiter(mitarbeiterUID){
-    //Passiert im Callback - wenn auf dem Server alles glatt geht
-    this.mitarbeiterEinsaetze = this.mitarbeiterEinsaetze.filter(mitarbeiterEinsatz =>
-      mitarbeiterEinsatz.mitarbeiter.uid !== mitarbeiterUID);
+    this.mitarbeiterService.deleteMitarbeiter(mitarbeiterUID)
+      .$promise.then(() => {
+        this.mitarbeiterEinsaetze = this.mitarbeiterEinsaetze.filter(mitarbeiterEinsatz =>
+          mitarbeiterEinsatz.mitarbeiter.uid !== mitarbeiterUID);
+      },
+      (error) => {
+        this.messagesService.errorMessage('Ooops!! beim Löschen ist ein Fehler aufgetreten', false);
+      }
+    )
   }
 }
 
