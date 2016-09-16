@@ -144,19 +144,17 @@ class MitarbeiterEinsatzController{
   }
 
   deleteEinsatz(einsatzId){
-    //TODO kk: Call Backend when fixed
-    /*
     this.einsatzService.deleteEinsatz(einsatzId)
       .then((data) => {
-        console.log('Reponse', data.response);
-      })
-    */
-    //This code comes inside the Callback
-    this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
-      mitarbeiterEinsatz.einsatze = mitarbeiterEinsatz.einsatze
-        .filter(einatz => einatz.publicId !== einsatzId);
-    });
-
+        this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
+          mitarbeiterEinsatz.einsatze = mitarbeiterEinsatz.einsatze
+            .filter(einatz => einatz.publicId !== einsatzId);
+        });
+      },
+      (error) => {
+        this.messagesService.errorMessage('Ooops!! beim Löschen ist ein Fehler aufgetreten', false);
+      }
+    )
   }
 
   deleteMitarbeiter(mitarbeiterUID){
