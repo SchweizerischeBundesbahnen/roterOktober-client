@@ -4,7 +4,15 @@ export default class PensumConverter {
     this.SECONDS_PER_DAY = 86400000;
   }
 
-  convertPensum(pensum){
+  convertPensen(pensen){
+    let convertedPensen = [];
+    pensen.forEach(pensum => {
+      convertedPensen.push(this._convertPensum(pensum));
+    })
+    return convertedPensen;
+  }
+
+  _convertPensum(pensum){
     if(!pensum){
       return undefined;
     }

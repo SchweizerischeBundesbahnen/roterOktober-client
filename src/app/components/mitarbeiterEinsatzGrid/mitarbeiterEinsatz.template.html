@@ -30,8 +30,8 @@
                   {{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle | uppercase }}
                 </td>
                 <td class="timeaxis-td">
-                  <zeitachse selected-year="$ctrl.year" pensum="mitarbeiterEinsatz.einsatze[0].pensum"
-                    row-index="outerIndex" ng-if="mitarbeiterEinsatz.einsatze[0].pensum"
+                  <zeitachse selected-year="$ctrl.year" pensen="mitarbeiterEinsatz.einsatze[0].pensen"
+                    row-index="outerIndex" ng-if="mitarbeiterEinsatz.einsatze[0].pensen"
                     ></zeitachse>
                 </td>
               </tr>
@@ -42,8 +42,8 @@
                   {{ einsatz.senioritaet }} {{ einsatz.rolle | uppercase }}
                 </td>
                 <td class="timeaxis-td">
-                  <zeitachse selected-year="$ctrl.year" pensum="einsatz.pensum"
-                    row-index="outerIndex" ng-if="einsatz.pensum"
+                  <zeitachse selected-year="$ctrl.year" pensen="einsatz.pensen"
+                    row-index="outerIndex" ng-if="einsatz.pensen"
                     >
                   </zeitachse>
                 </td>

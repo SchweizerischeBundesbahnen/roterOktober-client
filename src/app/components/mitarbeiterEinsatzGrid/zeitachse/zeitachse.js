@@ -12,7 +12,7 @@ let zeitachseModule = angular.module('zeitachseModul', [timeaxisCalculatorModule
     template,
     controller,
     bindings: {
-      pensum: '<',
+      pensen: '<',
       selectedYear: '<',
       rowIndex: '<',
       color: '<'

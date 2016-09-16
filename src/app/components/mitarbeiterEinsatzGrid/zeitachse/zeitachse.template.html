@@ -1,13 +1,22 @@
 <div class="progress timeaxis">
-  <div class="progress-bar col-lg-12"
-    role="progressbar" role="progressbar"
-    style="margin-left: {{ $ctrl.getZeitachseMargin() }}%; width: {{ $ctrl.getWidthForZeitachse() }}%"
+  <div class="progress-bar col-lg-12" ng-repeat="pensum in $ctrl.convertedPensen"
+    style="margin-left: {{ $ctrl.getZeitachseMargin(pensum) }}%; width: {{ $ctrl.getWidthForZeitachse(pensum) }}%"
     ng-class="$ctrl.rowIndex % 2 === 0 ? 'progress-bar-success' : progress-bar-info"
-    ng-show="$ctrl.isYearOutsideEinsatz()"
-    uib-tooltip="{{ $ctrl.convertedPensum.fromDate }} - {{ $ctrl.convertedPensum.untilDate }}"
+    ng-show="$ctrl.isYearOutsideEinsatz(pensum)"
+    uib-tooltip="{{ pensum.fromDate }} - {{ pensum.untilDate }}"
     >
-    <span ng-show="$ctrl.isYearOutsideEinsatz()">
-      {{ $ctrl.convertedPensum.pensum }} %
+    <span ng-show="$ctrl.isYearOutsideEinsatz(pensum)">
+      {{ pensum.pensum }} %
     </span>
+  </div>
+</div>
+
+
+<div class="progress">
+  <div class="progress-bar progress-bar-success" style="margin-left: 20%; width: 30%">
+    <span class="sr-only">35% Complete (success)</span>
+  </div>
+  <div class="progress-bar progress-bar-warning progress-bar-striped" style="margin-left: 10%; width: 30%">
+    <span class="sr-only">20% Complete (warning)</span>
   </div>
 </div>

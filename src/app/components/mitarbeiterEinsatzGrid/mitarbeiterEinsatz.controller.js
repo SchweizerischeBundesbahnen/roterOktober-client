@@ -80,9 +80,17 @@ class MitarbeiterEinsatzController{
   }
 
   _convertProjektEinsatz(projektEinsatz){
+    let fakePensum = {
+      publicId: 'ES2CKJOLUS',
+      anfang: '2016-08-02T23:00:00.000Z',
+      ende: '2016-11-17T22:00:00.000Z',
+      pensum: 80
+    }
+    //projektEinsatz.einsatz._embedded.pensen.push(fakePensum);
+
     return {
       projekt: projektEinsatz.projekt,
-      pensum: projektEinsatz.einsatz._embedded.pensen[0], //TODO kk: Müssen wir noch mehrere Einsätze unterstützen
+      pensen: projektEinsatz.einsatz._embedded.pensen, //TODO kk: Müssen wir noch mehrere Einsätze unterstützen
       senioritaet: projektEinsatz.einsatz.senioritaet,
       rolle: projektEinsatz.einsatz.rolle
     };
