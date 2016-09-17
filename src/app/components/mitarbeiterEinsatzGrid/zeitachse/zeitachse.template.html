@@ -4,6 +4,7 @@
     ng-class="$ctrl.rowIndex % 2 === 0 ? 'progress-bar-success' : progress-bar-info"
     ng-show="$ctrl.isYearOutsideEinsatz(pensum)"
     uib-tooltip="{{ pensum.fromDate }} - {{ pensum.untilDate }}"
+    tooltip-append-to-body="true"
     >
     <span ng-show="$ctrl.isYearOutsideEinsatz(pensum)">
       {{ pensum.pensum }} %

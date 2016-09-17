@@ -135,7 +135,7 @@ class EinsatzCreateController {
     }
 
     addPensum(){
-      this.pensumService.save(this.mitarbeiter.uid, this.existingEinsatz.projekt.publicId, this.pensum)
+      this.pensumService.save(this.mitarbeiter.uid, this.existingEinsatz.einsatzId, this.pensum)
         .$promise.then((response) => {
           console.log('Die Antwort', response);
         });

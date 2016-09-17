@@ -85,7 +85,8 @@ class MitarbeiterEinsatzController{
       projekt: projektEinsatz.projekt,
       pensen: projektEinsatz.einsatz._embedded.pensen,
       senioritaet: projektEinsatz.einsatz.senioritaet,
-      rolle: projektEinsatz.einsatz.rolle
+      rolle: projektEinsatz.einsatz.rolle,
+      einsatzId: projektEinsatz.einsatz.publicId
     };
   }
 
