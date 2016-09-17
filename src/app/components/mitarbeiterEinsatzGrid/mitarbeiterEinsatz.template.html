@@ -20,7 +20,7 @@
                   {{mitarbeiterEinsatz.mitarbeiter.name}} {{mitarbeiterEinsatz.mitarbeiter.vorname}}
                   <br />
                   <a href="" ng-click="$ctrl.createEinsatz(mitarbeiterEinsatz.mitarbeiter, $index)">
-                      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                      <span class="glyphicon glyphicon-plus-sign"></span>
                       Einsatz erfassen
                   </a>
                 </td>
@@ -28,6 +28,10 @@
                   <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b>
                   <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name && mitarbeiterEinsatz.einsatze[0].senioritaet">als</span>
                   {{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle | uppercase }}
+                  <a href="" ng-click="$ctrl.addPensum(mitarbeiterEinsatz.mitarbeiter, mitarbeiterEinsatz.einsatze[0])">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    Pensum erfassen
+                  </a>
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensen="mitarbeiterEinsatz.einsatze[0].pensen"
@@ -43,8 +47,7 @@
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensen="einsatz.pensen"
-                    row-index="outerIndex" ng-if="einsatz.pensen"
-                    >
+                    row-index="outerIndex" ng-if="einsatz.pensen" add-pensum="$ctrl.addPensum()">
                   </zeitachse>
                 </td>
               </tr>

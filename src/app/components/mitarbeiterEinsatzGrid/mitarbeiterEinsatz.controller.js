@@ -69,6 +69,7 @@ class MitarbeiterEinsatzController{
       einsatze: mitarbeiterEinsatze,
     }
     this.mitarbeiterEinsaetze.push(einsatzSummary);
+    console.log('mitarbeiterEinsatze', this.mitarbeiterEinsaetze);
   }
 
   _convertProjektEinsaetze(projektEinsaetze){
@@ -80,17 +81,9 @@ class MitarbeiterEinsatzController{
   }
 
   _convertProjektEinsatz(projektEinsatz){
-    let fakePensum = {
-      publicId: 'ES2CKJOLUS',
-      anfang: '2016-08-02T23:00:00.000Z',
-      ende: '2016-11-17T22:00:00.000Z',
-      pensum: 80
-    }
-    projektEinsatz.einsatz._embedded.pensen.push(fakePensum);
-
     return {
       projekt: projektEinsatz.projekt,
-      pensen: projektEinsatz.einsatz._embedded.pensen, //TODO kk: Müssen wir noch mehrere Einsätze unterstützen
+      pensen: projektEinsatz.einsatz._embedded.pensen,
       senioritaet: projektEinsatz.einsatz.senioritaet,
       rolle: projektEinsatz.einsatz.rolle
     };
@@ -124,9 +117,8 @@ class MitarbeiterEinsatzController{
           bindToController: true,
           controllerAs: '$ctrl',
           resolve: {
-              mitarbeiter: function(){
-                  return mitarbeiter
-              }
+              mitarbeiter: () => mitarbeiter,
+              existingEinsatz: () => undefined
           }
       })
       .result.then((newEinsatz) => {
@@ -148,6 +140,21 @@ class MitarbeiterEinsatzController{
   _addNewEinsatzToMitarbeiter(newEinsatz, index){
     let convertedEinsatz = this._convertProjektEinsatz(newEinsatz);
     this.mitarbeiterEinsaetze[index].einsatze.push(convertedEinsatz);
+  }
+
+
+  addPensum(mitarbeiter, einsatz){
+    this.$uibModal.open({
+        animation: true,
+        template: createEinsatzTemplate,
+        controller: createEinsatzController,
+        bindToController: true,
+        controllerAs: '$ctrl',
+        resolve: {
+            mitarbeiter: () => mitarbeiter,
+            existingEinsatz: () => einsatz
+        }
+    })
   }
 }
 
