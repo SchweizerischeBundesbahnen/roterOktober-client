@@ -6,3 +6,13 @@
 #einsatzTabelle tbody>tr>td{
   vertical-align: middle;
 }
+
+td.mitarbeiterInfo .name {
+  display: inline;
+}
+
+td.mitarbeiterInfo .oe {
+  display: inline;
+  font-size: smaller;
+  font-style: italic;
+}
