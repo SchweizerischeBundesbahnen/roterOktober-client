@@ -6,16 +6,21 @@
           <table id="einsatzTabelle" class="table table-bordered">
             <thead class="thead-inverse">
               <tr>
-              <th class="col-lg-2">Mitarbeiter</th>
-              <th class="col-lg-2">Projekte</th>
-              <th class="col-lg-8">
-                <jahres-auswahl year="$ctrl.year"></jahres-auswahl>
-                <monats-anzeige></monats-anzeige>
-              </th>
-            </tr>
+                <th colspan="2" class="col-lg-4 searchRow">
+                  <input type="text" class="form-control" ng-model="$ctrl.searchTerm" placeholder="Suche"/>
+                </th>
+                <th class="col-lg-8" rowspan="2">
+                  <jahres-auswahl year="$ctrl.year"></jahres-auswahl>
+                  <monats-anzeige></monats-anzeige>
+                </th>
+              </tr>
+              <tr>
+                <th class="col-lg-2">Mitarbeiter</th>
+                <th class="col-lg-2">Projekte</th>
+              </tr>
             </thead>
             <tbody>
-              <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze" ng-init="outerIndex = $index">
+              <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze | filter: $ctrl.searchTerm" ng-init="outerIndex = $index">
                 <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}" class="mitarbeiterInfo">
                   <div>
                     <div class="name">{{mitarbeiterEinsatz.mitarbeiter.name}}
