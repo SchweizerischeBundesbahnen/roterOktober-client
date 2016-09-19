@@ -14,9 +14,10 @@ import Navbar from './navbar/navbar';
 import Posts from './posts/posts';
 import Messages from './messages/messages';
 import service from './service/service';
+import confirmDialog from './confirmdialog/confirmDialog';
 
 let commonModule = angular.module('app.components.common', [
-    Home.name, Navbar.name, Posts.name, Messages.name, service.name
+    Home.name, Navbar.name, Posts.name, Messages.name, service.name, confirmDialog.name
 ]);
 
 export default commonModule;
