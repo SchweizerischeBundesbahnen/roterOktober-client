@@ -1,15 +1,15 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 
-import template from './mitarbeiterEinsatz.template.html';
-import controller from './mitarbeiterEinsatz.controller';
+import template from './einsaetze.html';
+import controller from './einsaetze.controller';
 import jahresAuswahlModule from './jahresAuswahl/jahresAuswahl';
 import zeitachseModule from './zeitachse/zeitachse';
 import monatsAnzeigeModul from './montasanzeige/monatsanzeige';
 
-import styles from './mitarbeiterEinsatz.style.css';
+import styles from './einsaetze.css';
 
-let mitarbeiterEinsatz = angular.module('mitarbeiterEinsatz', [jahresAuswahlModule.name,
+let einsaetze = angular.module('einsaetze', [jahresAuswahlModule.name,
   zeitachseModule.name, monatsAnzeigeModul.name])
     .config(/*@ngInject*/($stateProvider, $urlRouterProvider) => {
       $stateProvider.state('einsaetze', {
@@ -21,4 +21,4 @@ let mitarbeiterEinsatz = angular.module('mitarbeiterEinsatz', [jahresAuswahlModu
         controller
     })
 
-export default mitarbeiterEinsatz;
+export default einsaetze;
