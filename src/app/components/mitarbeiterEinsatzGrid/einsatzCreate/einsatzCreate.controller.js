@@ -135,6 +135,9 @@ class EinsatzCreateController {
     }
 
     addPensum(){
+      if(!this.pensum.ende){
+        this.pensum.ende = new Date(2099, 0, 1);
+      }
       this.pensumService.save(this.mitarbeiter.uid, this.existingEinsatz.einsatzId, this.pensum)
         .$promise.then((response) => {
           this.$uibModalInstance.close(response);
