@@ -135,10 +135,20 @@ class EinsatzCreateController {
     }
 
     addPensum(){
+      let fakeResponse = {
+        anfang: "2016-02-14T22:00:00.000Z",
+        ende: "2016-05-18T22:00:00.000Z",
+        pensum: 100,
+        publicId: "ES895Q5IN8"
+      }
+      //TODO kk: Fix when Server is ready
+      /*
       this.pensumService.save(this.mitarbeiter.uid, this.existingEinsatz.einsatzId, this.pensum)
         .$promise.then((response) => {
           console.log('Die Antwort', response);
         });
+      */
+      this.$uibModalInstance.close(fakeResponse);
     }
 }
 

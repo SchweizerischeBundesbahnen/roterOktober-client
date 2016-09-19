@@ -155,7 +155,18 @@ class MitarbeiterEinsatzController{
             mitarbeiter: () => mitarbeiter,
             existingEinsatz: () => einsatz
         }
-    })
+    }).
+    result.then((newPensum) => {
+      this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
+          mitarbeiterEinsatz.einsatze.forEach((e) => {
+            if(e.einsatzId === einsatz.einsatzId){
+              e.pensen.push(newPensum);
+            }
+          })
+        })
+      //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
+      this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
+    });
   }
 }
 
