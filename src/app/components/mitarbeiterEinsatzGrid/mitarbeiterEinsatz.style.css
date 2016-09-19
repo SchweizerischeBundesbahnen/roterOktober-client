@@ -7,6 +7,10 @@
   vertical-align: middle;
 }
 
+.table > thead > tr > th{
+  vertical-align: middle;
+}
+
 td.mitarbeiterInfo .name {
   display: inline;
 }
