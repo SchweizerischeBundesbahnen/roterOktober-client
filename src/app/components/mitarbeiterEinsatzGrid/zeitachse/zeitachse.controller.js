@@ -1,11 +1,9 @@
 class ZeitachseController{
 
   constructor(pensumConverter, timeaxisCalculatorService){
-    console.log('I am rendered with', this.pensen);
     this.pensumConverter = pensumConverter;
     this.timeaxisCalculator = timeaxisCalculatorService;
     this.convertedPensen = this.pensumConverter.convertPensen(this.pensen);
-    this.$onChanges = () => console.log('Hallo');
   }
 
   getZeitachseMargin(pensum){

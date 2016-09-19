@@ -147,7 +147,7 @@ class MitarbeiterEinsatzController{
       .then((data) => {
         this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
           mitarbeiterEinsatz.einsatze = mitarbeiterEinsatz.einsatze
-            .filter(einatz => einatz.publicId !== einsatzId);
+            .filter(einatz => einatz.einsatzId !== einsatzId);
         });
       },
       (error) => {

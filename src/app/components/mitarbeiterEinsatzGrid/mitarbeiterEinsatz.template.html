@@ -36,13 +36,15 @@
                   <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b>
                   <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name && mitarbeiterEinsatz.einsatze[0].senioritaet">als</span>
                   {{ mitarbeiterEinsatz.einsatze[0].senioritaet }} {{ mitarbeiterEinsatz.einsatze[0].rolle | uppercase }}
-                  <a href="" ng-click="$ctrl.addPensum(mitarbeiterEinsatz.mitarbeiter, mitarbeiterEinsatz.einsatze[0])">
+                  <br />
+                  <a href="" ng-show="mitarbeiterEinsatz.einsatze[0]"
+                  ng-click="$ctrl.addPensum(mitarbeiterEinsatz.mitarbeiter, mitarbeiterEinsatz.einsatze[0])">
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     Pensum erfassen
                   </a>
                   <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name"
                     class="glyphicon glyphicon-trash pull-right"
-                    ng-click="$ctrl.deleteEinsatz(mitarbeiterEinsatz.einsatze[0].publicId)">
+                    ng-click="$ctrl.deleteEinsatz(mitarbeiterEinsatz.einsatze[0].einsatzId)">
                   </span>
                 </td>
                 <td class="timeaxis-td">
@@ -56,9 +58,15 @@
                   <b>{{ einsatz.projekt.name }}</b>
                   <span ng-show="einsatz.projekt.name && einsatz.senioritaet">als</span>
                   {{ einsatz.senioritaet }} {{ einsatz.rolle | uppercase }}
+                  <br />
+                  <a href="" ng-show="einsatz"
+                  ng-click="$ctrl.addPensum(mitarbeiterEinsatz.mitarbeiter, einsatz)">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    Pensum erfassen
+                  </a>
                   <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name"
                     class="glyphicon glyphicon-trash pull-right"
-                    ng-click="$ctrl.deleteEinsatz(einsatz.publicId)">
+                    ng-click="$ctrl.deleteEinsatz(einsatz.einsatzId)">
                   </span>
                 </td>
                 <td class="timeaxis-td">
