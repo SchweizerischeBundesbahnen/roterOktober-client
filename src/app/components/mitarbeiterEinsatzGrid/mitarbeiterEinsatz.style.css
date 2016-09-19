@@ -2,3 +2,7 @@
   background-image: linear-gradient(to left, #e6f2ff 50%, transparent 50%);
   background-size: 16.66% 100%;
 }
+
+#einsatzTabelle tbody>tr>td{
+  vertical-align: middle;
+}
