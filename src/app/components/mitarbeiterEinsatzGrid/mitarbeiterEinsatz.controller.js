@@ -83,10 +83,10 @@ class MitarbeiterEinsatzController{
   _convertProjektEinsatz(projektEinsatz){
     return {
       projekt: projektEinsatz.projekt,
-      pensum: projektEinsatz.einsatz._embedded.pensen[0], //TODO kk: Müssen wir noch mehrere Einsätze unterstützen
+      pensen: projektEinsatz.einsatz._embedded.pensen,
       senioritaet: projektEinsatz.einsatz.senioritaet,
       rolle: projektEinsatz.einsatz.rolle,
-      publicId: projektEinsatz.einsatz.publicId
+      einsatzId: projektEinsatz.einsatz.publicId
     };
   }
 
@@ -118,9 +118,8 @@ class MitarbeiterEinsatzController{
           bindToController: true,
           controllerAs: '$ctrl',
           resolve: {
-              mitarbeiter: function(){
-                  return mitarbeiter
-              }
+              mitarbeiter: () => mitarbeiter,
+              existingEinsatz: () => undefined
           }
       })
       .result.then((newEinsatz) => {
@@ -149,7 +148,7 @@ class MitarbeiterEinsatzController{
       .then((data) => {
         this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
           mitarbeiterEinsatz.einsatze = mitarbeiterEinsatz.einsatze
-            .filter(einatz => einatz.publicId !== einsatzId);
+            .filter(einatz => einatz.einsatzId !== einsatzId);
         });
       },
       (error) => {
@@ -168,6 +167,32 @@ class MitarbeiterEinsatzController{
         this.messagesService.errorMessage('Ooops!! beim Löschen ist ein Fehler aufgetreten', false);
       }
     )
+  }
+
+
+  addPensum(mitarbeiter, einsatz){
+    this.$uibModal.open({
+        animation: true,
+        template: createEinsatzTemplate,
+        controller: createEinsatzController,
+        bindToController: true,
+        controllerAs: '$ctrl',
+        resolve: {
+            mitarbeiter: () => mitarbeiter,
+            existingEinsatz: () => einsatz
+        }
+    }).
+    result.then((newPensum) => {
+      this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
+          mitarbeiterEinsatz.einsatze.forEach((e) => {
+            if(e.einsatzId === einsatz.einsatzId){
+              e.pensen.push(newPensum);
+            }
+          })
+        })
+      //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
+      this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
+    });
   }
 }
 

@@ -10,18 +10,21 @@
                    id="projektInput"
                    placeholder="Projekt"
                    autocomplete="off"
+                   ng-disabled="$ctrl.isEinsatzExisting"
                    ng-model="$ctrl.selectedProjekt"
                    uib-typeahead="project for project in $ctrl.searchByName($viewValue)"
                    typeahead-loading="loadingLocations"
                    typeahead-no-results="$ctrl.projektNotFound">
         </div>
         <div ng-show="$ctrl.projektNotFound">
-            Kein Projekt gefunden
+            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+            Kein Projekt gefunden - Ein neues Projekt mit dem Namen "{{ $ctrl.selectedProjekt }}" wird angelegt
         </div>
 
         <div class="form-group">
             <label for="senioritaetInput">Seniorität:</label>
-            <select id="senioritaetInput" class="form-control" ng-model="$ctrl.einsatz.senioritaet">
+            <select id="senioritaetInput" class="form-control" ng-model="$ctrl.einsatz.senioritaet"
+            ng-disabled="$ctrl.isEinsatzExisting">
                 <option value="junior">Junior</option>
                 <option value="prof">Professional</option>
                 <option value="senior">Senior</option>
@@ -30,7 +33,8 @@
 
         <div class="form-group">
             <label for="rolleInput">Rolle:</label>
-            <select id="rolleInput" class="form-control" ng-model="$ctrl.einsatz.rolle">
+            <select id="rolleInput" class="form-control" ng-model="$ctrl.einsatz.rolle"
+            ng-disabled="$ctrl.isEinsatzExisting">
                 <option value="ae">Application Engineer</option>
                 <option value="sa">Software Architect</option>
                 <option value="tm">Test Manager</option>
@@ -71,7 +75,8 @@
       </span>
             </p>
         </div>
-        <button type="submit" class="btn btn-primary" ng-click="$ctrl.save()">Speichern</button>
+        <button type="submit" class="btn btn-primary" ng-if="!$ctrl.isEinsatzExisting" ng-click="$ctrl.save()">Speichern</button>
+        <button type="submit" class="btn btn-primary" ng-if="$ctrl.isEinsatzExisting" ng-click="$ctrl.addPensum()">Pensum erfassen</button>
         <button type="submit" class="btn btn-default" ng-click="$ctrl.cancel()">Abbrechen</button>
     </form>
 </div>

@@ -4,20 +4,19 @@ class ZeitachseController{
   constructor(pensumConverter, timeaxisCalculatorService){
     this.pensumConverter = pensumConverter;
     this.timeaxisCalculator = timeaxisCalculatorService;
-    this.convertedPensum = this.pensumConverter.convertPensum(this.pensum);
+    this.convertedPensen = this.pensumConverter.convertPensen(this.pensen);
   }
 
-  getZeitachseMargin(){
-    return this.timeaxisCalculator.getZeitachseMargin(this.convertedPensum, this.selectedYear);
+  getZeitachseMargin(pensum){
+    return this.timeaxisCalculator.getZeitachseMargin(pensum, this.selectedYear);
   }
 
-  getWidthForZeitachse(){
-    return this.timeaxisCalculator.getWidthForZeitachse(this.convertedPensum, this.selectedYear);
+  getWidthForZeitachse(pensum){
+    return this.timeaxisCalculator.getWidthForZeitachse(pensum, this.selectedYear);
   }
 
-  isYearOutsideEinsatz(){
-    return this.timeaxisCalculator.isYearOutsideEinsatz(this.convertedPensum, this.selectedYear);
+  isYearOutsideEinsatz(pensum){
+    return this.timeaxisCalculator.isYearOutsideEinsatz(pensum, this.selectedYear);
   }
-
 }
 export default ZeitachseController;

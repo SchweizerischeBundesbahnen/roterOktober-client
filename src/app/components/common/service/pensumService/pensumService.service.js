@@ -10,8 +10,8 @@ class PensumService {
         return this.$http.get(pensenUrl);
     }
 
-    save(userId, pensumId, pensum){
-        return this.Pensum.save({uid: userId, einsatz: pensumId}, pensum);
+    save(userId, einsatzId, pensum){
+        return this.Pensum.save({uid: userId, einsatz: einsatzId}, pensum);
     }
 }
 

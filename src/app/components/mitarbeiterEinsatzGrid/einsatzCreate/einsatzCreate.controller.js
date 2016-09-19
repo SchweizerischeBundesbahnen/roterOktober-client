@@ -1,39 +1,53 @@
 class EinsatzCreateController {
 
     /*@ngInject*/
-    constructor($uibModalInstance, mitarbeiter, projektService, einsatzService, pensumService) {
+    constructor($uibModalInstance, mitarbeiter, existingEinsatz,
+      projektService, einsatzService, pensumService) {
         this.$uibModalInstance = $uibModalInstance;
         this.mitarbeiter = mitarbeiter;
+        this.existingEinsatz = existingEinsatz;
         this.projektService = projektService;
         this.einsatzService = einsatzService;
         this.pensumService = pensumService;
+        this.isEinsatzExisting = false;
 
-        // Leere Objekte erstellen
-        this.einsatz = this.createEmptyEinsatz();
+        if(this.existingEinsatz){
+          this.isEinsatzExisting = true;
+          this.selectedProjekt = this.existingEinsatz.projekt.name;
+        }
+        this.einsatz = this._createEinsatz();
         this.pensum = this.createEmptyPensum();
-
         this.dateFormat = "dd.MM.yyyy";
-
-        this.selectedProjekt = "";
         this.projektNotFound = false;
-
         this.vonDatepicker = {
             opened: false
         };
-
         this.bisDatepicker = {
             opened: false
         };
     }
 
-    createEmptyEinsatz(){
-        let einsatz = {
-            rolle: "",
-            senioritaet: "",
-            projektId: ""
-        };
+    _createEinsatz(){
+      if(!this.existingEinsatz){
+        return this._createEmptyEinsatz();
+      }
+      return this._convertExistingEinsatz();
+    }
 
-        return einsatz;
+    _convertExistingEinsatz(){
+      return {
+        rolle: this.existingEinsatz.rolle,
+        senioritaet: this.existingEinsatz.senioritaet,
+        projektId: this.existingEinsatz.projekt.publicId
+      }
+    }
+
+    _createEmptyEinsatz(){
+        return {
+            rolle: '',
+            senioritaet: '',
+            projektId: ''
+        };
     }
 
     createEmptyPensum(){
@@ -83,16 +97,15 @@ class EinsatzCreateController {
       this.einsatzService.save(this.mitarbeiter.uid, this.einsatz)
         .$promise.then((createdEinsatz) => {
         // Jetzt haben wir alle IDs beisammen, um den Einsatz zu speichern
-        let einsatzId = createdEinsatz.publicId;
-        this._createPensum(this.mitarbeiter.uid, einsatzId, this.pensum, createdEinsatz);
+        this._createPensum(this.mitarbeiter.uid, this.pensum, createdEinsatz);
       })
     }
 
-    _createPensum(mitarbeiterUID, einsatzId, pensum, createdEinsatz){
+    _createPensum(mitarbeiterUID, pensum, createdEinsatz){
       if(!pensum.ende){
         pensum.ende = new Date(2099, 0, 1);
       }
-      this.pensumService.save(mitarbeiterUID, einsatzId, pensum)
+      this.pensumService.save(mitarbeiterUID, createdEinsatz.publicId, pensum)
         .$promise.then((pensum) => {
           createdEinsatz._embedded.pensen.push(pensum);
           this.$uibModalInstance.close(createdEinsatz);
@@ -118,6 +131,13 @@ class EinsatzCreateController {
             return data.map(function(projekt){
                 return projekt.name;
             })
+        });
+    }
+
+    addPensum(){
+      this.pensumService.save(this.mitarbeiter.uid, this.existingEinsatz.einsatzId, this.pensum)
+        .$promise.then((response) => {
+          this.$uibModalInstance.close(response);
         });
     }
 }

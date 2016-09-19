@@ -1,13 +1,13 @@
 <div class="progress timeaxis">
-  <div class="progress-bar col-lg-12"
-    role="progressbar" role="progressbar"
-    style="margin-left: {{ $ctrl.getZeitachseMargin() }}%; width: {{ $ctrl.getWidthForZeitachse() }}%"
+  <div class="progress-bar col-lg-12" ng-repeat="pensum in $ctrl.convertedPensen"
+    style="margin-left: {{ $ctrl.getZeitachseMargin(pensum) }}%; width: {{ $ctrl.getWidthForZeitachse(pensum) }}%"
     ng-class="$ctrl.rowIndex % 2 === 0 ? 'progress-bar-success' : progress-bar-info"
-    ng-show="$ctrl.isYearOutsideEinsatz()"
-    uib-tooltip="{{ $ctrl.convertedPensum.fromDate }} - {{ $ctrl.convertedPensum.untilDate }}"
+    ng-show="$ctrl.isYearOutsideEinsatz(pensum)"
+    uib-tooltip="{{ pensum.fromDate }} - {{ pensum.untilDate }}"
+    tooltip-append-to-body="true"
     >
-    <span ng-show="$ctrl.isYearOutsideEinsatz()">
-      {{ $ctrl.convertedPensum.pensum }} %
+    <span ng-show="$ctrl.isYearOutsideEinsatz(pensum)">
+      {{ pensum.pensum }} %
     </span>
   </div>
 </div>
