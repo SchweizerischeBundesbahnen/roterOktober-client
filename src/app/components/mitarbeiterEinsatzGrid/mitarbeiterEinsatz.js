@@ -12,11 +12,11 @@ import styles from './mitarbeiterEinsatz.style.css';
 let mitarbeiterEinsatz = angular.module('mitarbeiterEinsatz', [jahresAuswahlModule.name,
   zeitachseModule.name, monatsAnzeigeModul.name])
     .config(/*@ngInject*/($stateProvider, $urlRouterProvider) => {
-      $stateProvider.state('mitarbeiterEinsatz', {
-        url: '/', template: '<mitarbeiter-einsatz></mitarbeiter-einsatz>'
+      $stateProvider.state('einsaetze', {
+        url: '/', template: '<einsaetze></einsaetze>'
       });
     })
-    .component('mitarbeiterEinsatz', {
+    .component('einsaetze', {
         template,
         controller
     })
