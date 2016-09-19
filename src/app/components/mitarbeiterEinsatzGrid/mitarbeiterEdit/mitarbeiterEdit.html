@@ -15,6 +15,10 @@
             <label for="unummerInput">UE-Nummer:</label>
             <input type="text" class="form-control" id="unummerInput" placeholder="UE-Nummer" ng-model="$ctrl.mitarbeiter.uid">
         </div>
+        <div class="form-group">
+            <label for="oeInput">Organisationseinheit:</label>
+            <input type="text" class="form-control" id="oeInput" placeholder="Organisationseinheit" ng-model="$ctrl.mitarbeiter.oeName">
+        </div>
         <button type="submit" class="btn btn-primary" ng-click="$ctrl.save()">Speichern</button>
         <button type="submit" class="btn btn-default" ng-click="$ctrl.cancel()">Abbrechen</button>
     </form>

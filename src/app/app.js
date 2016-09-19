@@ -49,7 +49,7 @@ angular.module('app', [
         authLoginUrl: 'oauth/authorize?response_type=token&client_id=acme&redirect_uri=',
         authClientId: 'acme',
         authClientSecret: 'acmesecret',
-        restEndPoint: 'http://localhost:8080'
+        restEndPoint: 'http://roteroktober-server.app.ose.sbb-cloud.net'
     })
     // Die App als Direktive exportieren
     .directive('app', AppComponent);

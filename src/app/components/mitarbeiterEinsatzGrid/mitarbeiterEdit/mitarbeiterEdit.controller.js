@@ -12,7 +12,8 @@ class MitarbeiterEditController {
         let mitarbeiter = {
             name: '',
             voranme: '',
-            uid: ''
+            uid: '',
+            oeName: ''
         };
         return mitarbeiter;
     }

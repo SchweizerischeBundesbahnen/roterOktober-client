@@ -69,7 +69,6 @@ class MitarbeiterEinsatzController{
       einsatze: mitarbeiterEinsatze,
     }
     this.mitarbeiterEinsaetze.push(einsatzSummary);
-    console.log('mitarbeiterEinsatze', this.mitarbeiterEinsaetze);
   }
 
   _convertProjektEinsaetze(projektEinsaetze){
@@ -141,6 +140,32 @@ class MitarbeiterEinsatzController{
   _addNewEinsatzToMitarbeiter(newEinsatz, index){
     let convertedEinsatz = this._convertProjektEinsatz(newEinsatz);
     this.mitarbeiterEinsaetze[index].einsatze.push(convertedEinsatz);
+  }
+
+  deleteEinsatz(einsatzId){
+    this.einsatzService.deleteEinsatz(einsatzId)
+      .then((data) => {
+        this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
+          mitarbeiterEinsatz.einsatze = mitarbeiterEinsatz.einsatze
+            .filter(einatz => einatz.publicId !== einsatzId);
+        });
+      },
+      (error) => {
+        this.messagesService.errorMessage('Ooops!! beim Löschen ist ein Fehler aufgetreten', false);
+      }
+    )
+  }
+
+  deleteMitarbeiter(mitarbeiterUID){
+    this.mitarbeiterService.deleteMitarbeiter(mitarbeiterUID)
+      .$promise.then(() => {
+        this.mitarbeiterEinsaetze = this.mitarbeiterEinsaetze.filter(mitarbeiterEinsatz =>
+          mitarbeiterEinsatz.mitarbeiter.uid !== mitarbeiterUID);
+      },
+      (error) => {
+        this.messagesService.errorMessage('Ooops!! beim Löschen ist ein Fehler aufgetreten', false);
+      }
+    )
   }
 
 

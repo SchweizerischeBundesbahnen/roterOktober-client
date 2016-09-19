@@ -2,7 +2,7 @@
 <messages></messages>
 <main>
   <div class="container-fluid bg-white">
-    <div class="row col-lg-offset-1 col-lg-10">
+    <div class="row col-lg-12">
           <table id="einsatzTabelle" class="table table-bordered">
             <thead class="thead-inverse">
               <tr>
@@ -16,13 +16,21 @@
             </thead>
             <tbody>
               <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze" ng-init="outerIndex = $index">
-                <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}">
-                  {{mitarbeiterEinsatz.mitarbeiter.name}} {{mitarbeiterEinsatz.mitarbeiter.vorname}}
-                  <br />
+                <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}" class="mitarbeiterInfo">
+                  <div>
+                    <div class="name">{{mitarbeiterEinsatz.mitarbeiter.name}}
+                      {{mitarbeiterEinsatz.mitarbeiter.vorname}}
+                    </div>
+                    <div class="oe">{{mitarbeiterEinsatz.mitarbeiter.oeName}}</div>
+                  </div>
                   <a href="" ng-click="$ctrl.createEinsatz(mitarbeiterEinsatz.mitarbeiter, $index)">
                       <span class="glyphicon glyphicon-plus-sign"></span>
                       Einsatz erfassen
                   </a>
+                  <span ng-show="mitarbeiterEinsatz.mitarbeiter.name"
+                    class="glyphicon glyphicon-trash pull-right"
+                    ng-click="$ctrl.deleteMitarbeiter(mitarbeiterEinsatz.mitarbeiter.uid)">
+                  </span>
                 </td>
                 <td>
                   <b>{{ mitarbeiterEinsatz.einsatze[0].projekt.name }}</b>
@@ -32,6 +40,10 @@
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     Pensum erfassen
                   </a>
+                  <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name"
+                    class="glyphicon glyphicon-trash pull-right"
+                    ng-click="$ctrl.deleteEinsatz(mitarbeiterEinsatz.einsatze[0].publicId)">
+                  </span>
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensen="mitarbeiterEinsatz.einsatze[0].pensen"
@@ -44,6 +56,10 @@
                   <b>{{ einsatz.projekt.name }}</b>
                   <span ng-show="einsatz.projekt.name && einsatz.senioritaet">als</span>
                   {{ einsatz.senioritaet }} {{ einsatz.rolle | uppercase }}
+                  <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name"
+                    class="glyphicon glyphicon-trash pull-right"
+                    ng-click="$ctrl.deleteEinsatz(einsatz.publicId)">
+                  </span>
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensen="einsatz.pensen"
