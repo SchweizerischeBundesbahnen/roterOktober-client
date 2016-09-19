@@ -1,5 +1,6 @@
 class ZeitachseController{
 
+  /*@ngInject*/
   constructor(pensumConverter, timeaxisCalculatorService){
     this.pensumConverter = pensumConverter;
     this.timeaxisCalculator = timeaxisCalculatorService;
