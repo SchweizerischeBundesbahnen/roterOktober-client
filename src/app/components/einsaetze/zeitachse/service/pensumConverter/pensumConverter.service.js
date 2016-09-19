@@ -18,8 +18,8 @@ export default class PensumConverter {
     }
     let fromYear = parseInt(pensum.anfang.substr(0, pensum.anfang.indexOf('-')));
     let startingDay = this._calculateDayOfYear(pensum.anfang);
-    let untilYear = parseInt(pensum.ende.substr(0, pensum.ende.indexOf('-')));
-    let endingDay = this._calculateDayOfYear(pensum.ende);
+    let untilYear = pensum.ende ? parseInt(pensum.ende.substr(0, pensum.ende.indexOf('-'))) : 2099;
+    let endingDay = pensum.ende ? this._calculateDayOfYear(pensum.ende) : 999999;
     let fromDate = this._convertDateStringToReadableDate(pensum.anfang);
     let untilDate = this._convertDateStringToReadableDate(pensum.ende);
 
@@ -35,6 +35,10 @@ export default class PensumConverter {
   }
 
   _convertDateStringToReadableDate(dateString){
+    if(!dateString){
+      return 'Unbestimmt';
+    }
+
     let timestamp = Date.parse(dateString);
     let date = new Date(timestamp);
 
