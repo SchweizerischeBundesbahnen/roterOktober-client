@@ -2,7 +2,7 @@ import createMitarbeiterController from "./mitarbeiterEdit/mitarbeiterEdit.contr
 import createMitarbeiterTemplate from "./mitarbeiterEdit/mitarbeiterEdit.html";
 import createEinsatzController from "./einsatzCreate/einsatzCreate.controller";
 import createEinsatzTemplate from "./einsatzCreate/einsatzCreate.html";
-import confirmDialogController from '../common/confirmdialog/confirmDialog.controller';
+import confirmDialogController from "../common/confirmdialog/confirmDialog.controller";
 
 class MitarbeiterEinsatzController {
 
@@ -152,14 +152,15 @@ class MitarbeiterEinsatzController {
         this.mitarbeiterEinsaetze[index].einsatze.push(convertedEinsatz);
     }
 
-    deleteEinsatz(einsatzId) {
-        confirmDialogController.showDialog(this.$uibModal, "Wollen Sie den Einsatz wirklich löschen?").then(() => {
+    deleteEinsatz(einsatz) {
+        let projekt = einsatz.projekt.name;
+        confirmDialogController.showDialog(this.$uibModal, 'Wollen Sie den Einsatz auf dem Projekt ' + projekt + ' wirklich löschen?').then(() => {
             // Löschen
-            this.einsatzService.deleteEinsatz(einsatzId)
+            this.einsatzService.deleteEinsatz(einsatz.einsatzId)
                 .then((data) => {
                         this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
                             mitarbeiterEinsatz.einsatze = mitarbeiterEinsatz.einsatze
-                                .filter(einatz => einatz.einsatzId !== einsatzId);
+                                .filter(einatz => einatz.einsatzId !== einsatz.einsatzId);
                         });
                     },
                     (error) => {
@@ -167,20 +168,25 @@ class MitarbeiterEinsatzController {
                     }
                 )
         }, () => {
-            // Löschen wurde abgesprochen
+            // Löschen wurde abgebrochen
         });
     }
 
-    deleteMitarbeiter(mitarbeiterUID) {
-        this.mitarbeiterService.deleteMitarbeiter(mitarbeiterUID)
-            .$promise.then(() => {
-                this.mitarbeiterEinsaetze = this.mitarbeiterEinsaetze.filter(mitarbeiterEinsatz =>
-                mitarbeiterEinsatz.mitarbeiter.uid !== mitarbeiterUID);
-            },
-            (error) => {
-                this.messagesService.errorMessage('Ooops!! beim Löschen ist ein Fehler aufgetreten', false);
-            }
-        )
+    deleteMitarbeiter(mitarbeiter) {
+        let name = mitarbeiter.vorname + " " + mitarbeiter.name;
+        confirmDialogController.showDialog(this.$uibModal, "Wollen Sie den Mitarbeiter " + name + " wirklich löschen?").then(() => {
+            this.mitarbeiterService.deleteMitarbeiter(mitarbeiter.uid)
+                .$promise.then(() => {
+                    this.mitarbeiterEinsaetze = this.mitarbeiterEinsaetze.filter(mitarbeiterEinsatz =>
+                    mitarbeiterEinsatz.mitarbeiter.uid !== mitarbeiter.uid);
+                },
+                (error) => {
+                    this.messagesService.errorMessage('Ooops!! beim Löschen ist ein Fehler aufgetreten', false);
+                }
+            )
+        }, () => {
+            // Löschen wurde abgebrochen
+        });
     }
 
 

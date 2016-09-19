@@ -33,8 +33,8 @@
                       Einsatz erfassen
                   </a>
                   <span ng-show="mitarbeiterEinsatz.mitarbeiter.name"
-                    class="glyphicon glyphicon-trash pull-right"
-                    ng-click="$ctrl.deleteMitarbeiter(mitarbeiterEinsatz.mitarbeiter.uid)">
+                    class="glyphicon glyphicon-trash pull-right link"
+                    ng-click="$ctrl.deleteMitarbeiter(mitarbeiterEinsatz.mitarbeiter)">
                   </span>
                 </td>
                 <td>
@@ -48,8 +48,8 @@
                     Pensum erfassen
                   </a>
                   <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name"
-                    class="glyphicon glyphicon-trash pull-right"
-                    ng-click="$ctrl.deleteEinsatz(mitarbeiterEinsatz.einsatze[0].einsatzId)">
+                    class="glyphicon glyphicon-trash pull-right link"
+                    ng-click="$ctrl.deleteEinsatz(mitarbeiterEinsatz.einsatze[0])">
                   </span>
                 </td>
                 <td class="timeaxis-td">
@@ -70,7 +70,7 @@
                     Pensum erfassen
                   </a>
                   <span ng-show="mitarbeiterEinsatz.einsatze[0].projekt.name"
-                    class="glyphicon glyphicon-trash pull-right"
+                    class="glyphicon glyphicon-trash pull-right link"
                     ng-click="$ctrl.deleteEinsatz(einsatz.einsatzId)">
                   </span>
                 </td>
