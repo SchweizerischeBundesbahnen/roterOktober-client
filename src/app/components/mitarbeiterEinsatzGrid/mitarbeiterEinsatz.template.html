@@ -16,9 +16,13 @@
             </thead>
             <tbody>
               <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze" ng-init="outerIndex = $index">
-                <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}">
-                  {{mitarbeiterEinsatz.mitarbeiter.name}} {{mitarbeiterEinsatz.mitarbeiter.vorname}}
-                  <br />
+                <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}" class="mitarbeiterInfo">
+                  <div>
+                    <div class="name">{{mitarbeiterEinsatz.mitarbeiter.name}}
+                      {{mitarbeiterEinsatz.mitarbeiter.vorname}}
+                    </div>
+                    <div class="oe">{{mitarbeiterEinsatz.mitarbeiter.oeName}}</div>
+                  </div>
                   <a href="" ng-click="$ctrl.createEinsatz(mitarbeiterEinsatz.mitarbeiter, $index)">
                       <span class="glyphicon glyphicon-plus-sign"></span>
                       Einsatz erfassen
