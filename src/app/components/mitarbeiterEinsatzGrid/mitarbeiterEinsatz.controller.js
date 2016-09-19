@@ -98,7 +98,9 @@ class MitarbeiterEinsatzController{
         controllerAs: '$ctrl'
     })
     .result.then((createdMitarbeiter) => {
-      this._addCreatedMitarbeiter(createdMitarbeiter);
+      if(createdMitarbeiter){
+        this._addCreatedMitarbeiter(createdMitarbeiter);
+      }
     })
   }
 
@@ -123,11 +125,17 @@ class MitarbeiterEinsatzController{
           }
       })
       .result.then((newEinsatz) => {
-        this.projektService.getProjektFromEndpoint(newEinsatz._links.projekt.href)
-          .then((response) => {
-            let projektEinsatz = this._convertToProjektEinsatz(newEinsatz, response.data);
-            this._addNewEinsatzToMitarbeiter(projektEinsatz, index);
-          });
+        if(newEinsatz){
+          this._getProjektFromEndpoint(newEinsatz, index);
+        }
+      });
+  }
+
+  _getProjektFromEndpoint(newEinsatz, index) {
+    this.projektService.getProjektFromEndpoint(newEinsatz._links.projekt.href)
+      .then((response) => {
+        let projektEinsatz = this._convertToProjektEinsatz(newEinsatz, response.data);
+        this._addNewEinsatzToMitarbeiter(projektEinsatz, index);
       });
   }
 
@@ -183,16 +191,22 @@ class MitarbeiterEinsatzController{
         }
     }).
     result.then((newPensum) => {
-      this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
-          mitarbeiterEinsatz.einsatze.forEach((e) => {
-            if(e.einsatzId === einsatz.einsatzId){
-              e.pensen.push(newPensum);
-            }
-          })
-        })
-      //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
-      this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
+      if(newPensum){
+        this._applyNewPensumToViewModel(einsatz, newPensum);
+      }
     });
+  }
+
+  _applyNewPensumToViewModel(einsatz, newPensum) {
+    this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
+        mitarbeiterEinsatz.einsatze.forEach((e) => {
+          if(e.einsatzId === einsatz.einsatzId){
+            e.pensen.push(newPensum);
+          }
+        })
+      })
+    //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
+    this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
   }
 }
 
