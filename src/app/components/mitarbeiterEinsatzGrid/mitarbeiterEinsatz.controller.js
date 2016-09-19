@@ -5,7 +5,8 @@ import createEinsatzTemplate from "./einsatzCreate/einsatzCreate.html";
 
 class MitarbeiterEinsatzController{
 
-  constructor(/*ngInject*/ mitarbeiterService, einsatzService, messagesService,
+  /*ngInject*/
+  constructor(mitarbeiterService, einsatzService, messagesService,
     $uibModal, projektService){
     this.mitarbeiterService = mitarbeiterService;
     this.einsatzService = einsatzService;
