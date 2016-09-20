@@ -44,8 +44,8 @@ class EinsatzCreateController {
 
     _createEmptyEinsatz(){
         return {
-            rolle: '',
-            senioritaet: '',
+            rolle: 'ae',
+            senioritaet: 'prof',
             projektId: ''
         };
     }
