@@ -2,26 +2,32 @@
     <h2>Einsatz erfassen für {{$ctrl.mitarbeiter.name}}</h2>
 </div>
 <div class="modal-body">
-    <form>
-        <div class="form-group">
+    <form name="einsatzform">
+        <div class="form-group has-feedback" ng-class="{ 'has-error': einsatzform.project.$dirty && einsatzform.project.$error.required }">
             <label for="projektInput">Projekt:</label>
             <input type="text"
                    class="form-control"
                    id="projektInput"
                    placeholder="Projekt"
                    autocomplete="off"
+                   name="project"
                    ng-disabled="$ctrl.isEinsatzExisting"
                    ng-model="$ctrl.selectedProjekt"
                    uib-typeahead="project for project in $ctrl.searchByName($viewValue)"
                    typeahead-loading="loadingLocations"
+                   required
                    typeahead-no-results="$ctrl.projektNotFound">
+                   <span ng-show="einsatzform.project.$dirty && einsatzform.project.$error.required" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                   <span ng-show="!einsatzform.project.$error.required" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                   <span ng-show="einsatzform.project.$dirty && einsatzform.project.$error.required"
+                         class="help-block">Bitte geben sie ein Projekt ein</span>
         </div>
         <div ng-show="$ctrl.projektNotFound">
             <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
             Kein Projekt gefunden - Ein neues Projekt mit dem Namen "{{ $ctrl.selectedProjekt }}" wird angelegt
         </div>
 
-        <div class="form-group">
+        <div class="form-group has-feedback">
             <label for="senioritaetInput">Seniorität:</label>
             <select id="senioritaetInput" class="form-control" ng-model="$ctrl.einsatz.senioritaet"
             ng-disabled="$ctrl.isEinsatzExisting">
