@@ -154,7 +154,7 @@ class MitarbeiterEinsatzController {
 
     deleteEinsatz(einsatz) {
         let projekt = einsatz.projekt.name;
-        confirmDialogController.showDialog(this.$uibModal, 'Wollen Sie den Einsatz auf dem Projekt ' + projekt + ' wirklich löschen?').then(() => {
+        confirmDialogController.showDialog(this.$uibModal, 'Wirklich löschen?', 'Wollen Sie den Einsatz auf dem Projekt ' + projekt + ' wirklich löschen?').then(() => {
             // Löschen
             this.einsatzService.deleteEinsatz(einsatz.einsatzId)
                 .then((data) => {
@@ -174,7 +174,7 @@ class MitarbeiterEinsatzController {
 
     deleteMitarbeiter(mitarbeiter) {
         let name = mitarbeiter.vorname + " " + mitarbeiter.name;
-        confirmDialogController.showDialog(this.$uibModal, "Wollen Sie den Mitarbeiter " + name + " wirklich löschen?").then(() => {
+        confirmDialogController.showDialog(this.$uibModal, 'Wirklich löschen?', "Wollen Sie den Mitarbeiter " + name + " wirklich löschen?").then(() => {
             this.mitarbeiterService.deleteMitarbeiter(mitarbeiter.uid)
                 .$promise.then(() => {
                     this.mitarbeiterEinsaetze = this.mitarbeiterEinsaetze.filter(mitarbeiterEinsatz =>

@@ -6,12 +6,13 @@ import confirmDialogTemplate from './confirmDialog.html';
 class ConfirmDialogController {
 
     /*@ngInject*/
-    constructor($uibModalInstance, confirmText) {
+    constructor($uibModalInstance, confirmHead, confirmBody) {
         this.$uibModalInstance = $uibModalInstance;
-        this.confirmText = confirmText;
+        this.confirmHead = confirmHead;
+        this.confirmBody = confirmBody;
     }
 
-    static showDialog(uibModal, confirmText) {
+    static showDialog(uibModal, confirmHead, confirmBody) {
         return uibModal.open({
             animation: true,
             template: confirmDialogTemplate,
@@ -19,7 +20,8 @@ class ConfirmDialogController {
             bindToController: true,
             controllerAs: '$ctrl',
             resolve: {
-                confirmText: () => confirmText
+                confirmHead: () => confirmHead,
+                confirmBody: () => confirmBody
             }
         }).result;
     }
