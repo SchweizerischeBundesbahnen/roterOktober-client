@@ -59,7 +59,7 @@
                   class="help-block">Bitte geben sie ein Pensum ein</span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error': einsatzform.vonDate.$dirty && einsatzform.vonDate.$error.required }">
             <label for="einsatzStart">Beginn des Einsatzes:</label>
             <p class="input-group">
                 <input type="text" class="form-control" id="einsatzStart" ng-model="$ctrl.pensum.anfang"
@@ -78,7 +78,7 @@
                   class="help-block">Bitte geben sie gültiges Datum ein (dd.mm.yyyy)</span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error': einsatzform.bisDate.$dirty && einsatzform.bisDate.$error.required && !einsatzform.bisDate.$error.required}">
             <label for="einsatzEnde">Ende des Einsatzes:</label>
             <p class="input-group">
                 <input type="text" class="form-control" id="einsatzEnde" ng-model="$ctrl.pensum.ende"
