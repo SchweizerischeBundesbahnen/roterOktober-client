@@ -53,5 +53,3 @@ angular.module('app', [
     })
     // Die App als Direktive exportieren
     .directive('app', AppComponent);
-
-
