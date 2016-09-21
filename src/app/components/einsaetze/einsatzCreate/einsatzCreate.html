@@ -2,31 +2,37 @@
     <h2>Einsatz erfassen für {{$ctrl.mitarbeiter.name}}</h2>
 </div>
 <div class="modal-body">
-    <form>
-        <div class="form-group">
+    <form name="einsatzform">
+        <div class="form-group has-feedback" ng-class="{ 'has-error': einsatzform.project.$dirty && einsatzform.project.$error.required }">
             <label for="projektInput">Projekt:</label>
             <input type="text"
                    class="form-control"
                    id="projektInput"
                    placeholder="Projekt"
                    autocomplete="off"
+                   name="project"
                    ng-disabled="$ctrl.isEinsatzExisting"
                    ng-model="$ctrl.selectedProjekt"
                    uib-typeahead="project for project in $ctrl.searchByName($viewValue)"
                    typeahead-loading="loadingLocations"
+                   required
                    typeahead-no-results="$ctrl.projektNotFound">
+                   <span ng-show="einsatzform.project.$dirty && einsatzform.project.$error.required" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                   <span ng-show="!einsatzform.project.$error.required" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                   <span ng-show="einsatzform.project.$dirty && einsatzform.project.$error.required"
+                         class="help-block">Bitte geben sie ein Projekt ein</span>
         </div>
         <div ng-show="$ctrl.projektNotFound">
             <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
             Kein Projekt gefunden - Ein neues Projekt mit dem Namen "{{ $ctrl.selectedProjekt }}" wird angelegt
         </div>
 
-        <div class="form-group">
+        <div class="form-group has-feedback">
             <label for="senioritaetInput">Seniorität:</label>
             <select id="senioritaetInput" class="form-control" ng-model="$ctrl.einsatz.senioritaet"
             ng-disabled="$ctrl.isEinsatzExisting">
                 <option value="junior">Junior</option>
-                <option value="prof">Professional</option>
+                <option value="prof" selected>Professional</option>
                 <option value="senior">Senior</option>
             </select>
         </div>
@@ -43,37 +49,52 @@
             </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group has-feedback" ng-class="{ 'has-error': einsatzform.pensum.$dirty && einsatzform.pensum.$error.required }">
             <label for="pensumInput">Pensum:</label>
-            <input type="number" class="form-control" id="pensumInput" min="1" max="100" placeholder="Pensum" ng-model="$ctrl.pensum.pensum">
+            <input type="number" class="form-control" id="pensumInput" min="1" max="100" placeholder="Pensum" ng-model="$ctrl.pensum.pensum"
+            name="pensum" required>
+            <span ng-show="einsatzform.pensum.$dirty && einsatzform.pensum.$error.required" class="glyphicon glyphicon-remove form-control-feedback"></span>
+            <span ng-show="!einsatzform.pensum.$error.required" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-show="einsatzform.pensum.$dirty && einsatzform.pensum.$error.required"
+                  class="help-block">Bitte geben sie ein Pensum ein</span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error': einsatzform.vonDate.$dirty && einsatzform.vonDate.$error.required }">
             <label for="einsatzStart">Beginn des Einsatzes:</label>
             <p class="input-group">
                 <input type="text" class="form-control" id="einsatzStart" ng-model="$ctrl.pensum.anfang"
                        uib-datepicker-popup="{{$ctrl.dateFormat}}"
                        is-open="$ctrl.vonDatepicker.opened"
-                       datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
-      <span class="input-group-btn">
-      <button type="button" class="btn btn-default" ng-click="$ctrl.openEinsatzStartPopup()"><i
-              class="glyphicon glyphicon-calendar"></i></button>
-      </span>
+                       datepicker-options="dateOptions" ng-required="true" close-text="Close" name="vonDate"
+                       required ng-pattern="^(\d{1,2})\.(\d{1,2})\.(\d{4})$"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.openEinsatzStartPopup()"><i
+                  class="glyphicon glyphicon-calendar"></i></button>
+              </span>
             </p>
+            <span ng-show="einsatzform.vonDate.$dirty && einsatzform.vonDate.$error.required"
+                  class="help-block">Bitte geben sie ein Datum ein</span>
+            <span ng-show="einsatzform.vonDate.$dirty && !einsatzform.vonDate.$valid"
+                  class="help-block">Bitte geben sie gültiges Datum ein (dd.mm.yyyy)</span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error': einsatzform.bisDate.$dirty && einsatzform.bisDate.$error.required && !einsatzform.bisDate.$error.required}">
             <label for="einsatzEnde">Ende des Einsatzes:</label>
             <p class="input-group">
                 <input type="text" class="form-control" id="einsatzEnde" ng-model="$ctrl.pensum.ende"
                        uib-datepicker-popup="{{$ctrl.dateFormat}}"
                        is-open="$ctrl.bisDatepicker.opened"
-                       datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
-      <span class="input-group-btn">
-      <button type="button" class="btn btn-default" ng-click="$ctrl.openEinsatzEndePopup()"><i
-              class="glyphicon glyphicon-calendar"></i></button>
-      </span>
+                       datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                       name="bisDate" ng-pattern="^(\d{1,2})\.(\d{1,2})\.(\d{4})$"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.openEinsatzEndePopup()"><i
+                  class="glyphicon glyphicon-calendar"></i></button>
+              </span>
             </p>
+            <!-- && !einsatzform.bisDate.$error.required is needed because we want to allow Empty fields and Angular
+            does not perform a regex check on empty input fields -->
+            <span ng-show="einsatzform.bisDate.$dirty && !einsatzform.bisDate.$valid && !einsatzform.bisDate.$error.required"
+                  class="help-block">Bitte geben sie gültiges Datum ein (dd.mm.yyyy) oder lassen sie das Feld leer (Unbestimmtes Ende)</span>
         </div>
         <button type="submit" class="btn btn-primary" ng-if="!$ctrl.isEinsatzExisting" ng-click="$ctrl.save()">Speichern</button>
         <button type="submit" class="btn btn-primary" ng-if="$ctrl.isEinsatzExisting" ng-click="$ctrl.addPensum()">Pensum erfassen</button>

@@ -2,24 +2,47 @@
     <h2>Mitarbeiter erfassen</h2>
 </div>
 <div class="modal-body">
-    <form>
-        <div class="form-group">
-            <label for="nameInput">Name:</label>
-            <input type="text" class="form-control" id="nameInput" placeholder="Name" ng-model="$ctrl.mitarbeiter.name">
+    <form name="mitarbeiterform">
+        <div class="form-group has-feedback" ng-class="{ 'has-error': mitarbeiterform.name.$dirty && mitarbeiterform.name.$error.required }">
+            <label for="nameInput">Name*</label>
+            <input type="text" class="form-control" id="nameInput" placeholder="Name"
+            ng-model="$ctrl.mitarbeiter.name" name="name" required>
+            <span ng-show="mitarbeiterform.name.$dirty && mitarbeiterform.name.$error.required" class="glyphicon glyphicon-remove form-control-feedback"></span>
+            <span ng-show="!mitarbeiterform.name.$error.required" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-show="mitarbeiterform.name.$dirty && mitarbeiterform.name.$error.required"
+                  class="help-block">Bitte geben sie einen Namen ein</span>
         </div>
-        <div class="form-group">
-            <label for="prenameInput">Vorname:</label>
-            <input type="text" class="form-control" id="prenameInput" placeholder="Vorname" ng-model="$ctrl.mitarbeiter.vorname">
+        <div class="form-group has-feedback" ng-class="{ 'has-error': mitarbeiterform.firstname.$dirty && mitarbeiterform.firstname.$error.required }">
+            <label for="prenameInput">Vorname*</label>
+            <input type="text" class="form-control" id="prenameInput" placeholder="Vorname" ng-model="$ctrl.mitarbeiter.vorname"
+             name="firstname" required>
+            <span ng-show="mitarbeiterform.firstname.$dirty && mitarbeiterform.firstname.$error.required" class="glyphicon glyphicon-remove form-control-feedback"></span>
+            <span ng-show="!mitarbeiterform.firstname.$error.required" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-show="mitarbeiterform.firstname.$dirty && mitarbeiterform.firstname.$error.required"
+                  class="help-block">Bitte geben sie einen Vornamen ein</span>
         </div>
-        <div class="form-group">
-            <label for="unummerInput">UE-Nummer:</label>
-            <input type="text" class="form-control" id="unummerInput" placeholder="UE-Nummer" ng-model="$ctrl.mitarbeiter.uid">
+        <div class="form-group has-feedback" ng-class="{ 'has-error': mitarbeiterform.uid.$dirty && (mitarbeiterform.uid.$error.required || !mitarbeiterform.uid.$valid) }">
+            <label for="unummerInput">UE-Nummer*</label>
+            <input type="text" class="form-control" id="unummerInput" placeholder="UE-Nummer" ng-model="$ctrl.mitarbeiter.uid"
+              name="uid" required ng-pattern="'(u|U){1}([0-9]{6}$)'">
+            <span ng-show="mitarbeiterform.uid.$dirty && (mitarbeiterform.uid.$error.required || !mitarbeiterform.uid.$valid)"
+            class="glyphicon glyphicon-remove form-control-feedback"></span>
+            <span ng-show="!mitarbeiterform.uid.$error.required && mitarbeiterform.uid.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-show="mitarbeiterform.uid.$dirty && mitarbeiterform.uid.$error.required"
+                  class="help-block">Bitte geben sie einen Namen ein</span>
+            <span ng-show="mitarbeiterform.uid.$dirty && !mitarbeiterform.uid.$valid"
+                  class="help-block">Die U-Nummer muss mit einem U oder u beginnen und 6 Zeichen beinhalten</span>
         </div>
-        <div class="form-group">
-            <label for="oeInput">Organisationseinheit:</label>
-            <input type="text" class="form-control" id="oeInput" placeholder="Organisationseinheit" ng-model="$ctrl.mitarbeiter.oeName">
+        <div class="form-group has-feedback">
+            <label for="oeInput">Organisationseinheit*</label>
+            <input type="text" class="form-control" id="oeInput" placeholder="Organisationseinheit" ng-model="$ctrl.mitarbeiter.oeName"
+            name="org" required>
+            <span ng-show="mitarbeiterform.org.$dirty && mitarbeiterform.org.$error.required" class="glyphicon glyphicon-remove form-control-feedback"></span>
+            <span ng-show="!mitarbeiterform.org.$error.required" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-show="mitarbeiterform.org.$dirty && mitarbeiterform.org.$error.required"
+                  class="help-block">Bitte geben sie eine Organisationseinheit ein</span>
         </div>
-        <button type="submit" class="btn btn-primary" ng-click="$ctrl.save()">Speichern</button>
+        <button type="submit" class="btn btn-primary" ng-click="$ctrl.save()" ng-disabled="!mitarbeiterform.$valid">Speichern</button>
         <button type="submit" class="btn btn-default" ng-click="$ctrl.cancel()">Abbrechen</button>
     </form>
 </div>
