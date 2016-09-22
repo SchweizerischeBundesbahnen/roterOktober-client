@@ -71,7 +71,7 @@
                        uib-datepicker-popup="{{$ctrl.dateFormat}}"
                        is-open="$ctrl.vonDatepicker.opened"
                        datepicker-options="dateOptions" ng-required="true" close-text="Close" name="vonDate"
-                       required ng-pattern="^(\d{1,2})\.(\d{1,2})\.(\d{4})$"/>
+                       required ng-pattern="'^(\d{1,2})\.(\d{1,2})\.(\d{4})$'"/>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="$ctrl.openEinsatzStartPopup()"><i
                   class="glyphicon glyphicon-calendar"></i></button>
@@ -90,7 +90,7 @@
                        uib-datepicker-popup="{{$ctrl.dateFormat}}"
                        is-open="$ctrl.bisDatepicker.opened"
                        datepicker-options="dateOptions" ng-required="true" close-text="Close"
-                       name="bisDate" ng-pattern="^(\d{1,2})\.(\d{1,2})\.(\d{4})$"/>
+                       name="bisDate" ng-pattern="'^(\d{1,2})\.(\d{1,2})\.(\d{4})$'"/>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="$ctrl.openEinsatzEndePopup()"><i
                   class="glyphicon glyphicon-calendar"></i></button>
