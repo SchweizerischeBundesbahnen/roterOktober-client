@@ -2,14 +2,16 @@ class EinsatzCreateController {
 
     /*@ngInject*/
     constructor($uibModalInstance, mitarbeiter, existingEinsatz,
-      projektService, einsatzService, pensumService) {
+      projektService, einsatzService, pensumService, $timeout) {
         this.$uibModalInstance = $uibModalInstance;
         this.mitarbeiter = mitarbeiter;
         this.existingEinsatz = existingEinsatz;
         this.projektService = projektService;
         this.einsatzService = einsatzService;
         this.pensumService = pensumService;
+        this.$timeout = $timeout;
         this.isEinsatzExisting = false;
+        this.hasError = false;
 
         if(this.existingEinsatz){
           this.isEinsatzExisting = true;
@@ -82,14 +84,24 @@ class EinsatzCreateController {
             let newProjekt = this._createNewProjekt();
             this._saveNewProject(newProjekt);
           }
-        });
+        }
+        ,() => {
+          this.hasError = true;
+          this._toggleErrorMessageAfterTimeout(2000);
+        }
+      );
     }
 
     _saveNewProject(newProjekt){
       this.projektService.save(newProjekt)
         .$promise.then((createdProject) => {
           this._saveEinsatz(createdProject);
-        })
+        },
+        () => {
+          this.hasError = true;
+          this._toggleErrorMessageAfterTimeout(2000);
+        }
+      )
     }
 
     _saveEinsatz(project){
@@ -98,7 +110,12 @@ class EinsatzCreateController {
         .$promise.then((createdEinsatz) => {
         // Jetzt haben wir alle IDs beisammen, um den Einsatz zu speichern
         this._createPensum(this.mitarbeiter.uid, this.pensum, createdEinsatz);
-      })
+      },
+      () => {
+        this.hasError = true;
+        this._toggleErrorMessageAfterTimeout(2000);
+      }
+    )
     }
 
     _createPensum(mitarbeiterUID, pensum, createdEinsatz){
@@ -109,7 +126,18 @@ class EinsatzCreateController {
         .$promise.then((pensum) => {
           createdEinsatz._embedded.pensen.push(pensum);
           this.$uibModalInstance.close(createdEinsatz);
-        })
+        },
+        () => {
+          this.hasError = true;
+          this._toggleErrorMessageAfterTimeout(2000);
+        }
+      )
+    }
+
+    _toggleErrorMessageAfterTimeout(timeout){
+      this.$timeout(() => {
+        this.hasError = false;
+      }, timeout);
     }
 
     _isProjectAlreadyExisting(project){
@@ -131,7 +159,12 @@ class EinsatzCreateController {
             return data.map(function(projekt){
                 return projekt.name;
             })
-        });
+        },
+        () => {
+          this.hasError = true;
+          this._toggleErrorMessageAfterTimeout(2000);
+        }
+      );
     }
 
     addPensum(){
@@ -141,7 +174,12 @@ class EinsatzCreateController {
       this.pensumService.save(this.mitarbeiter.uid, this.existingEinsatz.einsatzId, this.pensum)
         .$promise.then((response) => {
           this.$uibModalInstance.close(response);
-        });
+        },
+        () => {
+          this.hasError = true;
+          this._toggleErrorMessageAfterTimeout(2000);
+        }
+      );
     }
 }
 

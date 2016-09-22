@@ -1,6 +1,11 @@
 <div class="modal-header">
     <h2>Einsatz erfassen für {{$ctrl.mitarbeiter.name}}</h2>
 </div>
+<div class="alert alert-danger" role="alert" ng-if="$ctrl.hasError">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  Beim speichern ist ein Fehler aufgetreten
+</div>
 <div class="modal-body">
     <form name="einsatzform">
         <div class="form-group has-feedback" ng-class="{ 'has-error': einsatzform.project.$dirty && einsatzform.project.$error.required }">
@@ -66,7 +71,7 @@
                        uib-datepicker-popup="{{$ctrl.dateFormat}}"
                        is-open="$ctrl.vonDatepicker.opened"
                        datepicker-options="dateOptions" ng-required="true" close-text="Close" name="vonDate"
-                       required ng-pattern="^(\d{1,2})\.(\d{1,2})\.(\d{4})$"/>
+                       required ng-pattern="'^(\d{1,2})\.(\d{1,2})\.(\d{4})$'"/>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="$ctrl.openEinsatzStartPopup()"><i
                   class="glyphicon glyphicon-calendar"></i></button>
@@ -85,7 +90,7 @@
                        uib-datepicker-popup="{{$ctrl.dateFormat}}"
                        is-open="$ctrl.bisDatepicker.opened"
                        datepicker-options="dateOptions" ng-required="true" close-text="Close"
-                       name="bisDate" ng-pattern="^(\d{1,2})\.(\d{1,2})\.(\d{4})$"/>
+                       name="bisDate" ng-pattern="'^(\d{1,2})\.(\d{1,2})\.(\d{4})$'"/>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="$ctrl.openEinsatzEndePopup()"><i
                   class="glyphicon glyphicon-calendar"></i></button>

@@ -1,11 +1,13 @@
 class MitarbeiterEditController {
 
     /*@ngInject*/
-    constructor($uibModalInstance, mitarbeiterService) {
+    constructor($uibModalInstance, mitarbeiterService, messagesService, $timeout) {
         this.$uibModalInstance = $uibModalInstance;
         this.mitarbeiterService = mitarbeiterService;
-
+        this.messagesService = messagesService;
+        this.$timeout = $timeout;
         this.mitarbeiter = this.createEmptyMitarbeiter();
+        this.hasError = false;
     }
 
     createEmptyMitarbeiter(){
@@ -27,7 +29,14 @@ class MitarbeiterEditController {
         let result = this.mitarbeiterService.save(this.mitarbeiter);
         result.$promise.then((data) => {
           this.$uibModalInstance.close(data);
-        });
+        }
+        ,(error) => {
+          this.hasError = true;
+          this.$timeout(() => {
+            this.hasError = false;
+          }, 2000);
+        }
+      );
     }
 }
 
