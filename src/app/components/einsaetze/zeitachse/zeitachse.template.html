@@ -5,6 +5,7 @@
     ng-show="$ctrl.isYearOutsideEinsatz(pensum)"
     uib-tooltip="{{ pensum.fromDate }} - {{ pensum.untilDate }}"
     tooltip-append-to-body="true"
+    ng-click="$ctrl.editPensum({pensumId: pensum.pensumId})"
     >
     <span ng-show="$ctrl.isYearOutsideEinsatz(pensum)">
       {{ pensum.pensum }} %

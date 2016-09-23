@@ -1,22 +1,35 @@
 class EinsatzCreateController {
 
     /*@ngInject*/
-    constructor($uibModalInstance, mitarbeiter, existingEinsatz,
+    constructor($uibModalInstance, mitarbeiter, existingEinsatz, existingPensum,
       projektService, einsatzService, pensumService, $timeout) {
         this.$uibModalInstance = $uibModalInstance;
         this.mitarbeiter = mitarbeiter;
         this.existingEinsatz = existingEinsatz;
         this.projektService = projektService;
+        this.existingPensum = existingPensum;
         this.einsatzService = einsatzService;
         this.pensumService = pensumService;
         this.$timeout = $timeout;
         this.isEinsatzExisting = false;
+        this.isPensumExisting = false;
         this.hasError = false;
 
         if(this.existingEinsatz){
           this.isEinsatzExisting = true;
           this.selectedProjekt = this.existingEinsatz.projekt.name;
         }
+
+        if(this.existingPensum){
+          /*
+          this.isPensumExisting = true;
+          console.log(this.existingPensum.fromDate);
+          console.log(this.existingPensum.untilDate);
+          this.pensum.anfang = this.existingPensum.fromDate;
+          this.pensum.ende = this.existingPensum.untilDate;
+          */
+        }
+
         this.einsatz = this._createEinsatz();
         this.pensum = this.createEmptyPensum();
         this.dateFormat = "dd.MM.yyyy";
@@ -180,6 +193,10 @@ class EinsatzCreateController {
           this._toggleErrorMessageAfterTimeout(2000);
         }
       );
+    }
+
+    updatePensum(){
+
     }
 }
 

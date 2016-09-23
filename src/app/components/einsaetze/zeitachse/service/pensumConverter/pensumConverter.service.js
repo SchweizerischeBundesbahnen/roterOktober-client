@@ -30,7 +30,8 @@ export default class PensumConverter {
       endingDay: endingDay,
       fromDate: fromDate,
       untilDate: untilDate,
-      pensum: pensum.pensum
+      pensum: pensum.pensum,
+      pensumId: pensum.publicId
     }
   }
 

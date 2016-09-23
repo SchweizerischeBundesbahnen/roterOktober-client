@@ -122,7 +122,8 @@ class MitarbeiterEinsatzController {
                 controllerAs: '$ctrl',
                 resolve: {
                     mitarbeiter: () => mitarbeiter,
-                    existingEinsatz: () => undefined
+                    existingEinsatz: () => undefined,
+                    existingPensum: () => undefined
                 }
             })
             .result.then((newEinsatz) => {
@@ -199,7 +200,8 @@ class MitarbeiterEinsatzController {
             controllerAs: '$ctrl',
             resolve: {
                 mitarbeiter: () => mitarbeiter,
-                existingEinsatz: () => einsatz
+                existingEinsatz: () => einsatz,
+                existingPensum: () => undefined
             }
         }).
         result.then((newPensum) => {
@@ -219,6 +221,37 @@ class MitarbeiterEinsatzController {
         })
         //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
         this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
+    }
+
+    editPensum(mitarbeiter, einsatz, pensumId){
+      console.log('Mitarbeiter', mitarbeiter);
+      console.log('Einsatz', einsatz);
+      console.log('pensumId', pensumId);
+
+/*
+      let existingPensum = {
+        fromDate: fromDate,
+        untilDate: untilDate
+      }
+
+      this.$uibModal.open({
+          animation: true,
+          template: createEinsatzTemplate,
+          controller: createEinsatzController,
+          bindToController: true,
+          controllerAs: '$ctrl',
+          resolve: {
+              mitarbeiter: () => mitarbeiter,
+              existingEinsatz: () => einsatz,
+              existingPensum: () => existingPensum
+          }
+      }).
+      result.then((newPensum) => {
+          if (newPensum) {
+              this._applyNewPensumToViewModel(einsatz, newPensum);
+          }
+      });
+      */
     }
 }
 

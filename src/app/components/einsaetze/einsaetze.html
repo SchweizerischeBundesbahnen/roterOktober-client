@@ -55,7 +55,8 @@
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensen="mitarbeiterEinsatz.einsatze[0].pensen"
                     row-index="outerIndex" ng-if="mitarbeiterEinsatz.einsatze[0].pensen"
-                    ></zeitachse>
+                    edit-pensum="$ctrl.editPensum(mitarbeiterEinsatz.mitarbeiter, mitarbeiterEinsatz.einsatze[0], pensumId)">
+                  </zeitachse>
                 </td>
               </tr>
               <tr ng-repeat-end ng-repeat="einsatz in mitarbeiterEinsatz.einsatze.slice(1)">
@@ -76,7 +77,8 @@
                 </td>
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensen="einsatz.pensen"
-                    row-index="outerIndex" ng-if="einsatz.pensen" add-pensum="$ctrl.addPensum()">
+                    row-index="outerIndex" ng-if="einsatz.pensen" add-pensum="$ctrl.addPensum()"
+                    edit-pensum="$ctrl.editPensum(mitarbeiterEinsatz.mitarbeiter, einsatz, pensumId)">
                   </zeitachse>
                 </td>
               </tr>
