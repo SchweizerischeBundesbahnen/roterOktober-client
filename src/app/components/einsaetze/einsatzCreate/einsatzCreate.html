@@ -66,6 +66,7 @@
 
         <div class="form-group" ng-class="{ 'has-error': einsatzform.vonDate.$dirty && einsatzform.vonDate.$error.required }">
             <label for="einsatzStart">Beginn des Einsatzes:</label>
+            <h1>El Pensum: {{ $ctrl.pensum }}</h1>
             <p class="input-group">
                 <input type="text" class="form-control" id="einsatzStart" ng-model="$ctrl.pensum.anfang"
                        uib-datepicker-popup="{{$ctrl.dateFormat}}"
@@ -102,8 +103,8 @@
                   class="help-block">Bitte geben sie gültiges Datum ein (dd.mm.yyyy) oder lassen sie das Feld leer (Unbestimmtes Ende)</span>
         </div>
         <button type="submit" class="btn btn-primary" ng-if="!$ctrl.isEinsatzExisting" ng-click="$ctrl.save()">Speichern</button>
-        <button type="submit" class="btn btn-primary" ng-if="$ctrl.isEinsatzExisting" ng-click="$ctrl.addPensum()">Pensum erfassen</button>
-        <button type="submit" class="btn btn-primary" ng-if="$ctrl.isPensumExisting" ng-click="$ctrl.updatePensum()">Pensum erfassen</button>
+        <button type="submit" class="btn btn-primary" ng-if="$ctrl.isEinsatzExisting && !$ctrl.isPensumExisting" ng-click="$ctrl.addPensum()">Pensum erfassen</button>
+        <button type="submit" class="btn btn-primary" ng-if="$ctrl.isPensumExisting" ng-click="$ctrl.updatePensum()">Pensum überschreiben</button>
         <button type="submit" class="btn btn-default" ng-click="$ctrl.cancel()">Abbrechen</button>
     </form>
 </div>

@@ -224,15 +224,9 @@ class MitarbeiterEinsatzController {
     }
 
     editPensum(mitarbeiter, einsatz, pensumId){
-      console.log('Mitarbeiter', mitarbeiter);
-      console.log('Einsatz', einsatz);
-      console.log('pensumId', pensumId);
-
-/*
-      let existingPensum = {
-        fromDate: fromDate,
-        untilDate: untilDate
-      }
+      let existingPensum = einsatz.pensen.find(pensum => {
+        return pensum.publicId === pensumId}
+      );
 
       this.$uibModal.open({
           animation: true,
@@ -251,7 +245,6 @@ class MitarbeiterEinsatzController {
               this._applyNewPensumToViewModel(einsatz, newPensum);
           }
       });
-      */
     }
 }
 
