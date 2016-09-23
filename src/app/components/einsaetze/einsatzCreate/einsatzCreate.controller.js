@@ -55,10 +55,9 @@ class EinsatzCreateController {
     createEmptyPensum(){
         let pensum = {
             pensum: 100,
-            anfang: null,
+            anfang: 'blab',
             ende: null
         };
-
         return pensum;
     }
 
