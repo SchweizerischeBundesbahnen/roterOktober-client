@@ -71,7 +71,6 @@ class EinsatzCreateController {
             anfang: null,
             ende: null
         };
-
         return pensum;
     }
 
