@@ -207,7 +207,6 @@ class EinsatzCreateController {
 
     _convertPensumDatesToIso(){
       this.pensum.anfang = new Date(this.pensum.anfang).toISOString();
-      console.log('Hier', this.pensum.ende);
       if(this.pensum.ende){
         this.pensum.ende = new Date(this.pensum.ende).toISOString();
       }
