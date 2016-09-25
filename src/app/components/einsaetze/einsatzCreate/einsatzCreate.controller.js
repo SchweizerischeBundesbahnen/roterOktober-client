@@ -20,18 +20,14 @@ class EinsatzCreateController {
           this.selectedProjekt = this.existingEinsatz.projekt.name;
         }
 
+        this.pensum = this.createEmptyPensum();
         if(this.existingPensum){
-          /*
           this.isPensumExisting = true;
-          console.log(this.existingPensum.fromDate);
-          console.log(this.existingPensum.untilDate);
-          this.pensum.anfang = this.existingPensum.fromDate;
-          this.pensum.ende = this.existingPensum.untilDate;
-          */
+          this.pensum.anfang = Date.parse(this.existingPensum.anfang);
+          this.pensum.ende = Date.parse(this.existingPensum.ende);
         }
 
         this.einsatz = this._createEinsatz();
-        this.pensum = this.createEmptyPensum();
         this.dateFormat = "dd.MM.yyyy";
         this.projektNotFound = false;
         this.vonDatepicker = {

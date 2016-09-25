@@ -66,7 +66,6 @@
 
         <div class="form-group" ng-class="{ 'has-error': einsatzform.vonDate.$dirty && einsatzform.vonDate.$error.required }">
             <label for="einsatzStart">Beginn des Einsatzes:</label>
-            <h1>El Pensum: {{ $ctrl.pensum }}</h1>
             <p class="input-group">
                 <input type="text" class="form-control" id="einsatzStart" ng-model="$ctrl.pensum.anfang"
                        uib-datepicker-popup="{{$ctrl.dateFormat}}"
