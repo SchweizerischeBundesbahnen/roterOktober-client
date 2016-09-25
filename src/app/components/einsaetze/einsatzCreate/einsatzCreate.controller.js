@@ -193,8 +193,8 @@ class EinsatzCreateController {
     updatePensum(){
       this._convertPensumDatesToIso();
       this.pensumService.updatePensum(this.pensum, this.existingPensum.publicId)
-        .then(editedPensum => {
-          this.$uibModalInstance.close(editedPensum);
+        .then(response => {
+          this.$uibModalInstance.close(response.data);
         },
         () => {
           this.hasError = true;

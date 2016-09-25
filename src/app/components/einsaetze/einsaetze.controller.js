@@ -227,11 +227,12 @@ class MitarbeiterEinsatzController {
         this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
             mitarbeiterEinsatz.einsatze.forEach((e) => {
                 if (e.einsatzId === einsatz.einsatzId) {
-                  e.pensen.forEach((pensum) => {
-                    if(pensum.publicId === editedPensum.publicId){
-                      pensum = editedPensum;
+                  for(let i = 0; i < e.pensen.length; i++){
+                    if(e.pensen[i].publicId === editedPensum.publicId){
+                        e.pensen[i] = editedPensum;
+                        break;
                     }
-                  })
+                  }
                 }
             })
         })
