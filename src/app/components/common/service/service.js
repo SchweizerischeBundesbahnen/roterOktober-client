@@ -13,10 +13,11 @@ import ProjektService from './projektService/projektService';
 import PensumService from './pensumService/pensumService';
 import mitarbeiterServiceModule from './mitarbeiterService/mitarbeiterService';
 import einsatzServiceModule from './einsatzService/einsatzService';
+import storageService from './storageService/storageService';
 
 let serviceModule = angular.module('app.components.service', [
     ProjektService.name, PensumService.name, mitarbeiterServiceModule.name,
-    einsatzServiceModule.name
+    einsatzServiceModule.name, storageService.name
 ]);
 
 export default serviceModule;
