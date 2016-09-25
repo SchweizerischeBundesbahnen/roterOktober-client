@@ -24,7 +24,9 @@ class EinsatzCreateController {
         if(this.existingPensum){
           this.isPensumExisting = true;
           this.pensum.anfang = Date.parse(this.existingPensum.anfang);
-          this.pensum.ende = Date.parse(this.existingPensum.ende);
+          if(new Date(Date.parse(this.existingPensum.ende)).getFullYear() !== 2099){  //Default Date for Unbestimmt
+            this.pensum.ende = Date.parse(this.existingPensum.ende);
+          }
         }
 
         this.einsatz = this._createEinsatz();
@@ -205,7 +207,13 @@ class EinsatzCreateController {
 
     _convertPensumDatesToIso(){
       this.pensum.anfang = new Date(this.pensum.anfang).toISOString();
-      this.pensum.ende = new Date(this.pensum.ende).toISOString();
+      console.log('Hier', this.pensum.ende);
+      if(this.pensum.ende){
+        this.pensum.ende = new Date(this.pensum.ende).toISOString();
+      }
+      else{
+        this.pensum.ende = new Date(2099,0,1).toISOString();
+      }
     }
 }
 
