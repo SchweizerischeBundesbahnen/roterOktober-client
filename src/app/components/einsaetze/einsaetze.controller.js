@@ -223,6 +223,22 @@ class MitarbeiterEinsatzController {
         this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
     }
 
+    _applyEditedPensumToViewModel(einsatz, editedPensum) {
+        this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
+            mitarbeiterEinsatz.einsatze.forEach((e) => {
+                if (e.einsatzId === einsatz.einsatzId) {
+                  e.pensen.forEach((pensum) => {
+                    if(pensum.publicId === editedPensum.publicId){
+                      pensum = editedPensum;
+                    }
+                  })
+                }
+            })
+        })
+        //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
+        this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
+    }
+
     editPensum(mitarbeiter, einsatz, pensumId){
       let existingPensum = einsatz.pensen.find(pensum => {
         return pensum.publicId === pensumId}
@@ -240,9 +256,9 @@ class MitarbeiterEinsatzController {
               existingPensum: () => existingPensum
           }
       }).
-      result.then((newPensum) => {
-          if (newPensum) {
-              this._applyNewPensumToViewModel(einsatz, newPensum);
+      result.then((editedPensum) => {
+          if (editedPensum) {
+              this._applyEditedPensumToViewModel(einsatz, editedPensum);
           }
       });
     }

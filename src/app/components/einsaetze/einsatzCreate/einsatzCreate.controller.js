@@ -191,7 +191,21 @@ class EinsatzCreateController {
     }
 
     updatePensum(){
+      this._convertPensumDatesToIso();
+      this.pensumService.updatePensum(this.pensum, this.existingPensum.publicId)
+        .then(editedPensum => {
+          this.$uibModalInstance.close(editedPensum);
+        },
+        () => {
+          this.hasError = true;
+          this._toggleErrorMessageAfterTimeout(2000);
+        }
+      )
+    }
 
+    _convertPensumDatesToIso(){
+      this.pensum.anfang = new Date(this.pensum.anfang).toISOString();
+      this.pensum.ende = new Date(this.pensum.ende).toISOString();
     }
 }
 
