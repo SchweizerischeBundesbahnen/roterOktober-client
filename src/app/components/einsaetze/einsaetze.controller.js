@@ -122,7 +122,8 @@ class MitarbeiterEinsatzController {
                 controllerAs: '$ctrl',
                 resolve: {
                     mitarbeiter: () => mitarbeiter,
-                    existingEinsatz: () => undefined
+                    existingEinsatz: () => undefined,
+                    existingPensum: () => undefined
                 }
             })
             .result.then((newEinsatz) => {
@@ -199,7 +200,8 @@ class MitarbeiterEinsatzController {
             controllerAs: '$ctrl',
             resolve: {
                 mitarbeiter: () => mitarbeiter,
-                existingEinsatz: () => einsatz
+                existingEinsatz: () => einsatz,
+                existingPensum: () => undefined
             }
         }).
         result.then((newPensum) => {
@@ -219,6 +221,47 @@ class MitarbeiterEinsatzController {
         })
         //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
         this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
+    }
+
+    _applyEditedPensumToViewModel(einsatz, editedPensum) {
+        this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
+            mitarbeiterEinsatz.einsatze.forEach((e) => {
+                if (e.einsatzId === einsatz.einsatzId) {
+                  for(let i = 0; i < e.pensen.length; i++){
+                    if(e.pensen[i].publicId === editedPensum.publicId){
+                        e.pensen[i] = editedPensum;
+                        break;
+                    }
+                  }
+                }
+            })
+        })
+        //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
+        this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
+    }
+
+    editPensum(mitarbeiter, einsatz, pensumId){
+      let existingPensum = einsatz.pensen.find(pensum => {
+        return pensum.publicId === pensumId}
+      );
+
+      this.$uibModal.open({
+          animation: true,
+          template: createEinsatzTemplate,
+          controller: createEinsatzController,
+          bindToController: true,
+          controllerAs: '$ctrl',
+          resolve: {
+              mitarbeiter: () => mitarbeiter,
+              existingEinsatz: () => einsatz,
+              existingPensum: () => existingPensum
+          }
+      }).
+      result.then((editedPensum) => {
+          if (editedPensum) {
+              this._applyEditedPensumToViewModel(einsatz, editedPensum);
+          }
+      });
     }
 }
 

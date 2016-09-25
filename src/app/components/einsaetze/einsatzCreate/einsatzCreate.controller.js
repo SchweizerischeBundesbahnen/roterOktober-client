@@ -1,24 +1,35 @@
 class EinsatzCreateController {
 
     /*@ngInject*/
-    constructor($uibModalInstance, mitarbeiter, existingEinsatz,
+    constructor($uibModalInstance, mitarbeiter, existingEinsatz, existingPensum,
       projektService, einsatzService, pensumService, $timeout) {
         this.$uibModalInstance = $uibModalInstance;
         this.mitarbeiter = mitarbeiter;
         this.existingEinsatz = existingEinsatz;
         this.projektService = projektService;
+        this.existingPensum = existingPensum;
         this.einsatzService = einsatzService;
         this.pensumService = pensumService;
         this.$timeout = $timeout;
         this.isEinsatzExisting = false;
+        this.isPensumExisting = false;
         this.hasError = false;
 
         if(this.existingEinsatz){
           this.isEinsatzExisting = true;
           this.selectedProjekt = this.existingEinsatz.projekt.name;
         }
-        this.einsatz = this._createEinsatz();
+
         this.pensum = this.createEmptyPensum();
+        if(this.existingPensum){
+          this.isPensumExisting = true;
+          this.pensum.anfang = Date.parse(this.existingPensum.anfang);
+          if(new Date(Date.parse(this.existingPensum.ende)).getFullYear() !== 2099){  //Default Date for Unbestimmt
+            this.pensum.ende = Date.parse(this.existingPensum.ende);
+          }
+        }
+
+        this.einsatz = this._createEinsatz();
         this.dateFormat = "dd.MM.yyyy";
         this.projektNotFound = false;
         this.vonDatepicker = {
@@ -58,7 +69,6 @@ class EinsatzCreateController {
             anfang: null,
             ende: null
         };
-
         return pensum;
     }
 
@@ -180,6 +190,29 @@ class EinsatzCreateController {
           this._toggleErrorMessageAfterTimeout(2000);
         }
       );
+    }
+
+    updatePensum(){
+      this._convertPensumDatesToIso();
+      this.pensumService.updatePensum(this.pensum, this.existingPensum.publicId)
+        .then(response => {
+          this.$uibModalInstance.close(response.data);
+        },
+        () => {
+          this.hasError = true;
+          this._toggleErrorMessageAfterTimeout(2000);
+        }
+      )
+    }
+
+    _convertPensumDatesToIso(){
+      this.pensum.anfang = new Date(this.pensum.anfang).toISOString();
+      if(this.pensum.ende){
+        this.pensum.ende = new Date(this.pensum.ende).toISOString();
+      }
+      else{
+        this.pensum.ende = new Date(2099,0,1).toISOString();
+      }
     }
 }
 
