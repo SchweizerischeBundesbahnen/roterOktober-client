@@ -21,7 +21,7 @@
             </thead>
             <tbody>
               <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze | filter: $ctrl.searchTerm" ng-init="outerIndex = $index">
-                <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}" class="mitarbeiterInfo">
+                <td rowspan="{{ mitarbeiterEinsatz.einsatze.length + 1 }}" class="mitarbeiterInfo">
                   <div>
                     <div class="name">{{mitarbeiterEinsatz.mitarbeiter.name}}
                       {{mitarbeiterEinsatz.mitarbeiter.vorname}}
@@ -59,7 +59,7 @@
                   </zeitachse>
                 </td>
               </tr>
-              <tr ng-repeat-end ng-repeat="einsatz in mitarbeiterEinsatz.einsatze.slice(1)">
+              <tr ng-repeat-end ng-repeat-start="einsatz in mitarbeiterEinsatz.einsatze.slice(1)">
                 <td>
                   <b>{{ einsatz.projekt.name }}</b>
                   <span ng-show="einsatz.projekt.name && einsatz.senioritaet">als</span>
@@ -81,6 +81,10 @@
                     edit-pensum="$ctrl.editPensum(mitarbeiterEinsatz.mitarbeiter, einsatz, pensumId)">
                   </zeitachse>
                 </td>
+              </tr>
+              <tr ng-repeat-end ng-repeat="i in [1]">
+                <td>Summary</td>
+                <td><h1>Hier comes the summary</h1></td>
               </tr>
             </tbody>
           </table>
