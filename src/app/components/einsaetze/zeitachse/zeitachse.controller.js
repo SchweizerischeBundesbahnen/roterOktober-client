@@ -18,5 +18,22 @@ class ZeitachseController{
   isYearOutsideEinsatz(pensum){
     return this.timeaxisCalculator.isYearOutsideEinsatz(pensum, this.selectedYear);
   }
+
+  getClass(pensum){
+    if(!this.isSummary){
+      return this.rowIndex % 2 === 0 ? 'progress-bar-success' : 'progress-bar-info';
+    }
+    else{
+      if(pensum.pensum === 100){
+        return 'progress-bar-warning';
+      }
+      if(pensum.pensum < 100){
+        return 'progress-bar-success';
+      }
+      if(pensum.pensum > 100){
+        return 'progress-bar-danger';
+      }
+    }
+  }
 }
 export default ZeitachseController;

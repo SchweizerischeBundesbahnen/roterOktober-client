@@ -55,7 +55,8 @@
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensen="mitarbeiterEinsatz.einsatze[0].pensen"
                     row-index="outerIndex" ng-if="mitarbeiterEinsatz.einsatze[0].pensen"
-                    edit-pensum="$ctrl.editPensum(mitarbeiterEinsatz.mitarbeiter, mitarbeiterEinsatz.einsatze[0], pensumId)">
+                    edit-pensum="$ctrl.editPensum(mitarbeiterEinsatz.mitarbeiter, mitarbeiterEinsatz.einsatze[0], pensumId)"
+                    is-summary="false">
                   </zeitachse>
                 </td>
               </tr>
@@ -78,13 +79,18 @@
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensen="einsatz.pensen"
                     row-index="outerIndex" ng-if="einsatz.pensen" add-pensum="$ctrl.addPensum()"
-                    edit-pensum="$ctrl.editPensum(mitarbeiterEinsatz.mitarbeiter, einsatz, pensumId)">
+                    edit-pensum="$ctrl.editPensum(mitarbeiterEinsatz.mitarbeiter, einsatz, pensumId)"
+                    is-summary="false">
                   </zeitachse>
                 </td>
               </tr>
-              <tr ng-repeat-end ng-repeat="i in [1]">
-                <td>Summary</td>
-                <td><h1>Hier comes the summary</h1></td>
+              <tr ng-repeat-end>
+                <td><b>Einsatzübersicht<b></td>
+                <td>
+                  <zeitachse selected-year="$ctrl.year" pensen="mitarbeiterEinsatz.pensumSummary"
+                    row-index="outerIndex" ng-if="mitarbeiterEinsatz.pensumSummary" is-summary="true">
+                  </zeitachse>
+                </td>
               </tr>
             </tbody>
           </table>

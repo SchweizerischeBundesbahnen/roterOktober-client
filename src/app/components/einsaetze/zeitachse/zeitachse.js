@@ -16,7 +16,8 @@ let zeitachseModule = angular.module('zeitachseModul', [timeaxisCalculatorModule
       selectedYear: '<',
       rowIndex: '<',
       color: '<',
-      editPensum: '&'
+      editPensum: '&',
+      isSummary: '<'
     }
   });
 

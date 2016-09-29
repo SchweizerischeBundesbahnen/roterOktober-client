@@ -24,7 +24,7 @@ class MitarbeiterEinsatzController {
         this.mitarbeiterService.getAllMitarbeiter()
             .$promise.then((response) => {
                 this.mitarbeiter = response;
-                this._getEinsatzeForMitarbeiter(this.mitarbeiter);
+                this._getPensumSummaryForMitarbeiter(this.mitarbeiter);
             },
             (error) => {
                 this.messagesService.errorMessage('Ooops!! Etwas hat nicht funktioniert', false);
@@ -32,25 +32,36 @@ class MitarbeiterEinsatzController {
         );
     }
 
-    _getEinsatzeForMitarbeiter(mitarbeiter) {
-        mitarbeiter.forEach((mitarbeiter) => {
+    _getPensumSummaryForMitarbeiter(mitarbeiter){
+      mitarbeiter.forEach((mitarbeiter) => {
+        this.mitarbeiterService.getMitarbeiterAuslastung(mitarbeiter.uid)
+          .then((response) => {
+            let pensumSummary = response.data;
+            this._getEinsatzeForMitarbeiter(mitarbeiter, pensumSummary)
+          },
+          (error) => {
+            this.messagesService.errorMessage('Ooops!! Etwas hat nicht funktioniert', false);
+          });
+        });
+    }
+
+    _getEinsatzeForMitarbeiter(mitarbeiter, pensumSummary) {
+            console.log('Der mitarbeiter', mitarbeiter);
             this.einsatzService.getEinsatzForMitarbeiter(mitarbeiter.uid)
                 .$promise.then((response) => {
                     let einsatze = response;
-                    this._getProjekteForEinsatze(mitarbeiter, einsatze);
+                    this._getProjekteForEinsatze(mitarbeiter, einsatze, pensumSummary);
                 },
                 (error) => {
                     this.messagesService.errorMessage('Ooops!! Etwas hat nicht funktioniert', false);
-                }
-            )
-        })
+                });
     }
 
-    _getProjekteForEinsatze(mitarbeiter, einsatze) {
+    _getProjekteForEinsatze(mitarbeiter, einsatze, pensumSummary) {
         let projektEinsaetze = [];
 
         if (einsatze.length === 0) {
-            this._createMitarbeiterEinsatz(mitarbeiter, einsatze);
+            this._createMitarbeiterEinsatz(mitarbeiter, einsatze, pensumSummary);
         }
 
         einsatze.forEach((einsatz) => {
@@ -58,17 +69,18 @@ class MitarbeiterEinsatzController {
                 .then((response) => {
                     projektEinsaetze.push(this._convertToProjektEinsatz(einsatz, response.data));
                     if (projektEinsaetze.length === einsatze.length) {
-                        this._createMitarbeiterEinsatz(mitarbeiter, projektEinsaetze);
+                        this._createMitarbeiterEinsatz(mitarbeiter, projektEinsaetze, pensumSummary);
                     }
                 })
         });
     }
 
-    _createMitarbeiterEinsatz(mitarbeiter, projektEinsaetze) {
+    _createMitarbeiterEinsatz(mitarbeiter, projektEinsaetze, pensumSummary) {
         let mitarbeiterEinsatze = this._convertProjektEinsaetze(projektEinsaetze);
         let einsatzSummary = {
             mitarbeiter: mitarbeiter,
             einsatze: mitarbeiterEinsatze,
+            pensumSummary: pensumSummary
         }
         this.mitarbeiterEinsaetze.push(einsatzSummary);
     }
