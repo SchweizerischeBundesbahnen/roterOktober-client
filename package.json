@@ -5,6 +5,7 @@
   "homepage": "https://github.com/SchweizerischeBundesbahnen/esta-webjs",
   "dependencies": {
     "angular": "^1.5.2",
+    "angular-local-storage": "^0.5.0",
     "angular-resource": "^1.5.2",
     "angular-translate": "^2.8.1",
     "angular-translate-loader-static-files": "^2.8.1",

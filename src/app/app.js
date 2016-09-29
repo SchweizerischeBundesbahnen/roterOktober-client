@@ -15,6 +15,7 @@ import ngResource from 'angular-resource';
 import ngTranslate from 'angular-translate';
 import ngTranslateStaticFilesLoader from 'angular-translate-loader-static-files';
 import uiBootstrap from 'angular-ui-bootstrap';
+import localStorage from 'angular-local-storage';
 
 // Style Imports
 
@@ -28,7 +29,7 @@ import langEn from './languages/lang-en.json';
 
 angular.module('app', [
     uiRouter, ngTranslate, ngTranslateStaticFilesLoader, ngResource,
-    uiBootstrap, Components.name
+    uiBootstrap, Components.name, localStorage
 ])
     .config(/*@ngInject*/($translateProvider, $httpProvider) => {
 

@@ -8,16 +8,18 @@ class MitarbeiterEinsatzController {
 
     /*@ngInject*/
     constructor(mitarbeiterService, einsatzService, messagesService,
-                $uibModal, projektService) {
+                $uibModal, projektService, storageService) {
         this.mitarbeiterService = mitarbeiterService;
         this.einsatzService = einsatzService;
         this.messagesService = messagesService;
         this.projektService = projektService;
+        this.storageService = storageService;
         this.$uibModal = $uibModal;
         this.mitarbeiter = [];
         this.year = parseInt(new Date().getFullYear());
         this.mitarbeiterEinsaetze = [];
         this._loadMitarbeiter();
+        this.searchTerm = storageService.searchTerm;
     }
 
     _loadMitarbeiter() {

@@ -7,7 +7,8 @@
             <thead class="thead-inverse">
               <tr>
                 <th colspan="2" class="col-lg-4 searchRow">
-                  <input type="text" class="form-control" ng-model="$ctrl.searchTerm" placeholder="Suche"/>
+                  <input type="text" class="form-control" ng-model="$ctrl.searchTerm" placeholder="Suche"
+                  ng-keyup="$ctrl.storageService.setSearch($ctrl.searchTerm)"/>
                 </th>
                 <th class="col-lg-8" rowspan="2">
                   <jahres-auswahl year="$ctrl.year"></jahres-auswahl>
