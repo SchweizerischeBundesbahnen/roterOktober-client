@@ -46,7 +46,6 @@ class MitarbeiterEinsatzController {
     }
 
     _getEinsatzeForMitarbeiter(mitarbeiter, pensumSummary) {
-            console.log('Der mitarbeiter', mitarbeiter);
             this.einsatzService.getEinsatzForMitarbeiter(mitarbeiter.uid)
                 .$promise.then((response) => {
                     let einsatze = response;
@@ -249,18 +248,23 @@ class MitarbeiterEinsatzController {
     _applyEditedPensumToViewModel(einsatz, editedPensum) {
         this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
             mitarbeiterEinsatz.einsatze.forEach((e) => {
-                if (e.einsatzId === einsatz.einsatzId) {
-                  for(let i = 0; i < e.pensen.length; i++){
-                    if(e.pensen[i].publicId === editedPensum.publicId){
-                        e.pensen[i] = editedPensum;
-                        break;
+              this.mitarbeiterService.getMitarbeiterAuslastung(mitarbeiterEinsatz.mitarbeiter.uid)
+                .then((response) => {
+                  mitarbeiterEinsatz.pensumSummary = response.data;
+                  if (e.einsatzId === einsatz.einsatzId) {
+                    for(let i = 0; i < e.pensen.length; i++){
+                      if(e.pensen[i].publicId === editedPensum.publicId){
+                          e.pensen[i] = editedPensum;
+                          break;
+                      }
                     }
                   }
-                }
+                  //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
+                  this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
+                });
+
             })
         })
-        //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
-        this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
     }
 
     editPensum(mitarbeiter, einsatz, pensumId){

@@ -84,7 +84,7 @@
                   </zeitachse>
                 </td>
               </tr>
-              <tr ng-repeat-end>
+              <tr ng-repeat-end ng-if="mitarbeiterEinsatz.pensumSummary.length > 0">
                 <td><b>Einsatzübersicht<b></td>
                 <td>
                   <zeitachse selected-year="$ctrl.year" pensen="mitarbeiterEinsatz.pensumSummary"
