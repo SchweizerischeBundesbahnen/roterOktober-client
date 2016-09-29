@@ -25,13 +25,13 @@ class ZeitachseController{
     }
     else{
       if(pensum.pensum === 100){
-        return 'progress-bar-warning';
+        return 'progress-bar-warning progress-bar-striped';
       }
       if(pensum.pensum < 100){
-        return 'progress-bar-success';
+        return 'progress-bar-success progress-bar-striped';
       }
       if(pensum.pensum > 100){
-        return 'progress-bar-danger';
+        return 'progress-bar-danger progress-bar-striped';
       }
     }
   }
