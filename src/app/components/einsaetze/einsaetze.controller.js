@@ -164,7 +164,6 @@ class MitarbeiterEinsatzController {
     }
 
     _addNewEinsatzToMitarbeiter(newEinsatz, index, pensumSummary) {
-        console.log('pensumSummary', pensumSummary);
         let convertedEinsatz = this._convertProjektEinsatz(newEinsatz);
         this.mitarbeiterEinsaetze[index].einsatze.push(convertedEinsatz);
         this.mitarbeiterEinsaetze[index].pensumSummary = pensumSummary;
@@ -178,8 +177,12 @@ class MitarbeiterEinsatzController {
             this.einsatzService.deleteEinsatz(einsatz.einsatzId)
                 .then((data) => {
                         this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
-                            mitarbeiterEinsatz.einsatze = mitarbeiterEinsatz.einsatze
-                                .filter(einatz => einatz.einsatzId !== einsatz.einsatzId);
+                            this.mitarbeiterService.getMitarbeiterAuslastung(mitarbeiterEinsatz.mitarbeiter.uid)
+                              .then((response) => {
+                                mitarbeiterEinsatz.pensumSummary = response.data;
+                                mitarbeiterEinsatz.einsatze = mitarbeiterEinsatz.einsatze
+                                    .filter(einatz => einatz.einsatzId !== einsatz.einsatzId);
+                              })
                         });
                     },
                     (error) => {
