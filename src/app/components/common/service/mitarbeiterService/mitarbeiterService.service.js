@@ -1,8 +1,9 @@
 class MitarbeiterService {
 
     /*@ngInject*/
-    constructor($resource, config) {
+    constructor($resource, config, $http) {
         this.config = config;
+        this.$http = $http;
         this.Mitarbeiter = $resource(config.restEndPoint + '/mitarbeiter/:uid', {uid: '@userId'});
     }
 
@@ -27,6 +28,10 @@ class MitarbeiterService {
 
     deleteMitarbeiter(userId){
       return this.Mitarbeiter.remove({uid: userId});
+    }
+
+    getMitarbeiterAuslastung(uid){
+      return this.$http.get(this.config.restEndPoint + `/mitarbeiter/${uid}/auslastung`)
     }
 
 }

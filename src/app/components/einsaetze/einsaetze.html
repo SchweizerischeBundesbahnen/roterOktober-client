@@ -22,7 +22,7 @@
             </thead>
             <tbody>
               <tr ng-repeat-start="mitarbeiterEinsatz in $ctrl.mitarbeiterEinsaetze | filter: $ctrl.searchTerm" ng-init="outerIndex = $index">
-                <td rowspan="{{mitarbeiterEinsatz.einsatze.length}}" class="mitarbeiterInfo">
+                <td rowspan="{{ mitarbeiterEinsatz.einsatze.length + 1 }}" class="mitarbeiterInfo">
                   <div>
                     <div class="name">{{mitarbeiterEinsatz.mitarbeiter.name}}
                       {{mitarbeiterEinsatz.mitarbeiter.vorname}}
@@ -56,11 +56,12 @@
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensen="mitarbeiterEinsatz.einsatze[0].pensen"
                     row-index="outerIndex" ng-if="mitarbeiterEinsatz.einsatze[0].pensen"
-                    edit-pensum="$ctrl.editPensum(mitarbeiterEinsatz.mitarbeiter, mitarbeiterEinsatz.einsatze[0], pensumId)">
+                    edit-pensum="$ctrl.editPensum(mitarbeiterEinsatz.mitarbeiter, mitarbeiterEinsatz.einsatze[0], pensumId)"
+                    is-summary="false">
                   </zeitachse>
                 </td>
               </tr>
-              <tr ng-repeat-end ng-repeat="einsatz in mitarbeiterEinsatz.einsatze.slice(1)">
+              <tr ng-repeat-end ng-repeat-start="einsatz in mitarbeiterEinsatz.einsatze.slice(1)">
                 <td>
                   <b>{{ einsatz.projekt.name }}</b>
                   <span ng-show="einsatz.projekt.name && einsatz.senioritaet">als</span>
@@ -79,7 +80,16 @@
                 <td class="timeaxis-td">
                   <zeitachse selected-year="$ctrl.year" pensen="einsatz.pensen"
                     row-index="outerIndex" ng-if="einsatz.pensen" add-pensum="$ctrl.addPensum()"
-                    edit-pensum="$ctrl.editPensum(mitarbeiterEinsatz.mitarbeiter, einsatz, pensumId)">
+                    edit-pensum="$ctrl.editPensum(mitarbeiterEinsatz.mitarbeiter, einsatz, pensumId)"
+                    is-summary="false">
+                  </zeitachse>
+                </td>
+              </tr>
+              <tr ng-repeat-end ng-if="mitarbeiterEinsatz.pensumSummary.length > 0">
+                <td><b>Einsatzübersicht<b></td>
+                <td>
+                  <zeitachse selected-year="$ctrl.year" pensen="mitarbeiterEinsatz.pensumSummary"
+                    row-index="outerIndex" ng-if="mitarbeiterEinsatz.pensumSummary" is-summary="true">
                   </zeitachse>
                 </td>
               </tr>

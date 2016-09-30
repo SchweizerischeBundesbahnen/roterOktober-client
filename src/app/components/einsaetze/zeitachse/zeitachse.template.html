@@ -1,7 +1,7 @@
 <div class="progress timeaxis">
   <div class="progress-bar col-lg-12" ng-repeat="pensum in $ctrl.convertedPensen"
     style="margin-left: {{ $ctrl.getZeitachseMargin(pensum) }}%; width: {{ $ctrl.getWidthForZeitachse(pensum) }}%"
-    ng-class="$ctrl.rowIndex % 2 === 0 ? 'progress-bar-success' : progress-bar-info"
+    ng-class="$ctrl.getClass(pensum)"
     ng-show="$ctrl.isYearOutsideEinsatz(pensum)"
     uib-tooltip="{{ pensum.fromDate }} - {{ pensum.untilDate }}"
     tooltip-append-to-body="true"

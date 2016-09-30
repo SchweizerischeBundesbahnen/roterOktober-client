@@ -26,7 +26,7 @@ class MitarbeiterEinsatzController {
         this.mitarbeiterService.getAllMitarbeiter()
             .$promise.then((response) => {
                 this.mitarbeiter = response;
-                this._getEinsatzeForMitarbeiter(this.mitarbeiter);
+                this._getPensumSummaryForMitarbeiter(this.mitarbeiter);
             },
             (error) => {
                 this.messagesService.errorMessage('Ooops!! Etwas hat nicht funktioniert', false);
@@ -34,25 +34,35 @@ class MitarbeiterEinsatzController {
         );
     }
 
-    _getEinsatzeForMitarbeiter(mitarbeiter) {
-        mitarbeiter.forEach((mitarbeiter) => {
+    _getPensumSummaryForMitarbeiter(mitarbeiter){
+      mitarbeiter.forEach((mitarbeiter) => {
+        this.mitarbeiterService.getMitarbeiterAuslastung(mitarbeiter.uid)
+          .then((response) => {
+            let pensumSummary = response.data;
+            this._getEinsatzeForMitarbeiter(mitarbeiter, pensumSummary)
+          },
+          (error) => {
+            this.messagesService.errorMessage('Ooops!! Etwas hat nicht funktioniert', false);
+          });
+        });
+    }
+
+    _getEinsatzeForMitarbeiter(mitarbeiter, pensumSummary) {
             this.einsatzService.getEinsatzForMitarbeiter(mitarbeiter.uid)
                 .$promise.then((response) => {
                     let einsatze = response;
-                    this._getProjekteForEinsatze(mitarbeiter, einsatze);
+                    this._getProjekteForEinsatze(mitarbeiter, einsatze, pensumSummary);
                 },
                 (error) => {
                     this.messagesService.errorMessage('Ooops!! Etwas hat nicht funktioniert', false);
-                }
-            )
-        })
+                });
     }
 
-    _getProjekteForEinsatze(mitarbeiter, einsatze) {
+    _getProjekteForEinsatze(mitarbeiter, einsatze, pensumSummary) {
         let projektEinsaetze = [];
 
         if (einsatze.length === 0) {
-            this._createMitarbeiterEinsatz(mitarbeiter, einsatze);
+            this._createMitarbeiterEinsatz(mitarbeiter, einsatze, pensumSummary);
         }
 
         einsatze.forEach((einsatz) => {
@@ -60,17 +70,18 @@ class MitarbeiterEinsatzController {
                 .then((response) => {
                     projektEinsaetze.push(this._convertToProjektEinsatz(einsatz, response.data));
                     if (projektEinsaetze.length === einsatze.length) {
-                        this._createMitarbeiterEinsatz(mitarbeiter, projektEinsaetze);
+                        this._createMitarbeiterEinsatz(mitarbeiter, projektEinsaetze, pensumSummary);
                     }
                 })
         });
     }
 
-    _createMitarbeiterEinsatz(mitarbeiter, projektEinsaetze) {
+    _createMitarbeiterEinsatz(mitarbeiter, projektEinsaetze, pensumSummary) {
         let mitarbeiterEinsatze = this._convertProjektEinsaetze(projektEinsaetze);
         let einsatzSummary = {
             mitarbeiter: mitarbeiter,
             einsatze: mitarbeiterEinsatze,
+            pensumSummary: pensumSummary
         }
         this.mitarbeiterEinsaetze.push(einsatzSummary);
     }
@@ -130,17 +141,21 @@ class MitarbeiterEinsatzController {
             })
             .result.then((newEinsatz) => {
             if (newEinsatz) {
-                this._getProjektFromEndpoint(newEinsatz, index);
+                this._getProjektFromEndpoint(newEinsatz, index, mitarbeiter);
             }
         });
     }
 
-    _getProjektFromEndpoint(newEinsatz, index) {
-        this.projektService.getProjektFromEndpoint(newEinsatz._links.projekt.href)
-            .then((response) => {
-                let projektEinsatz = this._convertToProjektEinsatz(newEinsatz, response.data);
-                this._addNewEinsatzToMitarbeiter(projektEinsatz, index);
-            });
+    _getProjektFromEndpoint(newEinsatz, index, mitarbeiter) {
+      this.mitarbeiterService.getMitarbeiterAuslastung(mitarbeiter.uid)
+        .then((auslastung) => {
+          this.projektService.getProjektFromEndpoint(newEinsatz._links.projekt.href)
+              .then((response) => {
+                  let projektEinsatz = this._convertToProjektEinsatz(newEinsatz, response.data);
+                  this._addNewEinsatzToMitarbeiter(projektEinsatz, index, auslastung.data);
+              });
+        });
+
     }
 
     _convertToProjektEinsatz(einsatz, projekt) {
@@ -150,9 +165,11 @@ class MitarbeiterEinsatzController {
         }
     }
 
-    _addNewEinsatzToMitarbeiter(newEinsatz, index) {
+    _addNewEinsatzToMitarbeiter(newEinsatz, index, pensumSummary) {
         let convertedEinsatz = this._convertProjektEinsatz(newEinsatz);
         this.mitarbeiterEinsaetze[index].einsatze.push(convertedEinsatz);
+        this.mitarbeiterEinsaetze[index].pensumSummary = pensumSummary;
+        this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
     }
 
     deleteEinsatz(einsatz) {
@@ -162,8 +179,12 @@ class MitarbeiterEinsatzController {
             this.einsatzService.deleteEinsatz(einsatz.einsatzId)
                 .then((data) => {
                         this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
-                            mitarbeiterEinsatz.einsatze = mitarbeiterEinsatz.einsatze
-                                .filter(einatz => einatz.einsatzId !== einsatz.einsatzId);
+                            this.mitarbeiterService.getMitarbeiterAuslastung(mitarbeiterEinsatz.mitarbeiter.uid)
+                              .then((response) => {
+                                mitarbeiterEinsatz.pensumSummary = response.data;
+                                mitarbeiterEinsatz.einsatze = mitarbeiterEinsatz.einsatze
+                                    .filter(einatz => einatz.einsatzId !== einsatz.einsatzId);
+                              })
                         });
                     },
                     (error) => {
@@ -216,30 +237,39 @@ class MitarbeiterEinsatzController {
     _applyNewPensumToViewModel(einsatz, newPensum) {
         this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
             mitarbeiterEinsatz.einsatze.forEach((e) => {
-                if (e.einsatzId === einsatz.einsatzId) {
-                    e.pensen.push(newPensum);
-                }
+                this.mitarbeiterService.getMitarbeiterAuslastung(mitarbeiterEinsatz.mitarbeiter.uid)
+                  .then((response) => {
+                    mitarbeiterEinsatz.pensumSummary = response.data;
+                    if (e.einsatzId === einsatz.einsatzId) {
+                        e.pensen.push(newPensum);
+                    }
+                    //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
+                    this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
+                  })
             })
         })
-        //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
-        this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
     }
 
     _applyEditedPensumToViewModel(einsatz, editedPensum) {
         this.mitarbeiterEinsaetze.forEach(mitarbeiterEinsatz => {
             mitarbeiterEinsatz.einsatze.forEach((e) => {
-                if (e.einsatzId === einsatz.einsatzId) {
-                  for(let i = 0; i < e.pensen.length; i++){
-                    if(e.pensen[i].publicId === editedPensum.publicId){
-                        e.pensen[i] = editedPensum;
-                        break;
+              this.mitarbeiterService.getMitarbeiterAuslastung(mitarbeiterEinsatz.mitarbeiter.uid)
+                .then((response) => {
+                  mitarbeiterEinsatz.pensumSummary = response.data;
+                  if (e.einsatzId === einsatz.einsatzId) {
+                    for(let i = 0; i < e.pensen.length; i++){
+                      if(e.pensen[i].publicId === editedPensum.publicId){
+                          e.pensen[i] = editedPensum;
+                          break;
+                      }
                     }
                   }
-                }
+                  //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
+                  this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
+                });
+
             })
         })
-        //There is no DeepWatch Aailable in the child component - therefore we need to change the main Object
-        this.mitarbeiterEinsaetze = angular.copy(this.mitarbeiterEinsaetze);
     }
 
     editPensum(mitarbeiter, einsatz, pensumId){
