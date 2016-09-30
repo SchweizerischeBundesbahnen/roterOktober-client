@@ -23,6 +23,7 @@ class EinsatzCreateController {
         this.pensum = this.createEmptyPensum();
         if(this.existingPensum){
           this.isPensumExisting = true;
+          this.pensum.pensum = this.existingPensum.pensum;
           this.pensum.anfang = Date.parse(this.existingPensum.anfang);
           if(new Date(Date.parse(this.existingPensum.ende)).getFullYear() !== 2099){  //Default Date for Unbestimmt
             this.pensum.ende = Date.parse(this.existingPensum.ende);
